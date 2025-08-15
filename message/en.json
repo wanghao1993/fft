@@ -1,3 +1,8 @@
 {
-    
+    "LanguageSwitch": {
+        "languageSelector": "Language Selector",
+        "selectLanguage": "Select Language",
+        "en": "English",
+        "zh-CN": "中文"
+    }
 }
