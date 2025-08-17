@@ -3,8 +3,8 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
   name: "FutureFrontier",
   description: "FutureFrontier",
-  navItems: [],
-  navMenuItems: [],
+  navItems: [] as { href: string; label: string }[],
+  navMenuItems: [] as { href: string; label: string }[],
   tags: [
     {
       label: "首页",
