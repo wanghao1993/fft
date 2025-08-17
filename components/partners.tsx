@@ -60,31 +60,35 @@ export default function Partners() {
           <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-default-50 to-transparent z-10 pointer-events-none" />
 
           <div className="relative overflow-hidden">
-            <motion.div className="group flex overflow-hidden flex-row gap-[50px]">
-              <figure className="flex shrink-0 justify-around gap-[80px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
+            <motion.div className="group flex overflow-hidden flex-row">
+              <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
                   <Link href={img.url} key={img.id} target="_blank">
                     <Image
-                      key={img.id + "_copy"}
+                      key={img.id}
                       src={img.logo}
-                      height={40}
+                      height={36}
                       width={130}
-                      className="object-contain"
+                      className="!h-9 !w-auto object-fill hover:scale-110 transition-all duration-300"
                       alt={img.id.toString()}
                     />
                   </Link>
                 ))}
               </figure>
-              =
               <figure className="flex shrink-0 justify-around gap-[80px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
-                  <Link href={img.url} key={img.id + "_copy"} target="_blank">
+                  <Link
+                    href={img.url}
+                    key={img.id + "_copy"}
+                    target="_blank"
+                    className="h-14"
+                  >
                     <Image
                       key={img.id + "_copy"}
                       src={img.logo}
-                      height={40}
+                      height={36}
                       width={130}
-                      className="object-contain"
+                      className="!h-9 !w-auto object-fill hover:scale-110 transition-all duration-300"
                       alt={img.id.toString()}
                     />
                   </Link>
