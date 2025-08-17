@@ -1,0 +1,19 @@
+@keyframes marquee-content {
+    from {
+      transform: translateX(0%);
+    }
+  
+    to {
+      transform: translateX(calc(-100% - 50px))
+    }
+  }
+  
+  .animate-marquee {
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-name: marquee-content;
+    animation-timing-function: linear;
+    display: flex;
+    flex-wrap: nowrap;
+    will-change: transform;
+  }

@@ -3,60 +3,65 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
   name: "FutureFrontier",
   description: "FutureFrontier",
-  navItems: [
+  navItems: [],
+  navMenuItems: [],
+  tags: [
     {
-      label: "Home",
-      href: "/",
+      label: "首页",
+      value: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "比特币",
+      value: "Bitcoin",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "以太坊",
+      value: "Ethereum",
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "ETF",
+      value: "ETF",
     },
     {
-      label: "About",
-      href: "/about",
-    },
-  ],
-  navMenuItems: [
-    {
-      label: "Profile",
-      href: "/profile",
+      label: "Vitalik",
+      value: "Vitalik",
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Solana",
+      value: "Solana",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "Ton",
+      value: "Ton",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "NTF",
+      value: "NTF",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
+      label: "Defi",
+      value: "Defi",
     },
     {
-      label: "Settings",
-      href: "/settings",
+      label: "香港",
+      value: "Hk",
     },
     {
-      label: "Help & Feedback",
-      href: "/help-feedback",
+      label: "新加坡",
+      value: "Singapore",
     },
     {
-      label: "Logout",
-      href: "/logout",
+      label: "挖矿",
+      value: "挖矿",
+    },
+
+    {
+      label: "深度",
+      value: "deep",
+    },
+    {
+      label: "联系我们",
+      value: "contractus",
     },
   ],
   links: {
