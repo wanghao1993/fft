@@ -1,43 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import "../styles/custom.css";
 import { Link } from "@/i18n/navigation";
+import { DynamicImage, getImageData } from "./dynamic-image";
 interface Partner {
   id: number;
   logo: string;
   url: string;
 }
 
-const partners: Partner[] = [
-  {
-    id: 1,
-    logo: "/images/biance.png",
-    url: "https://www.binance.com/",
-  },
-  { id: 2, logo: "/images/okx.png", url: "https://www.okx.com/" },
-  {
-    id: 3,
-    logo: "/images/avalanche.png",
-    url: "https://www.avax.network/",
-  },
-
-  { id: 4, logo: "/images/coin.png", url: "https://cointelegraph.com/" },
-  {
-    id: 5,
-    logo: "/images/biance.png",
-    url: "https://www.binance.com/",
-  },
-  { id: 6, logo: "/images/okx.png", url: "https://www.okx.com/" },
-
-  {
-    id: 7,
-    logo: "/images/avalanche.png",
-    url: "https://www.avax.network/",
-  },
-
-  { id: 8, logo: "/images/coin.png", url: "https://cointelegraph.com/" },
-];
+const partners = getImageData("partners");
 
 export default function Partners() {
   return (
@@ -63,14 +35,14 @@ export default function Partners() {
             <motion.div className="group flex overflow-hidden flex-row gap-[120px]">
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
-                  <Link href={img.url} key={img.id} target="_blank">
-                    <Image
-                      key={img.id}
-                      src={img.logo}
+                  <Link href={img.url} key={img.filename} target="_blank">
+                    <DynamicImage
+                      key={img.filename}
+                      src={img.url}
                       height={36}
                       width={130}
                       className="!h-9 !w-auto object-fill hover:scale-110 transition-all duration-300"
-                      alt={img.id.toString()}
+                      alt={img.filename}
                     />
                   </Link>
                 ))}
@@ -79,17 +51,17 @@ export default function Partners() {
                 {partners.map((img) => (
                   <Link
                     href={img.url}
-                    key={img.id + "_copy"}
+                    key={img.filename + "_copy"}
                     target="_blank"
                     className="h-14"
                   >
-                    <Image
-                      key={img.id + "_copy"}
-                      src={img.logo}
+                    <DynamicImage
+                      key={img.filename}
+                      src={img.url}
                       height={36}
                       width={130}
                       className="!h-9 !w-auto object-fill hover:scale-110 transition-all duration-300"
-                      alt={img.id.toString()}
+                      alt={img.filename}
                     />
                   </Link>
                 ))}

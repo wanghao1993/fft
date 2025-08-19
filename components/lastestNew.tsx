@@ -131,7 +131,10 @@ export function LatestNews() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+            <h2
+              className="text-2xl font-bold text-foreground mb-2"
+              id="quick-news"
+            >
               最新快讯 <span className="text-default-500">(近 3 天)</span>
             </h2>
           </motion.div>

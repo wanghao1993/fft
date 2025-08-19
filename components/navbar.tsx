@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -14,12 +15,23 @@ import { link as linkStyles } from "@heroui/theme";
 import { Link as NextLink } from "@/i18n/navigation";
 import clsx from "clsx";
 import Image from "next/image";
-import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
 import LanguageSwitch from "./lan-switch";
 
-export const Navbar = () => {
+// 定义导航项的类型
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+// 定义Navbar组件的props
+interface NavbarProps {
+  navItems: NavItem[];
+  navMenuItems: NavItem[];
+}
+
+export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -42,29 +54,33 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+    <HeroUINavbar
+      maxWidth="xl"
+      shouldHideOnScroll={false}
+      className="fixed h-16 left-0 top-0 right-0 border-b border-b-gray-200"
+    >
+      <NavbarContent className="basis-1/5 sm:basis-full gap-8" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <div className="bg-purple-300 p-1.5 rounded-xl">
-              <Image
-                src={"/logo.png"}
-                alt="FutureFrontier logo"
-                width={28}
-                height={28}
-                className="rounded-xl bg-white"
-              />
-            </div>
-            <span className="font-bold">FutureFrontier</span>
+          <NextLink
+            className="flex justify-start items-center gap- overflow-hidden"
+            href="/"
+          >
+            <Image
+              src={"/logo.png"}
+              alt="FutureFrontier logo"
+              width={120}
+              height={32}
+              priority
+            />
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+        <ul className="hidden lg:flex gap-6 justify-start ml-2">
+          {navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  "data-[active=true]:text-primary font-semibold"
                 )}
                 color="foreground"
                 href={item.href}
@@ -97,13 +113,13 @@ export const Navbar = () => {
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
+          {navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
                   index === 2
                     ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
+                    : index === navMenuItems.length - 1
                       ? "danger"
                       : "foreground"
                 }

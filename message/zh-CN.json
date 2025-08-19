@@ -4,5 +4,64 @@
         "selectLanguage": "选择语言",
         "en": "English",
         "zh-CN": "中文"
+    },
+    "Site": {
+        "name": "FutureFrontier",
+        "description": "FutureFrontier",
+        "navItems": {
+            "quickNews": "快讯",
+            "hotNews": "热点新闻",
+            "deep": "深度",
+            "podcast": "播客",
+            "videos": "视频",
+            "interviews": "人物专访",
+            "aboutUs": "关于我们"
+        },
+        "tags": {
+            "home": "首页",
+            "bitcoin": "比特币",
+            "ethereum": "以太坊",
+            "etf": "ETF",
+            "vitalik": "Vitalik",
+            "solana": "Solana",
+            "ton": "Ton",
+            "nft": "NFT",
+            "defi": "DeFi",
+            "hongKong": "香港",
+            "singapore": "新加坡",
+            "mining": "挖矿",
+            "deep": "深度",
+            "contactUs": "联系我们"
+        },
+        "categories": {
+            "all": "全部分类",
+            "main": "主要",
+            "crypto": "加密货币",
+            "finance": "金融",
+            "regulation": "监管",
+            "people": "人物",
+            "sector": "行业",
+            "region": "地区",
+            "content": "内容",
+            "tech": "技术",
+            "tools": "工具"
+        },
+        "ui": {
+            "filtering": "筛选中:",
+            "more": "更多",
+            "gaming": "游戏",
+            "sec": "SEC",
+            "arthurHayes": "Arthur Hayes",
+            "rwa": "RWA",
+            "stablecoin": "Stablecoin",
+            "ai": "AI",
+            "layer2": "Layer2",
+            "japan": "日本",
+            "korea": "韩国",
+            "usa": "美国",
+            "europe": "欧洲",
+            "education": "科普",
+            "appReading": "APP阅读"
+        }
     }
 }

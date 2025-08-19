@@ -4,5 +4,64 @@
         "selectLanguage": "Select Language",
         "en": "English",
         "zh-CN": "中文"
+    },
+    "Site": {
+        "name": "FutureFrontier",
+        "description": "FutureFrontier",
+        "navItems": {
+            "quickNews": "Quick News",
+            "hotNews": "Hot News",
+            "deep": "In-depth",
+            "podcast": "Podcast",
+            "videos": "Videos",
+            "interviews": "Interviews",
+            "aboutUs": "About Us"
+        },
+        "tags": {
+            "home": "Home",
+            "bitcoin": "Bitcoin",
+            "ethereum": "Ethereum",
+            "etf": "ETF",
+            "vitalik": "Vitalik",
+            "solana": "Solana",
+            "ton": "Ton",
+            "nft": "NFT",
+            "defi": "DeFi",
+            "hongKong": "Hong Kong",
+            "singapore": "Singapore",
+            "mining": "Mining",
+            "deep": "In-depth",
+            "contactUs": "Contact Us"
+        },
+        "categories": {
+            "all": "All Categories",
+            "main": "Main",
+            "crypto": "Cryptocurrency",
+            "finance": "Finance",
+            "regulation": "Regulation",
+            "people": "People",
+            "sector": "Industry",
+            "region": "Region",
+            "content": "Content",
+            "tech": "Technology",
+            "tools": "Tools"
+        },
+        "ui": {
+            "filtering": "Filtering:",
+            "more": "more",
+            "gaming": "Gaming",
+            "sec": "SEC",
+            "arthurHayes": "Arthur Hayes",
+            "rwa": "RWA",
+            "stablecoin": "Stablecoin",
+            "ai": "AI",
+            "layer2": "Layer2",
+            "japan": "Japan",
+            "korea": "Korea",
+            "usa": "USA",
+            "europe": "Europe",
+            "education": "Education",
+            "appReading": "APP Reading"
+        }
     }
 }

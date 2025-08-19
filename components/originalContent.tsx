@@ -186,7 +186,7 @@ export function OriginalContent() {
         </motion.div>
 
         {/* Newsletter CTA */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -210,7 +210,7 @@ export function OriginalContent() {
               </div>
             </CardBody>
           </Card>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
