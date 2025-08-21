@@ -1,14 +1,17 @@
 "use client";
-import { Card, CardBody, CardHeader } from "@heroui/card";
+import { Card, CardBody } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { Chip } from "@heroui/chip";
 import { Tooltip } from "@heroui/tooltip";
 import { Clock, TowerControlIcon, Send } from "lucide-react";
 import { motion } from "framer-motion";
-import { getNews } from "@/service/module/news";
-import { useQuery } from "@tanstack/react-query";
 
-export function LatestNews() {
+import { useTranslations } from "next-intl";
+import ViewMore from "./viewMore";
+
+export function Interviews() {
+  const t = useTranslations("Interviews");
+
   const newsItems = [
     {
       id: 1,
@@ -121,7 +124,7 @@ export function LatestNews() {
   };
 
   return (
-    <section id="news" className="py-16 bg-default-50">
+    <section id="interviews" className="py-6 bg-default-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
@@ -135,12 +138,10 @@ export function LatestNews() {
               className="text-2xl font-bold text-foreground mb-2"
               id="quick-news"
             >
-              最新快讯 <span className="text-default-500">(近 3 天)</span>
+              {t("title")}
             </h2>
           </motion.div>
-          <Button variant="bordered" size="sm">
-            查看更多
-          </Button>
+          <ViewMore type="interviews" />
         </div>
 
         {/* News Grid */}

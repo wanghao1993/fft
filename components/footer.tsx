@@ -79,7 +79,7 @@ export default function Footer() {
     <footer className="bg-default-100 border-t border-divider">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -103,12 +103,11 @@ export default function Footer() {
             />
             <Button color="primary">立即订阅</Button>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Main Footer Content */}
-        <div className="py-12">
+        {/* <div className="py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-            {/* Company Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -125,7 +124,6 @@ export default function Footer() {
                 等新金融与未来科技融合赛道，为行业提供深度洞察与专业服务。
               </p>
 
-              {/* Social Links */}
               <div className="flex gap-3 mb-6">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
@@ -148,7 +146,6 @@ export default function Footer() {
                 })}
               </div>
 
-              {/* Quick Topic Links */}
               <div className="flex flex-wrap gap-2">
                 {quickLinks.map((topic) => (
                   <a
@@ -162,7 +159,6 @@ export default function Footer() {
               </div>
             </motion.div>
 
-            {/* Footer Links */}
             {footerLinks.map((section, index) => (
               <motion.div
                 key={section.title}
@@ -189,9 +185,9 @@ export default function Footer() {
               </motion.div>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <Divider />
+        {/* <Divider /> */}
 
         {/* Bottom Footer */}
         <motion.div
@@ -206,7 +202,7 @@ export default function Footer() {
               © 2025 Future Frontier. 保留所有权利。
             </div>
 
-            <div className="flex items-center gap-6 text-sm">
+            {/* <div className="flex items-center gap-6 text-sm">
               <a
                 href="#"
                 className="text-default-500 hover:text-primary transition-colors duration-200"
@@ -225,7 +221,7 @@ export default function Footer() {
               >
                 免责声明
               </a>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       </div>

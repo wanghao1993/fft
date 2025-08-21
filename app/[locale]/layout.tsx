@@ -8,8 +8,7 @@ import { getLocalizedSiteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import { setRequestLocale } from "next-intl/server";
-import { hasLocale } from "next-intl";
+import { hasLocale, useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
@@ -64,6 +63,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  console.log(locale, "locale");
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }

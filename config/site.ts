@@ -143,61 +143,61 @@ export async function getLocalizedSiteConfig() {
     description: t("description"),
     navItems: [
       {
-        href: "#quick-news",
+        href: "/#quick-news",
         label: t("navItems.quickNews"),
       },
       {
-        href: "#hot-news",
+        href: "/#hot-news",
         label: t("navItems.hotNews"),
       },
       {
-        href: "#deep",
+        href: "/#in-depth",
         label: t("navItems.deep"),
       },
       {
-        href: "#podcast",
+        href: "/#podcasts",
         label: t("navItems.podcast"),
       },
       {
-        href: "#videos",
+        href: "/#videos",
         label: t("navItems.videos"),
       },
       {
-        href: "#interviews",
+        href: "/#interviews",
         label: t("navItems.interviews"),
       },
       {
-        href: "#about-us",
+        href: "/#about-us",
         label: t("navItems.aboutUs"),
       },
     ],
     navMenuItems: [
       {
-        href: "#quick-news",
+        href: "/#quick-news",
         label: t("navItems.quickNews"),
       },
       {
-        href: "#hot-news",
+        href: "/#hot-news",
         label: t("navItems.hotNews"),
       },
       {
-        href: "#deep",
+        href: "/#in-depth",
         label: t("navItems.deep"),
       },
       {
-        href: "#podcast",
+        href: "/#podcasts",
         label: t("navItems.podcast"),
       },
       {
-        href: "#videos",
+        href: "/#videos",
         label: t("navItems.videos"),
       },
       {
-        href: "#interviews",
+        href: "/#interviews",
         label: t("navItems.interviews"),
       },
       {
-        href: "#about-us",
+        href: "/#about-us",
         label: t("navItems.aboutUs"),
       },
     ],

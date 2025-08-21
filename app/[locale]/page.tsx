@@ -1,5 +1,5 @@
 import Hero from "@/components/hero";
-import { LatestNews } from "@/components/lastestNew";
+import { QuickNews } from "@/components/quickNews";
 import { LatestVideos } from "@/components/latestVideo";
 import { OriginalContent } from "@/components/originalContent";
 import { Services } from "@/components/our-services";
@@ -8,6 +8,9 @@ import Tags from "@/components/tags";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { getLocalizedSiteConfig } from "@/config/site";
+import { HowNews } from "@/components/hotNews";
+import { PodCasts } from "@/components/podcasts";
+import { Interviews } from "@/components/interviews";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -40,10 +43,13 @@ export default async function IndexPage({
   return (
     <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10">
       <Hero />
-      <TagsWrapper />
-      <LatestNews />
-      <LatestVideos />
+      {/* <TagsWrapper /> */}
+      <QuickNews />
+      <HowNews />
       <OriginalContent />
+      <PodCasts />
+      <LatestVideos />
+      <Interviews />
       <Services />
       <Partners />
     </main>

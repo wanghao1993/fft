@@ -33,7 +33,7 @@ export function Services() {
   ];
 
   return (
-    <section id="services" className="py-16 bg-default-50 w-full">
+    <section id="about-us" className="py-16 bg-default-50 w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Services Section */}
         <motion.div

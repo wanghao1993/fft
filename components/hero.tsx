@@ -1,45 +1,35 @@
 "use client";
-import { Chip } from "@heroui/chip";
-import { Button } from "@heroui/button";
-import { ArrowRight, TrendingUp, Zap, Globe } from "lucide-react";
+
 import { motion } from "framer-motion";
 import { EmblaCarousel } from "./carousel";
-
+import { useTranslations } from "next-intl";
+import { Roboto_Mono } from "next/font/google";
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 export default function Hero() {
-  const trendingTopics = [
-    "Web3",
-    "Crypto",
-    "RWA",
-    "Stablecoin",
-    "AI",
-    "DeFi",
-    "NFT",
-    "Layer2",
-  ];
-
+  const t = useTranslations("Hero");
   return (
     <section className="relative py-16 lg:py-24">
       <div className="container mx-auto">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Heading */}
-          {/* <motion.h1
+
+          <div className="hidden md:block">
+            <EmblaCarousel />
+          </div>
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl sm:text-4xl lg:text-xl font-bold text-foreground mb-6"
+            className={`text-lg sm:text-3xl  font-bold text-foreground mt-12 leading-12 ${robotoMono.className}`}
           >
-            聚焦 <span className="text-primary">Web3</span> /{" "}
-            <span className="text-primary">Crypto</span> /{" "}
-            <span className="text-primary">RWA</span> /{" "}
-            <span className="text-primary">Stablecoin</span> /{" "}
-            <span className="text-primary">AI</span>
-            等新金融与未来科技融合赛道
-          </motion.h1> */}
-
-          <EmblaCarousel />
+            {t("title")}
+          </motion.h1>
 
           {/* Trending Topics */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -60,7 +50,7 @@ export default function Hero() {
                 </Chip>
               </motion.div>
             ))}
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>

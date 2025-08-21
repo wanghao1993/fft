@@ -5,6 +5,12 @@
         "en": "English",
         "zh-CN": "中文"
     },
+    "Hero": {
+        "title": "FFT is a global media and business strategy group navigating the frontiers of Web3, AI, and emerging finance — from crypto and RWA  to Stablecoins and beyond."
+    },
+    "Common": {
+        "viewMore": "More >>"
+    },
     "Site": {
         "name": "FutureFrontier",
         "description": "FutureFrontier",
@@ -63,5 +69,27 @@
             "education": "Education",
             "appReading": "APP Reading"
         }
+    },
+    "QuickNews": {
+        "title": "Quick News"
+    },
+    "Deep": {
+        "title": "In-depth"
+    },
+    "HotNews": {
+        "title": "Hot News",
+        "subtitle": "Past 3 Days"
+    },
+    "Podcasts": {
+        "title": "Podcasts"
+    },
+    "Interviews": {
+        "title": "Interviews"
+    },
+    "Videos": {
+        "title": "Videos"
+    },
+    "Partners":{
+        "title": "Partners"
     }
 }

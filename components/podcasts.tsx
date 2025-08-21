@@ -2,13 +2,13 @@
 import { Card, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
-import { Play, Clock, ExternalLink } from "lucide-react";
+import { Play, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
 import { useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
-export function LatestVideos() {
-  const t = useTranslations("Videos");
+export function PodCasts() {
+  const t = useTranslations("Podcasts");
   const videos = [
     {
       id: 1,
@@ -58,7 +58,7 @@ export function LatestVideos() {
   ];
 
   return (
-    <section className="py-8 bg-default-50 w-full" id="videos">
+    <section className="py-8 bg-default-50 w-full" id="podcasts">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
@@ -70,7 +70,7 @@ export function LatestVideos() {
           >
             <h2 className="text-2xl font-bold text-foreground">{t("title")}</h2>
           </motion.div>
-          <ViewMore type="videos" />
+          <ViewMore type="podcasts" />
         </div>
 
         {/* Videos Grid */}

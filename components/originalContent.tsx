@@ -6,8 +6,11 @@ import { Input } from "@heroui/input";
 import { Clock, User, ArrowRight, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
+import { useTranslations } from "next-intl";
+import ViewMore from "./viewMore";
 
 export function OriginalContent() {
+  const t = useTranslations("Deep");
   const articles = [
     {
       id: 1,
@@ -25,7 +28,7 @@ export function OriginalContent() {
   ];
 
   return (
-    <section className="py-16 bg-background w-full" id="article">
+    <section className="py-16 bg-background w-full" id="in-depth">
       <div className="container mx-auto ">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
@@ -35,11 +38,9 @@ export function OriginalContent() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl font-bold text-foreground">原创内容</h2>
+            <h2 className="text-2xl font-bold text-foreground">{t("title")}</h2>
           </motion.div>
-          <Button variant="bordered" size="sm">
-            查看更多
-          </Button>
+          <ViewMore type="in-depth" />
         </div>
 
         {/* Featured Article */}
@@ -121,7 +122,7 @@ export function OriginalContent() {
         ))}
 
         {/* Content Categories Grid */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -183,7 +184,7 @@ export function OriginalContent() {
               </motion.div>
             );
           })}
-        </motion.div>
+        </motion.div> */}
 
         {/* Newsletter CTA */}
         {/* <motion.div

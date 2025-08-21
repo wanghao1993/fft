@@ -60,9 +60,9 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
       className="fixed h-16 left-0 top-0 right-0 border-b border-b-gray-200"
     >
       <NavbarContent className="basis-1/5 sm:basis-full gap-8" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
+        <NavbarBrand as="div" className="gap-3 w-[120px]">
           <NextLink
-            className="flex justify-start items-center gap- overflow-hidden"
+            className="flex justify-start items-center overflow-hidden"
             href="/"
           >
             <Image

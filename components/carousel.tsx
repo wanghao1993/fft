@@ -35,7 +35,7 @@ export function EmblaCarousel() {
                 {item.title}
               </h3>
             </div>
-            <div style={{ width: "30vw", height: "45vh" }}>
+            <div className="w-[30vw] h-[45vh]">
               <DynamicImage
                 src={item.url}
                 alt={item.title}

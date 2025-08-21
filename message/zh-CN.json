@@ -5,6 +5,12 @@
         "en": "English",
         "zh-CN": "中文"
     },
+    "Hero": {
+        "title": "FFT 是一家全球媒体与商业战略机构，聚焦科技与资本交汇的前沿，专注于Web3与创新金融，涵盖加密资产、RWA、稳定币等关键领域，致力于洞察趋势、塑造未来"
+    },
+    "Common": {
+        "viewMore": "更多 >>"
+    },
     "Site": {
         "name": "FutureFrontier",
         "description": "FutureFrontier",
@@ -63,5 +69,27 @@
             "education": "科普",
             "appReading": "APP阅读"
         }
+    },
+    "QuickNews": {
+        "title": "快讯"
+    },
+    "Deep": {
+        "title": "深度"
+    },
+    "HotNews": {
+        "title": "热点新闻",
+        "subtitle": "近 3 天"
+    },
+    "Podcasts": {
+        "title": "播客"
+    },
+    "Interviews": {
+        "title": "人物专访"
+    },
+    "Videos": {
+        "title": "视频"
+    },
+    "Partners":{
+        "title": "合作伙伴"
     }
 }
