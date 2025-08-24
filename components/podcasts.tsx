@@ -7,55 +7,29 @@ import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
 import { useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
+import { useEffect, useState } from "react";
+import { getVideos } from "@/service/module/videos";
+import { Video } from "@/types/videos";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { Link } from "@/i18n/navigation";
+import { Spinner } from "@heroui/spinner";
+dayjs.extend(relativeTime);
 export function PodCasts() {
   const t = useTranslations("Podcasts");
-  const videos = [
-    {
-      id: 1,
-      title: "YouTube wsQeZKO4kNE",
-      platform: "YouTube",
-      duration: "33m",
-      thumbnail:
-        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=225&fit=crop",
-      description: "theCUBE POD, Dave Vellante",
-    },
-    {
-      id: 2,
-      title: "YouTube Zpp-noTeszk",
-      platform: "YouTube",
-      duration: "1h",
-      thumbnail:
-        "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&h=225&fit=crop",
-      description: "FRIDAY AUG. 15, 2025",
-    },
-    {
-      id: 3,
-      title: "YouTube AKuld_wxZt2g",
-      platform: "YouTube",
-      duration: "1h",
-      thumbnail:
-        "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=400&h=225&fit=crop",
-      description: "Robinhood 加密之战",
-    },
-    {
-      id: 4,
-      title: "YouTube NPwl_jqmDvY",
-      platform: "YouTube",
-      duration: "6h",
-      thumbnail:
-        "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?w=400&h=225&fit=crop",
-      description: "Binance Web3 Wallet",
-    },
-    {
-      id: 5,
-      title: "YouTube jfmZT9FNSl8",
-      platform: "YouTube",
-      duration: "6h",
-      thumbnail:
-        "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=400&h=225&fit=crop",
-      description: "MAJOR NEWS! 比特币重大消息",
-    },
-  ];
+  const [videos, setVideos] = useState<Video[]>([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    getVideos()
+      .then((res) => {
+        setVideos(res.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <section className="py-8 bg-default-50 w-full" id="podcasts">
@@ -77,67 +51,69 @@ export function PodCasts() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videos.map((video, index) => (
             <motion.div
-              key={video.id}
+              key={video.uuid}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                {/* Thumbnail */}
-                <div className="relative">
-                  <ImageWithFallback
-                    src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-48 object-cover"
-                  />
+              <Link href={video.link} target="_blank">
+                <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                  {/* Thumbnail */}
+                  <div className="relative">
+                    <ImageWithFallback
+                      src={video.thumbnail}
+                      alt={video.title}
+                      className="w-full h-48 object-cover"
+                    />
 
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button
-                      isIconOnly
-                      color="primary"
-                      size="lg"
-                      className="rounded-full w-16 h-16"
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Button
+                        isIconOnly
+                        color="primary"
+                        size="lg"
+                        className="rounded-full w-16 h-16"
+                      >
+                        <Play className="h-6 w-6 ml-1" />
+                      </Button>
+                    </div>
+
+                    {/* Duration Badge */}
+                    <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-xs">
+                      {/* {video.duration} */}
+                    </div>
+
+                    {/* Platform Badge */}
+                    <Chip
+                      color="danger"
+                      className="absolute top-2 left-2"
+                      size="sm"
                     >
-                      <Play className="h-6 w-6 ml-1" />
-                    </Button>
+                      {video.channel}
+                    </Chip>
                   </div>
 
-                  {/* Duration Badge */}
-                  <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-xs">
-                    {video.duration}
-                  </div>
+                  <CardBody className="p-4">
+                    <h3 className="font-medium text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      {video.title}
+                    </h3>
+                    {/* <p className="text-sm text-default-500 mb-3">
+                    {video}
+                  </p> */}
 
-                  {/* Platform Badge */}
-                  <Chip
-                    color="danger"
-                    className="absolute top-2 left-2"
-                    size="sm"
-                  >
-                    {video.platform}
-                  </Chip>
-                </div>
-
-                <CardBody className="p-4">
-                  <h3 className="font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {video.title}
-                  </h3>
-                  <p className="text-sm text-default-500 mb-3">
-                    {video.description}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-xs text-default-500">
-                      <span>{video.platform}</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-xs text-default-500">
+                        <span>YouTube</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-default-500">
+                        <Clock className="h-3 w-3" />
+                        <span>{dayjs(video.publishedAt * 1000).fromNow()}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-default-500">
-                      <Clock className="h-3 w-3" />
-                      <span>{video.duration}</span>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
+                  </CardBody>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -175,6 +151,12 @@ export function PodCasts() {
             </CardBody>
           </Card>
         </motion.div> */}
+
+        {isLoading && (
+          <div className="flex justify-center">
+            <Spinner></Spinner>
+          </div>
+        )}
       </div>
     </section>
   );

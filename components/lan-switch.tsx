@@ -43,6 +43,7 @@ export default function LanguageSwitch() {
 
   const handleLanguageChange = (languageCode: string) => {
     // 获取不带语言前缀的路径
+    localStorage.setItem("lan", languageCode);
     router.replace(pathname, { locale: languageCode });
   };
 

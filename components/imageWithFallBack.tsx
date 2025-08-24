@@ -30,7 +30,7 @@ export function ImageWithFallback(
     </div>
   ) : (
     <img
-      src={src}
+      src={src || ERROR_IMG_SRC}
       alt={alt}
       className={className}
       style={style}

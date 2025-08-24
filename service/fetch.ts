@@ -8,6 +8,11 @@ import {
 } from "../types";
 
 /**
+ * 检查是否在服务端环境
+ */
+const isServer = typeof window === "undefined";
+
+/**
  * HTTP客户端类
  * 提供完整的HTTP请求功能，支持拦截器、错误处理、超时等特性
  */
@@ -22,8 +27,9 @@ export class HttpClient {
     this.defaultConfig = {
       headers: {
         "Content-Type": "application/json",
+        Language: isServer ? "en" : localStorage.getItem("lan") || "en",
       },
-      timeout: 10000, // 默认10秒超时
+      timeout: 30000, // 默认30秒超时
       ...config,
     };
   }
