@@ -29,7 +29,6 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
   const siteConfig = await getLocalizedSiteConfig();
 
   return {
@@ -38,7 +37,7 @@ export async function generateMetadata({
       template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
-    metadataBase: new URL("https://www.futurefrontier.ai"),
+    metadataBase: new URL("https://fft-two.vercel.app"),
     icons: {
       icon: "/favicon.ico",
     },
@@ -47,7 +46,7 @@ export async function generateMetadata({
       description: siteConfig.description,
       images: [
         {
-          url: "https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png",
+          url: "/images/og.svg",
         },
       ],
     },
@@ -56,7 +55,7 @@ export async function generateMetadata({
       description: siteConfig.description,
       images: [
         {
-          url: "https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png",
+          url: "/images/og.svg",
         },
       ],
     },
