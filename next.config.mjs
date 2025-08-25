@@ -21,6 +21,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "blog.futurefrontier.ai",
       },
+      {
+        protocol: "https",
+        hostname: "fft-two.vercel.app",
+      },
     ],
   },
 };
