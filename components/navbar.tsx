@@ -18,6 +18,8 @@ import Image from "next/image";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
 import LanguageSwitch from "./lan-switch";
+import { useEffect, useState } from "react";
+import SearchDialog from "./searchDialog";
 
 // 定义导航项的类型
 interface NavItem {
@@ -50,14 +52,34 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
       type="search"
+      onFocus={() => {
+        console.log("focus");
+        setIsOpen(true);
+      }}
     />
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "k" && e.metaKey) {
+        setIsOpen(true);
+      }
+    });
+    return () => {
+      window.removeEventListener("keydown", (e) => {
+        if (e.key === "k") {
+          setIsOpen(false);
+        }
+      });
+    };
+  }, []);
   return (
     <HeroUINavbar
       maxWidth="xl"
       shouldHideOnScroll={false}
-      className="fixed h-16 left-0 top-0 right-0 border-b border-b-gray-200"
+      className=" h-16 left-0 top-0 right-0 border-b border-b-gray-200"
     >
       <NavbarContent className="basis-1/5 sm:basis-full gap-8" justify="start">
         <NavbarBrand as="div" className="gap-3 w-[120px]">
@@ -132,6 +154,11 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
           ))}
         </div>
       </NavbarMenu>
+      <SearchDialog
+        isOpen={isOpen}
+        onOpen={() => setIsOpen(true)}
+        onOpenChange={setIsOpen}
+      />
     </HeroUINavbar>
   );
 };

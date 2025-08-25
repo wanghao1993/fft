@@ -90,8 +90,11 @@
     "Videos": {
         "title": "视频"
     },
-    "Partners":{
+    "Partners": {
         "title": "合作伙伴"
+    },
+    "SearchDialog": {
+        "title": "搜索",
+        "placeholder": "搜索"
     }
-    
 }

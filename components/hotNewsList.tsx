@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Chip } from "@heroui/chip";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@heroui/button";
 import { Send } from "lucide-react";
 import { Tooltip } from "@heroui/tooltip";
@@ -24,7 +24,11 @@ export default function HotNewList() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const locale = useLocale();
+  useEffect(() => {
+    setPage(1);
+    setNewsItems([]);
+  }, [locale]);
   useEffect(() => {
     if (!hasMore) return;
     setLoading(true);
@@ -32,6 +36,7 @@ export default function HotNewList() {
       category: "hot_news",
       page: page,
       limit: 10,
+      language: locale,
     })
       .then((res) => {
         setNewsItems([...newsItems, ...res.data]);

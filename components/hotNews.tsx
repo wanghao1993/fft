@@ -6,7 +6,7 @@ import { Tooltip } from "@heroui/tooltip";
 import { Clock, TowerControlIcon, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
 import { useEffect, useState } from "react";
 import { getQuickNews } from "@/service/module/quick_news";
@@ -22,12 +22,14 @@ export function HowNews() {
   const t = useTranslations("HotNews");
   const [loading, setLoading] = useState(false);
   const [newsItems, setNewsItems] = useState<News[]>([]);
+  const locale = useLocale();
   useEffect(() => {
     setLoading(true);
     getQuickNews({
       category: "hot_news",
       page: 1,
       limit: 9,
+      language: locale,
     })
       .then((res) => {
         setNewsItems(res.data);
@@ -35,7 +37,7 @@ export function HowNews() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [locale]);
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
       安全: "danger",

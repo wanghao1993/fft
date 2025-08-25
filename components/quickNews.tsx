@@ -6,7 +6,7 @@ import { Tooltip } from "@heroui/tooltip";
 import { Clock, TowerControlIcon, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
 import { useEffect, useState } from "react";
 import { getQuickNews } from "@/service/module/quick_news";
@@ -19,20 +19,22 @@ dayjs.extend(relativeTime);
 
 export function QuickNews() {
   const t = useTranslations("QuickNews");
-
+  const locale = useLocale();
   const [newsItems, setNewsItems] = useState<News[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getQuickNews()
+    getQuickNews({
+      language: locale,
+    })
       .then((res) => {
         setNewsItems(res.data);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [locale]);
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {

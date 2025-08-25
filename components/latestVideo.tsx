@@ -5,7 +5,7 @@ import { Button } from "@heroui/button";
 import { Play, Clock, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
 import { useEffect, useState } from "react";
 import { getVideos } from "@/service/module/videos";
@@ -18,12 +18,13 @@ dayjs.extend(relativeTime);
 export function LatestVideos() {
   const t = useTranslations("Videos");
   const [videos, setVideos] = useState<Video[]>([]);
-
+  const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     getVideos({
       category: "video",
+      language: locale,
     })
       .then((res) => {
         setVideos(res.data);
@@ -31,7 +32,7 @@ export function LatestVideos() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [locale]);
 
   return (
     <section className="py-8 bg-default-50 w-full" id="videos">

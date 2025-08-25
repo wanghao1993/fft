@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Chip } from "@heroui/chip";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Skeleton } from "@heroui/skeleton";
 import { Button } from "@heroui/button";
 import { Send, Twitter, X } from "lucide-react";
@@ -25,7 +25,11 @@ export default function QuickNewsList() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const locale = useLocale();
+  useEffect(() => {
+    setPage(1);
+    setNewsItems([]);
+  }, [locale]);
   useEffect(() => {
     if (path === "/quick-news") {
       if (!hasMore) return;
