@@ -16,7 +16,7 @@ export default function SubPage() {
     <div className="mt-20">
       {path === "/quick-news" && <QuickNewsList />}
       {path === "/hot-news" && <HotNewList />}
-      {path === "/podcasts" || (path === "/videos" && <Videos />)}
+      {(path === "/podcasts" || path === "/videos") && <Videos />}
     </div>
   );
 }

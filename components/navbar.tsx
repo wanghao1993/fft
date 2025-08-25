@@ -118,7 +118,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
         <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
