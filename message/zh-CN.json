@@ -10,7 +10,9 @@
     },
     "Common": {
         "viewMore": "更多 >>",
-        "loadMore": "加载更多"
+        "loadMore": "加载更多",
+        "source": "来源",
+        "publishedAt": "发布时间"
     },
     "Site": {
         "name": "FutureFrontier",

@@ -15,6 +15,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Spinner } from "@heroui/spinner";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { handleShare } from "@/utils/share";
 dayjs.extend(relativeTime);
 
 export function QuickNews() {
@@ -49,26 +51,6 @@ export function QuickNews() {
       分析: "default",
     };
     return colors[category] || "default";
-  };
-
-  const handleShare = (platform: string, title: string) => {
-    const url = window.location.href;
-    const text = title;
-
-    switch (platform) {
-      case "twitter":
-        window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
-        );
-        break;
-      case "telegram":
-        window.open(
-          `https://t.me/share/url?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
-        );
-        break;
-      default:
-        navigator.clipboard?.writeText(`${text} - ${url}`);
-    }
   };
 
   return (
@@ -123,7 +105,11 @@ export function QuickNews() {
                           size="sm"
                           className="opacity-0 group-hover:opacity-100 transition-opacity"
                           onPress={(e) => {
-                            handleShare("twitter", item.title);
+                            handleShare(
+                              "twitter",
+                              item.title,
+                              `${window.location.origin}/news/${item.uuid}`
+                            );
                           }}
                         >
                           <Image
@@ -142,7 +128,11 @@ export function QuickNews() {
                           size="sm"
                           className="opacity-0 group-hover:opacity-100 transition-opacity"
                           onPress={(e) => {
-                            handleShare("telegram", item.title);
+                            handleShare(
+                              "telegram",
+                              item.title,
+                              `${window.location.origin}/news/${item.uuid}`
+                            );
                           }}
                         >
                           <Send className="h-3 w-3" />
@@ -151,9 +141,11 @@ export function QuickNews() {
                     </div>
                   </div>
 
-                  <h3 className="font-medium text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
+                  <Link href={`news/${item.uuid}`}>
+                    <h3 className="font-medium text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                  </Link>
 
                   <p className="text-sm text-default-500 mb-3 line-clamp-2">
                     {item.summary}

@@ -1,5 +1,8 @@
-export const handleShare = (platform: string, title: string) => {
-  const url = window.location.href;
+export const handleShare = (
+  platform: string,
+  title: string,
+  url = window.location.href
+) => {
   const text = title;
 
   switch (platform) {

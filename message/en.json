@@ -10,7 +10,9 @@
     },
     "Common": {
         "viewMore": "More >>",
-        "loadMore": "Load More"
+        "loadMore": "Load More",
+        "source": "Source",
+        "publishedAt": "Published At"
     },
     "Site": {
         "name": "FutureFrontier",

@@ -1,4 +1,4 @@
-import { NewsResponse } from "@/types/news";
+import { News, NewsResponse } from "@/types/news";
 import { httpClient } from "../fetch";
 
 export const getQuickNews = async (params?: {

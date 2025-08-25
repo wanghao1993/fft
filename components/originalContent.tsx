@@ -47,7 +47,7 @@ export function OriginalContent() {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+            <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer mb-4">
               <div className="md:flex">
                 {/* Image */}
                 {/* <div className="md:w-2/5 relative">

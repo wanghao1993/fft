@@ -84,7 +84,11 @@ export default function QuickNewsList() {
                       variant="light"
                       size="sm"
                       onPress={(e) => {
-                        handleShare("twitter", item.title);
+                        handleShare(
+                          "twitter",
+                          item.title,
+                          `${window.location.origin}/news/${item.uuid}`
+                        );
                       }}
                     >
                       <Image
@@ -103,7 +107,11 @@ export default function QuickNewsList() {
                       variant="light"
                       size="sm"
                       onPress={(e) => {
-                        handleShare("telegram", item.title);
+                        handleShare(
+                          "telegram",
+                          item.title,
+                          `${window.location.origin}/news/${item.uuid}`
+                        );
                       }}
                     >
                       <Send className="h-3 w-3" />
