@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import QuickNewsList from "@/components/quickNewsList";
 import HotNewList from "@/components/hotNewsList";
+import { Videos } from "@/components/videos";
 
 dayjs.extend(relativeTime);
 
@@ -15,6 +16,7 @@ export default function SubPage() {
     <div className="mt-20">
       {path === "/quick-news" && <QuickNewsList />}
       {path === "/hot-news" && <HotNewList />}
+      {path === "/podcasts" || (path === "/videos" && <Videos />)}
     </div>
   );
 }

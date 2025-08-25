@@ -2,62 +2,58 @@
 import { Card, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
-import { Play, Clock, ExternalLink } from "lucide-react";
+import { Play, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
 import { useLocale, useTranslations } from "next-intl";
-import ViewMore from "./viewMore";
 import { useEffect, useState } from "react";
 import { getVideos } from "@/service/module/videos";
 import { Video } from "@/types/videos";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Spinner } from "@heroui/spinner";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 dayjs.extend(relativeTime);
-export function LatestVideos() {
+export function Videos() {
+  const path = usePathname();
   const t = useTranslations("Videos");
   const [videos, setVideos] = useState<Video[]>([]);
   const locale = useLocale();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const tc = useTranslations("Common");
+  useEffect(() => {
+    setPage(1);
+    setVideos([]);
+  }, [locale, path]);
   useEffect(() => {
     setIsLoading(true);
     getVideos({
-      category: "video",
+      category: path === "/podcasts" ? "podcast" : "video",
       language: locale,
+      page,
     })
       .then((res) => {
-        setVideos(res.data);
+        setVideos([...videos, ...res.data]);
+        setHasMore(res.meta.hasNext);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [locale]);
+  }, [locale, page]);
 
   return (
-    <section className="py-8 bg-default-50 w-full" id="videos">
+    <section className="w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex justify-between items-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl font-bold text-foreground">{t("title")}</h2>
-          </motion.div>
-          <ViewMore type="videos" />
-        </div>
-
         {/* Videos Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video, index) => (
+          {videos.map((video) => (
             <motion.div
               key={video.uuid}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
               <Link href={video.link} target="_blank">
@@ -120,6 +116,17 @@ export function LatestVideos() {
             </motion.div>
           ))}
         </div>
+        {hasMore && !isLoading && (
+          <div className="flex justify-center py-8">
+            <Button
+              isDisabled={!hasMore}
+              onPress={() => setPage(page + 1)}
+              className="mt-4"
+            >
+              {tc("loadMore")}
+            </Button>
+          </div>
+        )}
 
         {/* YouTube Channel CTA */}
         {/* <motion.div
