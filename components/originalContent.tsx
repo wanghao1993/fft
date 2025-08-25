@@ -8,24 +8,19 @@ import { motion } from "framer-motion";
 import { ImageWithFallback } from "./imageWithFallBack";
 import { useTranslations } from "next-intl";
 import ViewMore from "./viewMore";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getCarousel } from "@/service/module/carousel";
+import { Blog } from "@/types/blog";
 
 export function OriginalContent() {
   const t = useTranslations("Deep");
-  const articles = [
-    {
-      id: 1,
-      title: "特朗普举行401(k)投向加密货币：万亿资金池的制度性解析",
-      excerpt:
-        "美国总统特朗普上台后首次确认，允许401(k)养老金计划直接投资加密货币。这意味着，美国总体万亿美元的养老金，预期收说现这万亿美元的资联将直接进入加密资产市场价格可能下不了！我们…",
-      readTime: "5 分钟阅读",
-      author: "Future Frontier 编辑部",
-      publishDate: "2天前",
-      category: "深度分析",
-      featured: true,
-      image:
-        "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=300&fit=crop",
-    },
-  ];
+  const [articles, setArticles] = useState<Blog[]>([]);
+  useEffect(() => {
+    getCarousel().then((res) => {
+      setArticles(res.items);
+    });
+  }, []);
 
   return (
     <section className="py-16 bg-background w-full" id="in-depth">
@@ -40,13 +35,13 @@ export function OriginalContent() {
           >
             <h2 className="text-2xl font-bold text-foreground">{t("title")}</h2>
           </motion.div>
-          <ViewMore type="in-depth" />
+          {/* <ViewMore type="in-depth" /> */}
         </div>
 
         {/* Featured Article */}
         {articles.map((article, index) => (
           <motion.div
-            key={article.id}
+            key={article.link}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -55,7 +50,7 @@ export function OriginalContent() {
             <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
               <div className="md:flex">
                 {/* Image */}
-                <div className="md:w-2/5 relative">
+                {/* <div className="md:w-2/5 relative">
                   <ImageWithFallback
                     src={article.image}
                     alt={article.title}
@@ -70,11 +65,11 @@ export function OriginalContent() {
                       精选文章
                     </Chip>
                   )}
-                </div>
+                </div> */}
 
                 {/* Content */}
                 <CardBody className="md:w-3/5 p-6 md:p-8">
-                  <div className="flex items-center gap-2 mb-4">
+                  {/* <div className="flex items-center gap-2 mb-4">
                     <Chip variant="flat" size="sm">
                       {article.category}
                     </Chip>
@@ -82,38 +77,38 @@ export function OriginalContent() {
                       <Clock className="h-3 w-3" />
                       <span>{article.readTime}</span>
                     </div>
-                  </div>
+                  </div> */}
 
                   <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
                     {article.title}
                   </h3>
 
                   <p className="text-default-500 mb-6 line-clamp-3">
-                    {article.excerpt}
+                    {article.summary}
                   </p>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1 text-sm text-default-500">
                         <User className="h-4 w-4" />
-                        <span>{article.author}</span>
+                        <span>Future Frontier 编辑部</span>
                       </div>
                       <span className="text-default-500">·</span>
-                      <span className="text-sm text-default-500">
-                        {article.publishDate}
-                      </span>
+                      <span className="text-sm text-default-500">2天前</span>
                     </div>
 
-                    <Button
-                      variant="light"
-                      size="sm"
-                      className="group/btn"
-                      endContent={
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                      }
-                    >
-                      阅读全文
-                    </Button>
+                    <Link href={article.link} target="_blank">
+                      <Button
+                        variant="light"
+                        size="sm"
+                        className="group/btn"
+                        endContent={
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                        }
+                      >
+                        阅读全文
+                      </Button>
+                    </Link>
                   </div>
                 </CardBody>
               </div>

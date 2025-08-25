@@ -90,7 +90,11 @@
     "Videos": {
         "title": "Videos"
     },
-    "Partners":{
+    "Partners": {
         "title": "Partners"
+    },
+    "SearchDialog": {
+        "title": "Search",
+        "placeholder": "Search"
     }
 }

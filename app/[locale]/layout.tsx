@@ -38,8 +38,27 @@ export async function generateMetadata({
       template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
+    metadataBase: new URL("https://www.futurefrontier.ai"),
     icons: {
       icon: "/favicon.ico",
+    },
+    openGraph: {
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [
+        {
+          url: "https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png",
+        },
+      ],
+    },
+    twitter: {
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [
+        {
+          url: "https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png",
+        },
+      ],
     },
   };
 }

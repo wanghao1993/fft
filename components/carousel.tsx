@@ -1,10 +1,15 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import "../styles/carsousel.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DynamicImage, getImageData } from "./dynamic-image";
+import { Blog } from "@/types/blog";
+import { getCarousel } from "@/service/module/carousel";
+import Image from "next/image";
+import Link from "next/link";
 
 export function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -23,7 +28,21 @@ export function EmblaCarousel() {
   }, [emblaApi]);
 
   // 动态获取轮播图数据
-  const articles = getImageData("carousel");
+  type Article = Blog & {
+    url: string;
+  };
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    getCarousel().then((res) => {
+      setArticles(
+        res.items.map((item, index) => ({
+          ...item,
+          url: `https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png`,
+        }))
+      );
+    });
+  }, []);
 
   return (
     <div className="embla max-w-3xl relative overflow-hidden" ref={emblaRef}>
@@ -31,17 +50,21 @@ export function EmblaCarousel() {
         {articles.map((item, index) => (
           <div key={index} className="embla__slide">
             <div className="absolute top-0 left-4 z-10 p-4 bg-black/50 right-0">
-              <h3 className="text-white text-2xl px-4 text-left font-bold">
-                {item.title}
-              </h3>
+              <Link href={item.link} target="_blank">
+                <h3 className="text-white text-2xl px-4 text-left font-bold">
+                  {item.title}
+                </h3>
+              </Link>
             </div>
             <div className="w-[30vw] h-[45vh]">
-              <DynamicImage
-                src={item.url}
-                alt={item.title}
-                priority={index === 0} // 第一张图片优先加载
-                fallbackSrc="/logo.png"
-              />
+              <Link href={item.link} target="_blank">
+                <Image
+                  src={item.url}
+                  fill
+                  alt={item.title}
+                  priority={index === 0} // 第一张图片优先加载
+                />
+              </Link>
             </div>
           </div>
         ))}
