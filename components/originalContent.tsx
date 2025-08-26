@@ -1,7 +1,4 @@
-import { Card, CardBody } from "@heroui/card";
-import { Button } from "@heroui/button";
 import { User, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 
 import { getTranslations } from "next-intl/server";
