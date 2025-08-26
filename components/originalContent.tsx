@@ -2,10 +2,11 @@ import { User, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { getTranslations } from "next-intl/server";
+import { BlogRes } from "@/types/blog";
 
 async function getOriginContent() {
   const res = await fetch("https://futurefrontier.ai/api/blog.php");
-  const data = await res.json();
+  const data = (await res.json()) as BlogRes;
   return data.items;
 }
 

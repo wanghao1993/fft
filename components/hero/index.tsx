@@ -1,4 +1,4 @@
-import { Blog } from "@/types/blog";
+import { Blog, BlogRes } from "@/types/blog";
 import { EmblaCarousel } from "../carousel";
 import { Link } from "@/i18n/navigation";
 import { QuickNews } from "../quickNews";
@@ -8,7 +8,7 @@ import NewItem from "../news/newItem";
 
 async function getOriginContent() {
   const res = await fetch("https://futurefrontier.ai/api/blog.php");
-  const data = await res.json();
+  const data = (await res.json()) as BlogRes;
   return data.items;
 }
 
