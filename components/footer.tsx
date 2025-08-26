@@ -46,13 +46,13 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { name: "X", icon: X, href: "#", color: "hover:text-blue-400" },
-    { name: "Telegram", icon: Send, href: "#", color: "hover:text-blue-500" },
+    { name: "X", icon: X, href: "#", color: "hover:text-primary" },
+    { name: "Telegram", icon: Send, href: "#", color: "hover:text-primary" },
     {
       name: "LinkedIn",
       icon: Linkedin,
       href: "#",
-      color: "hover:text-blue-600",
+      color: "hover:text-primary",
     },
     { name: "YouTube", icon: Youtube, href: "#", color: "hover:text-red-500" },
     { name: "RSS", icon: Rss, href: "#", color: "hover:text-orange-500" },

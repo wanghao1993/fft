@@ -52,7 +52,7 @@ export function Toast({
       case "warning":
         return "text-yellow-400";
       case "info":
-        return "text-blue-400";
+        return "text-primary";
       default:
         return "text-gray-400";
     }

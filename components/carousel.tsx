@@ -5,7 +5,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import "../styles/carsousel.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DynamicImage, getImageData } from "./dynamic-image";
 import { Blog } from "@/types/blog";
 import { getCarousel } from "@/service/module/carousel";
 import Image from "next/image";
@@ -48,7 +47,10 @@ export function EmblaCarousel() {
     <div className="embla w-full relative overflow-hidden pl-4 " ref={emblaRef}>
       <div className="embla__container">
         {articles.map((item, index) => (
-          <div key={index} className="embla__slide aspect-[3/2] min-h-[210px]">
+          <div
+            key={index}
+            className="embla__slide aspect-[2/1] lg:aspect-[3/2] min-h-[20px] lg:min-h-[395px]"
+          >
             <Link
               href={item.link}
               target="_blank"

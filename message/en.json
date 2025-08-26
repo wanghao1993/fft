@@ -74,10 +74,13 @@
         }
     },
     "QuickNews": {
-        "title": "Quick News"
+        "title": "Important News",
+        "sub-title": "24 Hours Flash News",
+        "mustread": "Must Read"
     },
     "Deep": {
-        "title": "In-depth"
+        "title": "In-depth",
+        "readAll": "Reading All"
     },
     "HotNews": {
         "title": "Hot News",

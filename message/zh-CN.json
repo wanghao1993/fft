@@ -74,10 +74,13 @@
         }
     },
     "QuickNews": {
-        "title": "快讯"
+        "title": "重要快讯",
+        "sub-title": "24小时快讯",
+        "mustread": "必读"
     },
     "Deep": {
-        "title": "深度"
+        "title": "深度",
+        "readAll": "阅读全文"
     },
     "HotNews": {
         "title": "热点新闻",

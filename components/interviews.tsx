@@ -1,17 +1,9 @@
-"use client";
-import { Card, CardBody } from "@heroui/card";
-import { Button } from "@heroui/button";
-import { Chip } from "@heroui/chip";
-import { Tooltip } from "@heroui/tooltip";
-import { Clock, TowerControlIcon, Send } from "lucide-react";
-import { motion } from "framer-motion";
-
-import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 
-export function Interviews() {
-  const t = useTranslations("Interviews");
-  const locale = useLocale();
+export async function Interviews() {
+  const t = await getTranslations("Interviews");
+  const locale = await getLocale();
 
   const list = [
     {
@@ -45,37 +37,26 @@ export function Interviews() {
   const newsItems = list.filter((item) => item.language === locale);
 
   return (
-    <section id="interviews" className="py-6 bg-default-50 w-full">
+    <section
+      id="interviews"
+      className="py-6 bg-default-50 w-full border rounded-2xl"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <h2
+            className="text-2xl lg:text-3xl font-extrabold italic text-foreground mb-2"
+            id="interviews"
           >
-            <h2
-              className="text-2xl font-bold text-foreground mb-2"
-              id="quick-news"
-            >
-              {t("title")}
-            </h2>
-          </motion.div>
+            {t("title")}
+          </h2>
           {/* <ViewMore type="interviews" /> */}
         </div>
 
         {/* News Grid */}
         <div className="grid grid-cols-1 gap-6">
           {newsItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="w-full"
-            >
+            <div key={item.id} className="w-full">
               <Link
                 href={item.link}
                 target="_blank"
@@ -83,7 +64,7 @@ export function Interviews() {
               >
                 {index + 1}. {item.title}
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

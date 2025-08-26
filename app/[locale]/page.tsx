@@ -41,7 +41,7 @@ export default async function IndexPage({
   // Enable static rendering
   setRequestLocale(locale);
   return (
-    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10">
+    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 md:px-6 lg:px-8">
       <Hero />
       {/* <TagsWrapper /> */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

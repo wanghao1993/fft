@@ -68,7 +68,7 @@ export default function QuickNewsList() {
               <Link
                 href={`${item.link}`}
                 target="_blank"
-                className="hover:text-blue-600 text-blue-400 font-semibold"
+                className="hover:text-primary text-primary font-semibold"
               >
                 {item.title}
               </Link>

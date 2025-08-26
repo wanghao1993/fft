@@ -25,7 +25,7 @@ export default async function NewItem({
           {/* <Share data={data} /> */}
         </div>
         <Link
-          className="hover:text-blue-400 font-medium line-clamp-1"
+          className="hover:text-primary font-medium line-clamp-1"
           href={`/news/${data.uuid}`}
         >
           {data.title}

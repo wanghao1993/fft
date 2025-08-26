@@ -23,6 +23,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "*",
+      },
+      {
+        protocol: "https",
         hostname: "fft-two.vercel.app",
       },
     ],
