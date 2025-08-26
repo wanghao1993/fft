@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Providers } from "../providers";
 
 import { getLocalizedSiteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+import { fontSans, robotoMono } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import { hasLocale } from "next-intl";
@@ -92,6 +92,7 @@ export default async function LocaleLayout({
       <body
         className={clsx(
           "min-h-screen text-foreground bg-background font-sans antialiased",
+          robotoMono.variable,
           fontSans.variable
         )}
       >
@@ -99,7 +100,7 @@ export default async function LocaleLayout({
           <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
             <div className="relative flex flex-col h-screen">
               <NavbarWrapper />
-              <main className="container mx-auto max-w-7xl px-6 flex-grow">
+              <main className="container mx-auto max-w-7xl flex-grow">
                 {children}
               </main>
               <Footer />

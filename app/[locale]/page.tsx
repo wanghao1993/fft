@@ -44,8 +44,10 @@ export default async function IndexPage({
     <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10">
       <Hero />
       {/* <TagsWrapper /> */}
-      <QuickNews />
-      <HowNews />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <QuickNews />
+        <HowNews />
+      </div>
       <OriginalContent />
       <PodCasts />
       <LatestVideos />

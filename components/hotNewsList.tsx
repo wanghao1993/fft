@@ -1,22 +1,16 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { getQuickNews } from "@/service/module/quick_news";
 import { News } from "@/types/news";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Chip } from "@heroui/chip";
 import { useLocale, useTranslations } from "next-intl";
-import { Button } from "@heroui/button";
-import { Send } from "lucide-react";
-import { Tooltip } from "@heroui/tooltip";
-import Image from "next/image";
 
-dayjs.extend(relativeTime);
-import { handleShare } from "@/utils/share";
 import { Spinner } from "@heroui/spinner";
+import Share from "./share";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);
@@ -80,47 +74,7 @@ export default function HotNewList() {
                 <Chip color="default" className="mt-3">
                   {item.source}
                 </Chip>
-                <div className="flex items-center gap-2">
-                  <Tooltip content="分享到 Twitter">
-                    <Button
-                      isIconOnly
-                      variant="light"
-                      size="sm"
-                      onPress={(e) => {
-                        handleShare(
-                          "twitter",
-                          item.title,
-                          `${window.location.origin}/news/${item.uuid}`
-                        );
-                      }}
-                    >
-                      <Image
-                        src="/images/x.svg"
-                        alt="x"
-                        width={16}
-                        height={16}
-                        className="h-3 w-3"
-                      />
-                    </Button>
-                  </Tooltip>
-
-                  <Tooltip content="分享到 Telegram">
-                    <Button
-                      isIconOnly
-                      variant="light"
-                      size="sm"
-                      onPress={(e) => {
-                        handleShare(
-                          "telegram",
-                          item.title,
-                          `${window.location.origin}/news/${item.uuid}`
-                        );
-                      }}
-                    >
-                      <Send className="h-3 w-3" />
-                    </Button>
-                  </Tooltip>
-                </div>
+                <Share data={item} />
               </div>
             </div>
           </motion.div>

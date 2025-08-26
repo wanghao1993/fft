@@ -45,44 +45,37 @@ export function EmblaCarousel() {
   }, []);
 
   return (
-    <div className="embla max-w-3xl relative overflow-hidden" ref={emblaRef}>
+    <div className="embla w-full relative overflow-hidden pl-4 " ref={emblaRef}>
       <div className="embla__container">
         {articles.map((item, index) => (
-          <div key={index} className="embla__slide">
-            <div className="absolute top-0 left-4 z-10 p-4 bg-black/50 right-0">
-              <Link href={item.link} target="_blank">
-                <h3 className="text-white text-2xl px-4 text-left font-bold">
-                  {item.title}
-                </h3>
-              </Link>
-            </div>
-            <div className="w-[30vw] h-[45vh]">
-              <Link href={item.link} target="_blank">
-                <Image
-                  src={item.url}
-                  fill
-                  alt={item.title}
-                  priority={index === 0} // 第一张图片优先加载
-                />
-              </Link>
-            </div>
+          <div key={index} className="embla__slide aspect-[3/2] min-h-[210px]">
+            <Link
+              href={item.link}
+              target="_blank"
+              className="block w-full h-full"
+            >
+              <Image
+                src={item.url}
+                fill
+                alt={item.title}
+                priority={index === 0}
+              />
+            </Link>
           </div>
         ))}
       </div>
-      <div className="absolute right-6 bottom-2 flex bg-gray-100 rounded-full">
-        <span
-          onClick={scrollPrev}
-          className="px-2 py-1 cursor-pointer hover:bg-gray-200 rounded-full"
-        >
-          <ChevronLeft color="gray" />
-        </span>
-        <span
-          onClick={scrollNext}
-          className="px-2 py-1 cursor-pointer hover:bg-gray-200 rounded-full"
-        >
-          <ChevronRight color="gray" />
-        </span>
-      </div>
+      <span
+        onClick={scrollPrev}
+        className="absolute top-1/2 -translate-y-1/2 left-1 p-1 cursor-pointer bg-gray-200  rounded-full"
+      >
+        <ChevronLeft color="black" size={14} />
+      </span>
+      <span
+        onClick={scrollNext}
+        className="absolute top-1/2 -translate-y-1/2 right-1 p-1 cursor-pointer bg-gray-200 rounded-full"
+      >
+        <ChevronRight color="black" size={14} />
+      </span>
     </div>
   );
 }

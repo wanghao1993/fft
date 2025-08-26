@@ -17,6 +17,7 @@ import Image from "next/image";
 
 dayjs.extend(relativeTime);
 import { handleShare } from "@/utils/share";
+import Share from "./share";
 
 export default function QuickNewsList() {
   const path = usePathname();
@@ -77,47 +78,7 @@ export default function QuickNewsList() {
                 <Chip color="default" className="mt-3">
                   {item.source}
                 </Chip>
-                <div className="flex items-center gap-2">
-                  <Tooltip content="分享到 Twitter">
-                    <Button
-                      isIconOnly
-                      variant="light"
-                      size="sm"
-                      onPress={(e) => {
-                        handleShare(
-                          "twitter",
-                          item.title,
-                          `${window.location.origin}/news/${item.uuid}`
-                        );
-                      }}
-                    >
-                      <Image
-                        src="/images/x.svg"
-                        alt="x"
-                        width={16}
-                        height={16}
-                        className="h-3 w-3"
-                      />
-                    </Button>
-                  </Tooltip>
-
-                  <Tooltip content="分享到 Telegram">
-                    <Button
-                      isIconOnly
-                      variant="light"
-                      size="sm"
-                      onPress={(e) => {
-                        handleShare(
-                          "telegram",
-                          item.title,
-                          `${window.location.origin}/news/${item.uuid}`
-                        );
-                      }}
-                    >
-                      <Send className="h-3 w-3" />
-                    </Button>
-                  </Tooltip>
-                </div>
+                <Share data={item} />
               </div>
             </div>
           </motion.div>

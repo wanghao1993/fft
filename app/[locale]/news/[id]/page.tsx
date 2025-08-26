@@ -1,3 +1,5 @@
+import Share from "@/components/share";
+import { News as NewsType } from "@/types/news";
 import dayjs from "dayjs";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -24,20 +26,22 @@ async function getData(id: string) {
 
 export default async function News({ params }: Props) {
   const { id } = await params;
-  const data = await getData(id);
+  const data: NewsType = await getData(id);
   const t = await getTranslations("Common");
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-2xl font-bold">{data.title}</h1>
-      <p className="text-sm text-gray-500 mt-4">
-        {t("publishedAt")}:{" "}
-        {dayjs(data.createdAt)
-          .subtract(-8, "hours")
-          .format("YYYY-MM-DD HH:mm:ss")}
+      <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
+        <span>
+          {t("publishedAt")}:{" "}
+          {dayjs(data.createdAt)
+            .subtract(-8, "hours")
+            .format("YYYY-MM-DD HH:mm:ss")}
+        </span>
       </p>
       <p className="mt-4">{data.summary}</p>
 
-      <div className="mt-10 flex justify-between">
+      <div className="mt-10 flex items-center gap-8">
         <Link
           href={data.link}
           className="text-sm text-gray-500"
@@ -45,6 +49,7 @@ export default async function News({ params }: Props) {
         >
           {t("source")}: {data.source}
         </Link>
+        <Share data={data} />
       </div>
     </div>
   );
