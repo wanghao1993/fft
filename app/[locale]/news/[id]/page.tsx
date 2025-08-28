@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
 
 async function getData(id: string) {
   return await fetch(`http://38.60.91.19:3001/news/${id}`).then((res) =>
-    res.json(),
+    res.json()
   );
 }
 
@@ -37,9 +37,7 @@ export default async function News({ params }: Props) {
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
           {t("publishedAt")}:{" "}
-          {dayjs(data.createdAt)
-            .subtract(-8, "hours")
-            .format("YYYY-MM-DD HH:mm:ss")}
+          {dayjs(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}
         </span>
       </p>
       <p className="mt-4">{data.summary}</p>
