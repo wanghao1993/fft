@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
 
 async function getData(id: string) {
   return await fetch(`http://38.60.91.19:3001/news/${id}`).then((res) =>
-    res.json()
+    res.json(),
   );
 }
 

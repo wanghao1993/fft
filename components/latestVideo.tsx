@@ -7,15 +7,15 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import ViewMore from "./viewMore";
+import { DateFormatFromNow } from "./date.format";
 
 import { Link } from "@/i18n/navigation";
 import { VideoResponse } from "@/types/videos";
-import { DateFormatFromNow } from "./date.format";
 dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`,
   );
   const data = (await res.json()) as VideoResponse;
 

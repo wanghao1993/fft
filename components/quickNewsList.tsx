@@ -12,10 +12,10 @@ import { Skeleton } from "@heroui/skeleton";
 
 dayjs.extend(relativeTime);
 import Share from "./share";
-
-import { News } from "@/types/news";
-import { getQuickNews } from "@/service/module/quick_news";
 import { DateFormat } from "./date.format";
+
+import { getQuickNews } from "@/service/module/quick_news";
+import { News } from "@/types/news";
 
 export default function QuickNewsList() {
   const path = usePathname();

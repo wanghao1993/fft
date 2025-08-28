@@ -1,6 +1,5 @@
 "use client";
 
-import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Chip } from "@heroui/chip";
@@ -8,11 +7,11 @@ import { useLocale, useTranslations } from "next-intl";
 import { Spinner } from "@heroui/spinner";
 
 import Share from "./share";
+import { DateFormat } from "./date.format";
 
 import { News } from "@/types/news";
 import { getQuickNews } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
-import { DateFormat } from "./date.format";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);

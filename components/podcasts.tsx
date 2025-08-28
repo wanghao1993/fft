@@ -18,7 +18,7 @@ dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`,
   );
   const data = (await res.json()) as VideoResponse;
 
