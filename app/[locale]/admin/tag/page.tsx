@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
 import { useToast } from "@/components/ui/Toast";
 import TagTable from "@/components/admin/TagTable";
 import TagForm from "@/components/admin/TagForm";
@@ -27,6 +28,7 @@ export default function AdminTagPage() {
     setIsLoading(true);
     try {
       const response = await getTags();
+
       setTags(response);
     } catch (error) {
       console.error("加载标签失败:", error);
@@ -72,6 +74,7 @@ export default function AdminTagPage() {
           nameZh: data.nameZh,
           isActive: data.isActive,
         };
+
         await createTag(createData);
         toast.success({
           title: "成功",
@@ -129,20 +132,20 @@ export default function AdminTagPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <TagTable
-        tags={tags}
         isLoading={isLoading}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onToggleStatus={handleToggleStatus}
+        tags={tags}
         onAdd={handleAdd}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        onToggleStatus={handleToggleStatus}
       />
 
       <TagForm
+        isLoading={isSubmitting}
         isOpen={isFormOpen}
+        tag={editingTag}
         onClose={() => setIsFormOpen(false)}
         onSubmit={handleFormSubmit}
-        tag={editingTag}
-        isLoading={isSubmitting}
       />
 
       {/* Toast 通知 */}

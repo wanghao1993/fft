@@ -1,8 +1,9 @@
 "use client";
 
-import { usePathname } from "@/i18n/navigation";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+
+import { usePathname } from "@/i18n/navigation";
 import QuickNewsList from "@/components/quickNewsList";
 import HotNewList from "@/components/hotNewsList";
 import { Videos } from "@/components/videos";

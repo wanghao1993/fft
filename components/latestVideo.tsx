@@ -2,26 +2,28 @@ import { Card, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
 import { Play, Clock } from "lucide-react";
-
-import ViewMore from "./viewMore";
-import { VideoResponse } from "@/types/videos";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import Image from "next/image";
+
+import ViewMore from "./viewMore";
+
+import { Link } from "@/i18n/navigation";
+import { VideoResponse } from "@/types/videos";
 dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`,
   );
   const data = (await res.json()) as VideoResponse;
+
   return data.data;
 }
 export async function LatestVideos() {
   const t = await getTranslations("Videos");
   const videos = await getPoadcasts(9);
+
   return (
     <section
       className="py-8 bg-default-50 w-full border rounded-2xl"
@@ -45,18 +47,18 @@ export async function LatestVideos() {
                   {/* Thumbnail */}
                   <div className="relative">
                     <img
-                      src={video.thumbnail}
                       alt={video.title}
                       className="w-full h-48 object-cover"
+                      src={video.thumbnail}
                     />
 
                     {/* Play Button Overlay */}
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         isIconOnly
+                        className="rounded-full w-16 h-16"
                         color="primary"
                         size="lg"
-                        className="rounded-full w-16 h-16"
                       >
                         <Play className="h-6 w-6 ml-1" />
                       </Button>
@@ -69,8 +71,8 @@ export async function LatestVideos() {
 
                     {/* Platform Badge */}
                     <Chip
-                      color="danger"
                       className="absolute top-2 left-2"
+                      color="danger"
                       size="sm"
                     >
                       {video.channel}

@@ -1,6 +1,7 @@
-import { Link, useRouter, usePathname } from "@/i18n/navigation";
 import { Button } from "@heroui/button";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+
+import { Link } from "@/i18n/navigation";
 
 export default function ViewMore({
   type,
@@ -18,7 +19,7 @@ export default function ViewMore({
 
   return (
     <Link href={type}>
-      <Button variant="bordered" size="sm">
+      <Button size="sm" variant="bordered">
         {tc("viewMore")}
       </Button>
     </Link>

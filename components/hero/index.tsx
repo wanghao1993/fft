@@ -1,23 +1,26 @@
-import { Blog, BlogRes } from "@/types/blog";
-import { EmblaCarousel } from "../carousel";
-import { Link } from "@/i18n/navigation";
-import { QuickNews } from "../quickNews";
 import { getLocale, getTranslations } from "next-intl/server";
-import { NewsResponse } from "@/types/news";
+
+import { EmblaCarousel } from "../carousel";
 import NewItem from "../news/newItem";
+
+import { Blog, BlogRes } from "@/types/blog";
+import { Link } from "@/i18n/navigation";
+import { NewsResponse } from "@/types/news";
 
 async function getOriginContent() {
   const res = await fetch("https://futurefrontier.ai/api/blog.php");
   const data = (await res.json()) as BlogRes;
+
   return data.items;
 }
 
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`
+    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`,
   );
   const data = (await res.json()) as NewsResponse;
+
   return data.data;
 }
 
@@ -25,6 +28,7 @@ export default async function Hero() {
   const list = await getOriginContent();
   const news = await getQuickNewsList(50);
   const t = await getTranslations("QuickNews");
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] my-6 lg:my-10 gap-4 w-full place-items-center lg:place-items-start">
       <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border rounded-2xl  items-center container overflow-hidden">
@@ -54,7 +58,7 @@ export default async function Hero() {
           </h2>
           <div className="h-[310px] space-y-4 overflow-y-auto">
             {news.map((item, index) => (
-              <NewItem data={item} index={index} key={item.uuid} />
+              <NewItem key={item.uuid} data={item} index={index} />
             ))}
           </div>
         </div>

@@ -18,6 +18,7 @@ export default function SearchDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations("SearchDialog");
+
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

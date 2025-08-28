@@ -3,7 +3,6 @@ import {
   ResponseData,
   ApiError,
   Interceptor,
-  HttpMethod,
   RequestOptions,
 } from "../types";
 
@@ -46,6 +45,7 @@ export class HttpClient {
    */
   removeInterceptor(interceptor: Interceptor): void {
     const index = this.interceptors.indexOf(interceptor);
+
     if (index > -1) {
       this.interceptors.splice(index, 1);
     }
@@ -59,6 +59,7 @@ export class HttpClient {
 
     if (params && Object.keys(params).length > 0) {
       const searchParams = new URLSearchParams();
+
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
           searchParams.append(key, String(value));
@@ -74,7 +75,7 @@ export class HttpClient {
    * 处理请求配置
    */
   private async processRequestConfig(
-    config: RequestConfig
+    config: RequestConfig,
   ): Promise<RequestConfig> {
     let processedConfig = { ...config };
 
@@ -138,7 +139,7 @@ export class HttpClient {
    */
   private async parseResponse<T>(
     response: Response,
-    responseType?: string
+    responseType?: string,
   ): Promise<T> {
     switch (responseType) {
       case "text":
@@ -178,6 +179,7 @@ export class HttpClient {
           typeof requestConfig.headers === "object"
         ) {
           const headers = requestConfig.headers as Record<string, string>;
+
           delete headers["Content-Type"];
         }
       } else if (typeof data === "object") {
@@ -189,10 +191,12 @@ export class HttpClient {
 
     // 处理查询参数
     const fullURL = this.buildURL(url, requestConfig.params);
+
     delete requestConfig.params;
 
     // 处理超时
     const timeout = requestConfig.timeout || this.defaultConfig.timeout;
+
     if (timeout) {
       this.controller = this.createTimeoutController(timeout);
       requestConfig.signal = this.controller.signal;
@@ -211,8 +215,9 @@ export class HttpClient {
       // 检查响应状态
       if (!processedResponse.ok) {
         const error = new Error(
-          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`
+          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`,
         ) as ApiError;
+
         error.status = processedResponse.status;
         error.statusText = processedResponse.statusText;
         throw error;
@@ -221,7 +226,7 @@ export class HttpClient {
       // 解析响应数据
       const responseData = await this.parseResponse<T>(
         processedResponse,
-        requestConfig.responseType
+        requestConfig.responseType,
       );
 
       return {
@@ -235,12 +240,14 @@ export class HttpClient {
       // 处理AbortError（超时）
       if (error instanceof Error && error.name === "AbortError") {
         const timeoutError = new Error("Request timeout") as ApiError;
+
         timeoutError.name = "TimeoutError";
         throw await this.processError(timeoutError);
       }
 
       // 处理其他错误
       const apiError = error as ApiError;
+
       throw await this.processError(apiError);
     } finally {
       this.controller = null;
@@ -252,7 +259,7 @@ export class HttpClient {
    */
   async get<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "GET", url, config });
   }
@@ -263,7 +270,7 @@ export class HttpClient {
   async post<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "POST", url, data, config });
   }
@@ -274,7 +281,7 @@ export class HttpClient {
   async put<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PUT", url, data, config });
   }
@@ -285,7 +292,7 @@ export class HttpClient {
   async patch<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PATCH", url, data, config });
   }
@@ -295,7 +302,7 @@ export class HttpClient {
    */
   async delete<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "DELETE", url, config });
   }
@@ -305,7 +312,7 @@ export class HttpClient {
    */
   async head<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "HEAD", url, config });
   }
@@ -315,7 +322,7 @@ export class HttpClient {
    */
   async options<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">
+    config?: Omit<RequestConfig, "method">,
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "OPTIONS", url, config });
   }

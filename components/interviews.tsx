@@ -1,5 +1,6 @@
-import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+
+import { Link } from "@/i18n/navigation";
 
 export async function Interviews() {
   const t = await getTranslations("Interviews");
@@ -38,8 +39,8 @@ export async function Interviews() {
 
   return (
     <section
-      id="interviews"
       className="py-6 bg-default-50 w-full border rounded-2xl"
+      id="interviews"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -58,9 +59,9 @@ export async function Interviews() {
           {newsItems.map((item, index) => (
             <div key={item.id} className="w-full">
               <Link
+                className="border-b w-full hover:text-primary"
                 href={item.link}
                 target="_blank"
-                className="border-b w-full hover:text-primary"
               >
                 {index + 1}. {item.title}
               </Link>

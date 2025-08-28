@@ -1,20 +1,24 @@
 import ViewMore from "./viewMore";
+
 import { NewsResponse } from "@/types/news";
+
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
-import NewItem from "./news/newItem";
 import { Suspense } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ScrollShadow } from "@heroui/scroll-shadow";
 
+import NewItem from "./news/newItem";
+
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`
+    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`,
   );
   const data = (await res.json()) as NewsResponse;
+
   return data.data;
 }
 
@@ -26,8 +30,8 @@ export async function QuickNews({ limit = 30 }: { limit?: number }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <section
-        id="news"
         className="w-full min-h-24 bg-default-50 p-8 border rounded-2xl"
+        id="news"
       >
         <div className="container mx-auto ">
           {/* Section Header */}
@@ -43,7 +47,7 @@ export async function QuickNews({ limit = 30 }: { limit?: number }) {
 
           <ScrollShadow className="space-y-4 h-[810px] overflow-y-auto">
             {newsItems.map((item, index) => (
-              <NewItem data={item} index={index} key={item.uuid} />
+              <NewItem key={item.uuid} data={item} index={index} />
             ))}
           </ScrollShadow>
         </div>

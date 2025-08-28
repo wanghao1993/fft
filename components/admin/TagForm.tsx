@@ -11,6 +11,7 @@ import {
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Switch } from "@heroui/switch";
+
 import { Tag, TagFormData } from "../../types/tag";
 
 interface TagFormProps {
@@ -60,7 +61,7 @@ export default function TagForm({
 
   const handleInputChange = (
     field: keyof TagFormData,
-    value: string | boolean
+    value: string | boolean,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -69,45 +70,54 @@ export default function TagForm({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+    <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalContent>
         <form onSubmit={handleSubmit}>
           <ModalHeader>{tag ? "编辑标签" : "新增标签"}</ModalHeader>
           <ModalBody>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="name"
+                >
                   标签名称 *
                 </label>
                 <Input
+                  required
+                  placeholder="请输入标签名称"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="请输入标签名称"
-                  required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="nameEn"
+                >
                   英文名称 *
                 </label>
                 <Input
+                  required
+                  placeholder="Enter English name"
                   value={formData.nameEn}
                   onChange={(e) => handleInputChange("nameEn", e.target.value)}
-                  placeholder="Enter English name"
-                  required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                  htmlFor="nameZh"
+                >
                   中文名称 *
                 </label>
                 <Input
+                  required
+                  placeholder="请输入中文名称"
                   value={formData.nameZh}
                   onChange={(e) => handleInputChange("nameZh", e.target.value)}
-                  placeholder="请输入中文名称"
-                  required
                 />
               </div>
 
@@ -126,7 +136,7 @@ export default function TagForm({
             <Button color="danger" variant="light" onPress={onClose}>
               取消
             </Button>
-            <Button color="primary" type="submit" isLoading={isLoading}>
+            <Button color="primary" isLoading={isLoading} type="submit">
               {tag ? "更新" : "创建"}
             </Button>
           </ModalFooter>

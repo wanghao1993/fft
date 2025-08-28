@@ -1,7 +1,4 @@
 "use client";
-import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
-import { Divider } from "@heroui/divider";
 import { X, Linkedin, Mail, Send, Youtube, Rss } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -191,11 +188,11 @@ export default function Footer() {
 
         {/* Bottom Footer */}
         <motion.div
+          className="py-6"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="py-6"
+          whileInView={{ opacity: 1 }}
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-default-500">

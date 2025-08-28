@@ -1,16 +1,17 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { getQuickNews } from "@/service/module/quick_news";
-import { News } from "@/types/news";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Chip } from "@heroui/chip";
 import { useLocale, useTranslations } from "next-intl";
-
 import { Spinner } from "@heroui/spinner";
+
 import Share from "./share";
+
+import { News } from "@/types/news";
+import { getQuickNews } from "@/service/module/quick_news";
+import { Link } from "@/i18n/navigation";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);
@@ -19,6 +20,7 @@ export default function HotNewList() {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const locale = useLocale();
+
   useEffect(() => {
     setPage(1);
     setNewsItems([]);
@@ -40,24 +42,25 @@ export default function HotNewList() {
         setLoading(false);
       });
   }, [page, hasMore]);
+
   return (
     <>
       <div className="grid grid-cols-1 gap-6 min-h-screen">
         {newsItems.map((item) => (
           <motion.div
             key={item.uuid || item.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             className="border-b py-2 border-b-gray-200 grid grid-cols-[120px_1fr]"
+            initial={{ opacity: 0, y: 20 }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }}
           >
             <div>{dayjs(item.publishedAt * 1000).format("MM-DD HH:mm")}</div>
 
             <div>
               <Link
+                className="hover:text-primary  font-semibold"
                 href={`${item.link}`}
                 target="_blank"
-                className="hover:text-primary  font-semibold"
               >
                 {item.title}
               </Link>
@@ -71,7 +74,7 @@ export default function HotNewList() {
               </div>
 
               <div className="flex justify-between">
-                <Chip color="default" className="mt-3">
+                <Chip className="mt-3" color="default">
                   {item.source}
                 </Chip>
                 <Share data={item} />
@@ -82,16 +85,24 @@ export default function HotNewList() {
 
         {loading && (
           <div className="flex justify-center items-center">
-            <Spinner></Spinner>
+            <Spinner />
           </div>
         )}
       </div>
 
       {hasMore && !loading && (
         <div
+          aria-label={t("loadMore")}
           className="text-center py-4 cursor-pointer"
+          role="button"
+          tabIndex={0}
           onClick={() => {
             setPage(page + 1);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setPage(page + 1);
+            }
           }}
         >
           {t("loadMore")}

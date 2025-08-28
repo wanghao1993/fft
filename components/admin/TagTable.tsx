@@ -20,8 +20,9 @@ import {
 import { Tooltip } from "@heroui/tooltip";
 import { Spinner } from "@heroui/spinner";
 import { Edit, MoreVertical, Trash2, Plus } from "lucide-react";
-import { Tag } from "../../types/tag";
 import dayjs from "dayjs";
+
+import { Tag } from "../../types/tag";
 
 interface TagTableProps {
   tags: Tag[];
@@ -41,7 +42,7 @@ export default function TagTable({
   onAdd,
 }: TagTableProps) {
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
 
   const handleToggleStatus = async (id: string, isActive: boolean) => {
@@ -97,7 +98,7 @@ export default function TagTable({
         <TableBody>
           {tags.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+              <TableCell className="text-center text-gray-500 py-8" colSpan={6}>
                 暂无数据
               </TableCell>
             </TableRow>
@@ -111,10 +112,10 @@ export default function TagTable({
                 <TableCell>{tag.nameZh}</TableCell>
                 <TableCell>
                   <Switch
-                    isSelected={tag.isActive}
-                    onValueChange={(value) => handleToggleStatus(tag.id, value)}
                     isDisabled={loadingStates[tag.id]}
+                    isSelected={tag.isActive}
                     size="sm"
+                    onValueChange={(value) => handleToggleStatus(tag.id, value)}
                   />
                 </TableCell>
                 <TableCell>

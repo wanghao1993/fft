@@ -1,5 +1,6 @@
-import { News, NewsResponse } from "@/types/news";
 import { httpClient } from "../fetch";
+
+import { NewsResponse } from "@/types/news";
 
 export const getQuickNews = async (params?: {
   category?: string;
@@ -15,5 +16,6 @@ export const getQuickNews = async (params?: {
       language: params?.language || "zh-CN",
     },
   });
+
   return response.data;
 };

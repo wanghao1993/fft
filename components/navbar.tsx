@@ -12,14 +12,16 @@ import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
-import { Link as NextLink } from "@/i18n/navigation";
 import clsx from "clsx";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+import LanguageSwitch from "./lan-switch";
+import SearchDialog from "./searchDialog";
+
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
-import LanguageSwitch from "./lan-switch";
-import { useEffect, useState } from "react";
-import SearchDialog from "./searchDialog";
+import { Link as NextLink } from "@/i18n/navigation";
 
 // 定义导航项的类型
 interface NavItem {
@@ -67,6 +69,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
         setIsOpen(true);
       }
     });
+
     return () => {
       window.removeEventListener("keydown", (e) => {
         if (e.key === "k") {
@@ -75,11 +78,12 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
       });
     };
   }, []);
+
   return (
     <HeroUINavbar
+      className=" h-16 left-0 top-0 right-0 border-b border-b-gray-200"
       maxWidth="xl"
       shouldHideOnScroll={false}
-      className=" h-16 left-0 top-0 right-0 border-b border-b-gray-200"
     >
       <NavbarContent className="basis-1/5 sm:basis-full gap-8" justify="start">
         <NavbarBrand as="div" className="gap-3 w-[120px]">
@@ -88,11 +92,11 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
             href="/"
           >
             <Image
-              src={"/logo.png"}
-              alt="FutureFrontier logo"
-              width={120}
-              height={32}
               priority
+              alt="FutureFrontier logo"
+              height={32}
+              src={"/logo.png"}
+              width={120}
             />
           </NextLink>
         </NavbarBrand>
@@ -102,7 +106,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary font-semibold"
+                  "data-[active=true]:text-primary font-semibold",
                 )}
                 color="foreground"
                 href={item.href}

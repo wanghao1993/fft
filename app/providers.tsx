@@ -24,6 +24,7 @@ const queryClient = new QueryClient();
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   const nextrRouter = useRouter();
+
   return (
     <HeroUIProvider navigate={nextrRouter.push}>
       <QueryClientProvider client={queryClient}>

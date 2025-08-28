@@ -30,6 +30,7 @@ export function DynamicImage({
 
     // 默认添加基础路径
     const basePath = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || "/";
+
     return `${basePath}${imageSrc}`;
   };
 
@@ -37,15 +38,16 @@ export function DynamicImage({
 
   return (
     <Image
-      src={processedSrc}
-      alt={alt}
       fill
+      alt={alt}
       className={className}
       priority={priority}
+      src={processedSrc}
       onError={(e) => {
         // 如果主图片加载失败，使用fallback图片
         if (fallbackSrc && fallbackSrc !== src) {
           const target = e.target as HTMLImageElement;
+
           target.src = processImageSrc(fallbackSrc);
         }
       }}
@@ -92,6 +94,7 @@ export const IMAGE_CONFIGS = {
 // 获取图片数据的工具函数
 export const getImageData = (configKey: keyof typeof IMAGE_CONFIGS) => {
   const config = IMAGE_CONFIGS[configKey];
+
   return config.images.map((item) => ({
     ...item,
     url: `${config.basePath}${item.filename}`,

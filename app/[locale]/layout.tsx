@@ -1,6 +1,9 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
 
 import { Providers } from "../providers";
 
@@ -8,14 +11,12 @@ import { getLocalizedSiteConfig } from "@/config/site";
 import { fontSans, robotoMono } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import { hasLocale } from "next-intl";
-import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { NextIntlClientProvider } from "next-intl";
 
 // Navbar包装器组件，用于提供国际化配置
 async function NavbarWrapper() {
   const siteConfig = await getLocalizedSiteConfig();
+
   return (
     <Navbar
       navItems={siteConfig.navItems}
@@ -81,6 +82,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
   console.log(locale, "locale");
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -93,7 +95,7 @@ export default async function LocaleLayout({
         className={clsx(
           "min-h-screen text-foreground bg-background font-sans antialiased",
           robotoMono.variable,
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <NextIntlClientProvider locale={locale}>

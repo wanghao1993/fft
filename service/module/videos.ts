@@ -1,4 +1,5 @@
 import { httpClient } from "../fetch";
+
 import { VideoResponse } from "@/types/videos";
 
 export const getVideos = async (params?: {
@@ -15,5 +16,6 @@ export const getVideos = async (params?: {
       language: params?.language || "zh-CN",
     },
   });
+
   return response.data;
 };

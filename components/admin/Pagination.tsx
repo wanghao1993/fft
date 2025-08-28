@@ -57,10 +57,10 @@ export default function Pagination({
     <div className="flex items-center justify-between px-2 py-4">
       <div className="flex items-center space-x-2">
         <Button
+          isDisabled={!hasPrev}
           size="sm"
           variant="light"
           onPress={() => onPageChange(currentPage - 1)}
-          isDisabled={!hasPrev}
         >
           <ChevronLeft size={16} />
           上一页
@@ -69,21 +69,21 @@ export default function Pagination({
         {getPageNumbers().map((page, index) => (
           <Button
             key={index}
+            className={page === "..." ? "cursor-default" : ""}
+            isDisabled={page === "..."}
             size="sm"
             variant={page === currentPage ? "solid" : "light"}
             onPress={() => typeof page === "number" && onPageChange(page)}
-            isDisabled={page === "..."}
-            className={page === "..." ? "cursor-default" : ""}
           >
             {page}
           </Button>
         ))}
 
         <Button
+          isDisabled={!hasNext}
           size="sm"
           variant="light"
           onPress={() => onPageChange(currentPage + 1)}
-          isDisabled={!hasNext}
         >
           下一页
           <ChevronRight size={16} />

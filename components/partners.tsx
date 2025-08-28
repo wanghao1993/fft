@@ -1,22 +1,26 @@
 "use client";
 import { motion } from "framer-motion";
+
 import "../styles/custom.css";
-import { Link } from "@/i18n/navigation";
-import { DynamicImage, getImageData } from "./dynamic-image";
 import { useTranslations } from "next-intl";
+
+import { DynamicImage, getImageData } from "./dynamic-image";
+
+import { Link } from "@/i18n/navigation";
 
 const partners = getImageData("partners");
 
 export default function Partners() {
   const t = useTranslations("Partners");
+
   return (
-    <section id="partners" className="py-8 bg-default-50 w-full">
+    <section className="py-8 bg-default-50 w-full" id="partners">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          whileInView={{ opacity: 1, x: 0 }}
         >
           <h2 className="text-2xl font-bold text-foreground mb-2">
             {t("title")}
@@ -32,16 +36,16 @@ export default function Partners() {
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
                   <Link
-                    href={img.url}
                     key={img.filename}
-                    target="_blank"
                     className="!w-[130px] !h-[36px]"
+                    href={img.url}
+                    target="_blank"
                   >
                     <DynamicImage
                       key={img.filename}
-                      src={img.url}
-                      className="!static"
                       alt={img.filename}
+                      className="!static"
+                      src={img.url}
                     />
                   </Link>
                 ))}
@@ -49,16 +53,16 @@ export default function Partners() {
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
                   <Link
-                    href={img.url}
                     key={img.filename + "_copy"}
-                    target="_blank"
                     className="!w-[130px] !h-[36px]"
+                    href={img.url}
+                    target="_blank"
                   >
                     <DynamicImage
                       key={img.filename}
-                      src={img.url}
-                      className="!static"
                       alt={img.filename}
+                      className="!static"
+                      src={img.url}
                     />
                   </Link>
                 ))}

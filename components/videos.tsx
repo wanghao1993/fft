@@ -4,14 +4,16 @@ import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
 import { Play, Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import { ImageWithFallback } from "./imageWithFallBack";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { getVideos } from "@/service/module/videos";
-import { Video } from "@/types/videos";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Spinner } from "@heroui/spinner";
+
+import { ImageWithFallback } from "./imageWithFallBack";
+
+import { Video } from "@/types/videos";
+import { getVideos } from "@/service/module/videos";
 import { Link, usePathname } from "@/i18n/navigation";
 dayjs.extend(relativeTime);
 export function Videos() {
@@ -23,6 +25,7 @@ export function Videos() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const tc = useTranslations("Common");
+
   useEffect(() => {
     setPage(1);
     setVideos([]);
@@ -52,27 +55,27 @@ export function Videos() {
             <motion.div
               key={video.uuid}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }}
             >
               <Link href={video.link} target="_blank">
                 <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                   {/* Thumbnail */}
                   <div className="relative">
                     <ImageWithFallback
-                      src={video.thumbnail}
                       alt={video.title}
                       className="w-full h-48 object-cover"
+                      src={video.thumbnail}
                     />
 
                     {/* Play Button Overlay */}
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         isIconOnly
+                        className="rounded-full w-16 h-16"
                         color="primary"
                         size="lg"
-                        className="rounded-full w-16 h-16"
                       >
                         <Play className="h-6 w-6 ml-1" />
                       </Button>
@@ -85,8 +88,8 @@ export function Videos() {
 
                     {/* Platform Badge */}
                     <Chip
-                      color="danger"
                       className="absolute top-2 left-2"
+                      color="danger"
                       size="sm"
                     >
                       {video.channel}
@@ -119,9 +122,9 @@ export function Videos() {
         {hasMore && !isLoading && (
           <div className="flex justify-center py-8">
             <Button
+              className="mt-4"
               isDisabled={!hasMore}
               onPress={() => setPage(page + 1)}
-              className="mt-4"
             >
               {tc("loadMore")}
             </Button>
@@ -164,7 +167,7 @@ export function Videos() {
 
         {isLoading && (
           <div className="flex justify-center">
-            <Spinner></Spinner>
+            <Spinner />
           </div>
         )}
       </div>

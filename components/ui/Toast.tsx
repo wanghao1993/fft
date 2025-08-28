@@ -80,8 +80,8 @@ export function Toast({
           </div>
           <div className="ml-4 flex-shrink-0">
             <button
-              onClick={() => onClose(id)}
               className="inline-flex text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600"
+              onClick={() => onClose(id)}
             >
               <X size={16} />
             </button>
@@ -102,6 +102,7 @@ export function useToast() {
       id,
       onClose: removeToast,
     };
+
     setToasts((prev) => [...prev, newToast]);
   };
 

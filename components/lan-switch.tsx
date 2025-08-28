@@ -2,7 +2,6 @@
 
 import React, { useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/navigation";
 import { Button } from "@heroui/button";
 import {
   Dropdown,
@@ -11,6 +10,8 @@ import {
   DropdownItem,
 } from "@heroui/dropdown";
 import { ChevronDownIcon } from "lucide-react";
+
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 interface Language {
   code: string;
@@ -51,9 +52,9 @@ export default function LanguageSwitch() {
     <Dropdown placement="bottom-end">
       <DropdownTrigger>
         <Button
-          variant="light"
-          className="gap-2 px-3 py-2 h-auto min-w-0"
           aria-label={t("languageSelector")}
+          className="gap-2 px-3 py-2 h-auto min-w-0"
+          variant="light"
         >
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline text-sm font-medium">
@@ -66,10 +67,11 @@ export default function LanguageSwitch() {
       <DropdownMenu
         aria-label={t("selectLanguage")}
         className="w-48"
-        selectionMode="single"
         selectedKeys={[locale]}
+        selectionMode="single"
         onSelectionChange={(keys) => {
           const selectedKey = Array.from(keys)[0] as string;
+
           if (selectedKey) {
             handleLanguageChange(selectedKey);
           }

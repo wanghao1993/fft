@@ -5,18 +5,19 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import "../styles/carsousel.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Blog } from "@/types/blog";
-import { getCarousel } from "@/service/module/carousel";
 import Image from "next/image";
 import Link from "next/link";
 import { Spinner } from "@heroui/spinner";
+
+import { getCarousel } from "@/service/module/carousel";
+import { Blog } from "@/types/blog";
 
 export function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
     },
-    [Autoplay({ delay: 10000 })]
+    [Autoplay({ delay: 10000 })],
   );
 
   const scrollPrev = useCallback(() => {
@@ -33,6 +34,7 @@ export function EmblaCarousel() {
   };
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     getCarousel()
@@ -41,7 +43,7 @@ export function EmblaCarousel() {
           res.items.map((item) => ({
             ...item,
             url: `https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png`,
-          }))
+          })),
         );
       })
       .finally(() => {
@@ -50,7 +52,7 @@ export function EmblaCarousel() {
   }, []);
 
   return (
-    <div className="embla w-full relative overflow-hidden pl-4 " ref={emblaRef}>
+    <div ref={emblaRef} className="embla w-full relative overflow-hidden pl-4 ">
       {loading && (
         <div className="flex justify-center items-center h-full">
           <Spinner />
@@ -63,29 +65,33 @@ export function EmblaCarousel() {
             className="embla__slide aspect-[2/1] lg:aspect-[3/2] min-h-[20px] lg:min-h-[395px]"
           >
             <Link
+              className="block w-full h-full"
               href={item.link}
               target="_blank"
-              className="block w-full h-full"
             >
               <Image
-                src={item.url}
                 fill
                 alt={item.title}
                 priority={index === 0}
+                src={item.url}
               />
             </Link>
           </div>
         ))}
       </div>
       <span
-        onClick={scrollPrev}
         className="absolute top-1/2 -translate-y-1/2 left-1 p-1 cursor-pointer bg-gray-200  rounded-full"
+        role="button"
+        tabIndex={0}
+        onClick={scrollPrev}
       >
         <ChevronLeft color="black" size={14} />
       </span>
       <span
-        onClick={scrollNext}
         className="absolute top-1/2 -translate-y-1/2 right-1 p-1 cursor-pointer bg-gray-200 rounded-full"
+        role="button"
+        tabIndex={0}
+        onClick={scrollNext}
       >
         <ChevronRight color="black" size={14} />
       </span>

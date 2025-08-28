@@ -56,7 +56,6 @@ export default defineConfig([globalIgnores([
         "unused-imports": unusedImports,
         import: fixupPluginRules(_import),
         "@typescript-eslint": typescriptEslint,
-        "jsx-a11y": fixupPluginRules(jsxA11Y),
         prettier: fixupPluginRules(prettier),
     },
 
