@@ -9,6 +9,7 @@ import { Blog } from "@/types/blog";
 import { getCarousel } from "@/service/module/carousel";
 import Image from "next/image";
 import Link from "next/link";
+import { Spinner } from "@heroui/spinner";
 
 export function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -31,20 +32,30 @@ export function EmblaCarousel() {
     url: string;
   };
   const [articles, setArticles] = useState<Article[]>([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    getCarousel().then((res) => {
-      setArticles(
-        res.items.map((item, index) => ({
-          ...item,
-          url: `https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png`,
-        }))
-      );
-    });
+    setLoading(true);
+    getCarousel()
+      .then((res) => {
+        setArticles(
+          res.items.map((item) => ({
+            ...item,
+            url: `https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png`,
+          }))
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div className="embla w-full relative overflow-hidden pl-4 " ref={emblaRef}>
+      {loading && (
+        <div className="flex justify-center items-center h-full">
+          <Spinner />
+        </div>
+      )}
       <div className="embla__container">
         {articles.map((item, index) => (
           <div
