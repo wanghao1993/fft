@@ -14,7 +14,7 @@ dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`
   );
   const data = (await res.json()) as VideoResponse;
   return data.data;
@@ -22,7 +22,6 @@ async function getPoadcasts(limit: number) {
 export async function LatestVideos() {
   const t = await getTranslations("Videos");
   const videos = await getPoadcasts(9);
-
   return (
     <section
       className="py-8 bg-default-50 w-full border rounded-2xl"
@@ -45,10 +44,9 @@ export async function LatestVideos() {
                 <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                   {/* Thumbnail */}
                   <div className="relative">
-                    <Image
+                    <img
                       src={video.thumbnail}
                       alt={video.title}
-                      fill
                       className="w-full h-48 object-cover"
                     />
 

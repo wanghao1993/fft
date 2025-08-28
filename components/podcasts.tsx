@@ -45,10 +45,9 @@ export async function PodCasts() {
                 <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                   {/* Thumbnail */}
                   <div className="relative">
-                    <Image
+                    <img
                       src={video.thumbnail}
                       alt={video.title}
-                      fill
                       className="w-full h-48 object-cover"
                     />
 

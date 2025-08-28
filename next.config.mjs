@@ -17,18 +17,12 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "blog.futurefrontier.ai",
-      },
+     
       {
         protocol: "https",
         hostname: "*",
       },
-      {
-        protocol: "https",
-        hostname: "fft-two.vercel.app",
-      },
+ 
     ],
   },
 };
