@@ -10,11 +10,12 @@ import ViewMore from "./viewMore";
 
 import { Link } from "@/i18n/navigation";
 import { VideoResponse } from "@/types/videos";
+import { DateFormatFromNow } from "./date.format";
 dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`,
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=video`
   );
   const data = (await res.json()) as VideoResponse;
 
@@ -93,7 +94,7 @@ export async function LatestVideos() {
                       </div>
                       <div className="flex items-center gap-1 text-xs text-default-500">
                         <Clock className="h-3 w-3" />
-                        <span>{dayjs(video.publishedAt * 1000).fromNow()}</span>
+                        <span>{DateFormatFromNow(video.publishedAt)}</span>
                       </div>
                     </div>
                   </CardBody>

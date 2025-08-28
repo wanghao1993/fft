@@ -15,6 +15,7 @@ import Share from "./share";
 
 import { News } from "@/types/news";
 import { getQuickNews } from "@/service/module/quick_news";
+import { DateFormat } from "./date.format";
 
 export default function QuickNewsList() {
   const path = usePathname();
@@ -59,9 +60,7 @@ export default function QuickNewsList() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, y: 0 }}
           >
-            <div className="w-15">
-              {dayjs(item.publishedAt * 1000).format("HH:mm")}
-            </div>
+            <div className="w-15">{DateFormat({ date: item.publishedAt })}</div>
 
             <div className="flex-1">
               <Link

@@ -1,3 +1,5 @@
+import type { VideoResponse } from "@/types/videos";
+
 import { Card, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
@@ -7,15 +9,16 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import ViewMore from "./viewMore";
+import { DateFormatFromNow } from "./date.format";
 
 import { Link } from "@/i18n/navigation";
-import { VideoResponse } from "@/types/videos";
+
 dayjs.extend(relativeTime);
 
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`,
+    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`
   );
   const data = (await res.json()) as VideoResponse;
 
@@ -41,7 +44,7 @@ export async function PodCasts() {
 
         {/* Videos Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video, index) => (
+          {videos.map((video) => (
             <div key={video.uuid}>
               <Link href={video.link} target="_blank">
                 <Card className="group hover:shadow-lg transition-shadow duration-300 cursor-pointer">
@@ -94,7 +97,7 @@ export async function PodCasts() {
                       </div>
                       <div className="flex items-center gap-1 text-xs text-default-500">
                         <Clock className="h-3 w-3" />
-                        <span>{dayjs(video.publishedAt * 1000).fromNow()}</span>
+                        <span>{DateFormatFromNow(video.publishedAt)}</span>
                       </div>
                     </div>
                   </CardBody>

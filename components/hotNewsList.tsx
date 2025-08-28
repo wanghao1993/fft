@@ -12,6 +12,7 @@ import Share from "./share";
 import { News } from "@/types/news";
 import { getQuickNews } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
+import { DateFormat } from "./date.format";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);
@@ -54,7 +55,7 @@ export default function HotNewList() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, y: 0 }}
           >
-            <div>{dayjs(item.publishedAt * 1000).format("MM-DD HH:mm")}</div>
+            <div>{DateFormat({ date: item.publishedAt })}</div>
 
             <div>
               <Link

@@ -42,7 +42,7 @@ export default function TagTable({
   onAdd,
 }: TagTableProps) {
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
-    {},
+    {}
   );
 
   const handleToggleStatus = async (id: string, isActive: boolean) => {

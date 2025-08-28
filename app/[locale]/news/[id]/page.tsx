@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 import { News as NewsType } from "@/types/news";
 import Share from "@/components/share";
+import { DateFormat } from "@/components/date.format";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -36,8 +36,7 @@ export default async function News({ params }: Props) {
       <h1 className="text-2xl font-bold">{data.title}</h1>
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
-          {t("publishedAt")}:{" "}
-          {dayjs(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+          {t("publishedAt")}: {DateFormat({ date: data.publishedAt })}
         </span>
       </p>
       <p className="mt-4">{data.summary}</p>
