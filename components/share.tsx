@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
-import { Send } from "lucide-react";
+import { Image as ImageIcon, Send } from "lucide-react";
 import Image from "next/image";
 
 import { handleShare } from "@/utils/share";
 import { News } from "@/types/news";
+import { getNewsShareImage } from "@/service/module/quick_news";
 export default function Share({ data }: { data: News }) {
   return (
     <div className="flex items-center gap-2">
@@ -18,7 +19,7 @@ export default function Share({ data }: { data: News }) {
             handleShare(
               "twitter",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`,
+              `${window.location.origin}/news/${data.uuid}`
             );
           }}
         >
@@ -35,11 +36,26 @@ export default function Share({ data }: { data: News }) {
             handleShare(
               "telegram",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`,
+              `${window.location.origin}/news/${data.uuid}`
             );
           }}
         >
           <Send className="h-3 w-3" />
+        </Button>
+      </Tooltip>
+
+      <Tooltip content="生成图片">
+        <Button
+          isIconOnly
+          size="sm"
+          variant="light"
+          onPress={(e) => {
+            getNewsShareImage({ uuid: data.uuid }).then((res) => {
+              console.log(res);
+            });
+          }}
+        >
+          <ImageIcon className="h-3 w-3" />
         </Button>
       </Tooltip>
     </div>

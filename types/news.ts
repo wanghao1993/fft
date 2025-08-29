@@ -1,5 +1,5 @@
 export interface News {
-  uuid?: string;
+  uuid: string;
   id?: any;
   source: string;
   title: string;

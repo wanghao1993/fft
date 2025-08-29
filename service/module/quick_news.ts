@@ -19,3 +19,11 @@ export const getQuickNews = async (params?: {
 
   return response.data;
 };
+
+export const getNewsShareImage = async (params?: { uuid: string }) => {
+  const response = await httpClient.get<NewsResponse>(
+    `/news/${params?.uuid}/share`
+  );
+
+  return response.data;
+};
