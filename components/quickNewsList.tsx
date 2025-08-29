@@ -12,7 +12,6 @@ import { Skeleton } from "@heroui/skeleton";
 
 dayjs.extend(relativeTime);
 import Share from "./share";
-import { DateFormat } from "./date.format";
 
 import { getQuickNews } from "@/service/module/quick_news";
 import { News } from "@/types/news";
@@ -52,7 +51,7 @@ export default function QuickNewsList() {
   return (
     <>
       <div className="grid grid-cols-1 gap-6 min-h-screen">
-        {newsItems.map((item, index) => (
+        {newsItems.map((item) => (
           <motion.div
             key={item.uuid || item.id}
             className="border-b py-2 border-b-gray-200 flex"
@@ -60,7 +59,9 @@ export default function QuickNewsList() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, y: 0 }}
           >
-            <div className="w-15">{DateFormat({ date: item.publishedAt })}</div>
+            <div className="w-32">
+              {dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm")}
+            </div>
 
             <div className="flex-1">
               <Link

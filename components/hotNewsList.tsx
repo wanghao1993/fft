@@ -7,11 +7,11 @@ import { useLocale, useTranslations } from "next-intl";
 import { Spinner } from "@heroui/spinner";
 
 import Share from "./share";
-import { DateFormat } from "./date.format";
 
 import { News } from "@/types/news";
 import { getQuickNews } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
+import dayjs from "dayjs";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);
@@ -54,7 +54,9 @@ export default function HotNewList() {
             viewport={{ once: true }}
             whileInView={{ opacity: 1, y: 0 }}
           >
-            <div>{DateFormat({ date: item.publishedAt })}</div>
+            <div>
+              {dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm")}
+            </div>
 
             <div>
               <Link
