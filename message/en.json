@@ -12,7 +12,8 @@
         "viewMore": "More >>",
         "loadMore": "Load More",
         "source": "Source",
-        "publishedAt": "Published At"
+        "publishedAt": "Published At",
+        "viewCount": "View Count"
     },
     "Site": {
         "name": "FutureFrontier",

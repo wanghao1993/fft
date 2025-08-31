@@ -3,15 +3,15 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { EmblaCarousel } from "../carousel";
 import NewItem from "../news/newItem";
 
-import { Blog, BlogRes } from "@/types/blog";
 import { Link } from "@/i18n/navigation";
 import { getQuickNews } from "@/service/module/quick_news";
+import { getBlogs } from "@/service/module/carousel";
+import { Article } from "@/types/blog";
 
 async function getOriginContent() {
-  const res = await fetch("https://futurefrontier.ai/api/blog.php");
-  const data = (await res.json()) as BlogRes;
+  const res = await getBlogs();
 
-  return data.items;
+  return res.data;
 }
 
 async function getQuickNewsList(limit: number) {
@@ -38,13 +38,13 @@ export default async function Hero() {
         <div className="py-5 block pr-4 lg:px-0 px-4 h-full">
           <div className="text-2xl font-bold italic">{t("mustread")}</div>
           <div className="font-semibold space-y-4">
-            {list.map((item: Blog, index: number) => {
+            {list.map((item: Article, index: number) => {
               return (
                 <div
-                  key={item.link}
+                  key={item.id}
                   className="line-clamp-1 hover:text-primary-400 hover:underline text-lg"
                 >
-                  <Link href={item.link} target="_blank">
+                  <Link href={`/blogs/${item.id}`} target="_blank">
                     {index + 1}. {item.title}
                   </Link>
                 </div>

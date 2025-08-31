@@ -1,0 +1,147 @@
+#article-content {
+  max-width: 100%;
+  line-height: 1.8;
+  color: inherit;
+}
+
+#article-content h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 1.5em 0 0.5em 0;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #eaecef;
+}
+
+#article-content h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 1.2em 0 0.5em 0;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+#article-content h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+}
+
+#article-content h4 {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.8em 0 0.4em 0;
+}
+
+#article-content h5 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0.6em 0 0.3em 0;
+}
+
+#article-content h6 {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0.5em 0 0.25em 0;
+}
+
+#article-content p {
+  text-indent: 2em;
+  margin: 0.8em 0;
+  line-height: 1.8;
+}
+
+#article-content ul,
+#article-content ol {
+  margin: 0.8em 0;
+  padding-left: 2em;
+}
+
+#article-content li {
+  margin: 0.3em 0;
+  line-height: 1.6;
+}
+
+#article-content blockquote {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid #42b883;
+  background-color: #f8f9fa;
+  font-style: italic;
+}
+
+#article-content code {
+  background-color: #f1f3f4;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+#article-content pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+#article-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+#article-content strong {
+  font-weight: bold;
+}
+
+#article-content em {
+  font-style: italic;
+}
+
+#article-content a {
+  color: #42b883;
+  text-decoration: none;
+}
+
+#article-content a:hover {
+  text-decoration: underline;
+}
+
+#article-content hr {
+  border: none;
+  border-top: 1px solid #eaecef;
+  margin: 2em 0;
+}
+
+#article-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+#article-content th,
+#article-content td {
+  border: 1px solid #dfe2e5;
+  padding: 0.5em;
+  text-align: left;
+}
+
+#article-content th {
+  background-color: #f6f8fa;
+  font-weight: bold;
+}
+
+#article-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em auto;
+  display: block;
+}
+
+#article-content img:first-child {
+  width: 60%;
+  height: auto;
+  margin: 20px auto;
+}

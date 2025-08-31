@@ -9,15 +9,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Spinner } from "@heroui/spinner";
 
-import { getCarousel } from "@/service/module/carousel";
-import { Blog } from "@/types/blog";
+import { getBlogs } from "@/service/module/carousel";
+import { Article } from "@/types/blog";
 
 export function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
     },
-    [Autoplay({ delay: 10000 })],
+    [Autoplay({ delay: 10000 })]
   );
 
   const scrollPrev = useCallback(() => {
@@ -28,23 +28,15 @@ export function EmblaCarousel() {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  // 动态获取轮播图数据
-  type Article = Blog & {
-    url: string;
-  };
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getCarousel()
+    getBlogs()
       .then((res) => {
-        setArticles(
-          res.items.map((item) => ({
-            ...item,
-            url: `https://blog.futurefrontier.ai/usr/uploads/2025/08/1577850860.png`,
-          })),
-        );
+        setArticles(res.data || []);
+        console.log(articles, "articles");
       })
       .finally(() => {
         setLoading(false);
@@ -66,14 +58,14 @@ export function EmblaCarousel() {
           >
             <Link
               className="block w-full h-full"
-              href={item.link}
+              href={`/blogs/${item.id}`}
               target="_blank"
             >
               <Image
                 fill
                 alt={item.title}
                 priority={index === 0}
-                src={item.url}
+                src={item.cover}
               />
             </Link>
           </div>

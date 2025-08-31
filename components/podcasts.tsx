@@ -12,17 +12,18 @@ import ViewMore from "./viewMore";
 import { DateFormatFromNow } from "./date.format";
 
 import { Link } from "@/i18n/navigation";
+import { getVideos } from "@/service/module/videos";
 
 dayjs.extend(relativeTime);
 
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
-  const res = await fetch(
-    `http://38.60.91.19:3001/videos?limit=${limit}&language=${locale}&category=podcast`,
-  );
-  const data = (await res.json()) as VideoResponse;
-
-  return data.data;
+  const res = await getVideos({
+    limit: limit,
+    language: locale,
+    category: "podcast",
+  });
+  return res.data;
 }
 export async function PodCasts() {
   const t = await getTranslations("Podcasts");

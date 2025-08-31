@@ -10,20 +10,22 @@ import ViewMore from "./viewMore";
 import { DateFormatFromNow } from "./date.format";
 
 import { Link } from "@/i18n/navigation";
-import { VideoResponse } from "@/types/videos";
-import { httpClient } from "@/service/fetch";
+import { getVideos } from "@/service/module/videos";
 dayjs.extend(relativeTime);
 async function getPoadcasts(limit: number) {
   const locale = await getLocale();
-  const res = await httpClient.get<VideoResponse>(
-    `/videos?limit=${limit}&language=${locale}&category=video`
-  );
+  const res = await getVideos({
+    limit: limit,
+    language: locale,
+    category: "video",
+  });
 
-  return res.data.data;
+  return res.data || [];
 }
 export async function LatestVideos() {
   const t = await getTranslations("Videos");
   const videos = await getPoadcasts(9);
+
   return (
     <section
       className="py-8 bg-default-50 w-full border rounded-2xl"

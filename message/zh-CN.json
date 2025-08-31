@@ -12,7 +12,8 @@
         "viewMore": "更多 >>",
         "loadMore": "加载更多",
         "source": "来源",
-        "publishedAt": "发布时间"
+        "publishedAt": "发布时间",
+        "viewCount": "浏览量"
     },
     "Site": {
         "name": "FutureFrontier",

@@ -1,12 +1,21 @@
-export interface Blog {
+export interface Article {
+  id: string;
+  tag?: any;
   title: string;
-  link: string;
-  summary: string;
+  content: string;
+  cover?: any;
+  viewCount: number;
+  likeCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface BlogRes {
-  title: string;
-  link: string;
-  summary: string;
-  items: Blog[];
+  data: Article[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
 }

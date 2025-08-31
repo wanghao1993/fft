@@ -26,7 +26,6 @@ export class HttpClient {
     this.defaultConfig = {
       headers: {
         "Content-Type": "application/json",
-        Language: isServer ? "en" : localStorage.getItem("lan") || "en",
       },
       timeout: 30000, // 默认30秒超时
       ...config,
@@ -207,7 +206,10 @@ export class HttpClient {
       const processedConfig = await this.processRequestConfig(requestConfig);
 
       // 执行请求
-      const response = await fetch(fullURL, processedConfig);
+      const response = await fetch(fullURL, {
+        ...processedConfig,
+        mode: "cors",
+      });
 
       // 应用响应拦截器
       const processedResponse = await this.processResponse(response);

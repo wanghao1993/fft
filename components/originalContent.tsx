@@ -1,15 +1,16 @@
 import { User, ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-import { BlogRes } from "@/types/blog";
+import { getBlogs } from "@/service/module/carousel";
+import { Link } from "@/i18n/navigation";
 
 async function getOriginContent() {
-  const res = await fetch("https://futurefrontier.ai/api/blog.php");
-  const data = (await res.json()) as BlogRes;
+  const res = await getBlogs();
 
-  return data.items;
+  return res.data;
 }
+
+export const dynamic = "force-dynamic";
 
 export async function OriginalContent() {
   const t = await getTranslations("Deep");
@@ -34,14 +35,14 @@ export async function OriginalContent() {
         <div className="space-y-4">
           {articles.map((article, index) => (
             <div
-              key={article.link}
+              key={article.id}
               className="border-b pb-4 border-dotted space-y-2"
             >
               <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                 {article.title}
               </h3>
 
-              <p className="text-default-500 line-clamp-3">{article.summary}</p>
+              <p className="text-default-500 line-clamp-3">{article.content}</p>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -53,7 +54,7 @@ export async function OriginalContent() {
                   <span className="text-sm text-default-500">2天前</span>
                 </div>
 
-                <Link href={article.link} target="_blank">
+                <Link href={`blog/${article.id}`}>
                   <span className="group/btn flex items-center gap-2 text-primary font-semibold">
                     {t("readAll")}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
