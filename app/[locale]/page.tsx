@@ -15,6 +15,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export const revalidate = 60;
+
 export default async function IndexPage({
   params,
 }: {

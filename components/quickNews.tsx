@@ -15,12 +15,7 @@ import NewItem from "./news/newItem";
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`,
-    {
-      next: {
-        revalidate: 60,
-      },
-    },
+    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`
   );
   const data = (await res.json()) as NewsResponse;
 
