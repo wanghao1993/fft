@@ -6,11 +6,11 @@ import Autoplay from "embla-carousel-autoplay";
 import "../styles/carsousel.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { Spinner } from "@heroui/spinner";
 
 import { getBlogs } from "@/service/module/carousel";
 import { Article } from "@/types/blog";
+import { Link } from "@/i18n/navigation";
 
 export function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -58,7 +58,7 @@ export function EmblaCarousel() {
           >
             <Link
               className="block w-full h-full"
-              href={`/blogs/${item.id}`}
+              href={`blog/${item.id}`}
               target="_blank"
             >
               <Image
