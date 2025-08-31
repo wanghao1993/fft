@@ -2,14 +2,10 @@ import { HttpClient } from "../fetch";
 
 import { BlogRes } from "@/types/blog";
 
-const httpClient = new HttpClient("https://futurefrontier.ai");
+const httpClient = new HttpClient("/php");
 
-const getCarousel = async (limit?: number) => {
-  const res = await httpClient.get<BlogRes>("/api/blog.php", {
-    params: {
-      limit: limit || 3,
-    },
-  });
+const getCarousel = async () => {
+  const res = await httpClient.get<BlogRes>("/api/blog.php");
 
   return res.data;
 };
