@@ -12,14 +12,18 @@ dayjs.extend(relativeTime);
 async function getHotNews() {
   const locale = await getLocale();
   const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=30&language=${locale}&category=hot_news`
+    `http://38.60.91.19:3001/news?limit=30&language=${locale}&category=hot_news`,
+    {
+      next: {
+        revalidate: 60,
+      },
+    }
   );
   const data = (await res.json()) as NewsResponse;
 
   return data.data;
 }
 
-export const revalidate = 60;
 export async function HowNews() {
   const t = await getTranslations("HotNews");
   const newsItems = await getHotNews();
