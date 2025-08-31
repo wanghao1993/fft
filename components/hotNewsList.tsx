@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { Chip } from "@heroui/chip";
 import { useLocale, useTranslations } from "next-intl";
 import { Spinner } from "@heroui/spinner";
+import dayjs from "dayjs";
 
 import Share from "./share";
 
 import { News } from "@/types/news";
 import { getQuickNews } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
-import dayjs from "dayjs";
 
 export default function HotNewList() {
   const [newsItems, setNewsItems] = useState<News[]>([]);

@@ -15,7 +15,7 @@ export default function Share({ data }: { data: News }) {
           isIconOnly
           size="sm"
           variant="light"
-          onPress={(e) => {
+          onPress={() => {
             handleShare(
               "twitter",
               data.title,
@@ -32,7 +32,7 @@ export default function Share({ data }: { data: News }) {
           isIconOnly
           size="sm"
           variant="light"
-          onPress={(e) => {
+          onPress={() => {
             handleShare(
               "telegram",
               data.title,
@@ -49,7 +49,7 @@ export default function Share({ data }: { data: News }) {
           isIconOnly
           size="sm"
           variant="light"
-          onPress={(e) => {
+          onPress={() => {
             getNewsShareImage({ uuid: data.uuid }).then((res) => {
               console.log(res);
             });

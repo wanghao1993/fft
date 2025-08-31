@@ -10,11 +10,9 @@ import { useTranslations } from "next-intl";
 
 export default function SearchDialog({
   isOpen,
-  onOpen,
   onOpenChange,
 }: {
   isOpen: boolean;
-  onOpen: () => void;
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations("SearchDialog");

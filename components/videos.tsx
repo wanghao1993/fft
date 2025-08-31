@@ -18,7 +18,6 @@ import { Link, usePathname } from "@/i18n/navigation";
 dayjs.extend(relativeTime);
 export function Videos() {
   const path = usePathname();
-  const t = useTranslations("Videos");
   const [videos, setVideos] = useState<Video[]>([]);
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState(true);

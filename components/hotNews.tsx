@@ -17,7 +17,7 @@ async function getHotNews() {
       next: {
         revalidate: 60,
       },
-    }
+    },
   );
   const data = (await res.json()) as NewsResponse;
 
