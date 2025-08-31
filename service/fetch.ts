@@ -75,7 +75,7 @@ export class HttpClient {
    * 处理请求配置
    */
   private async processRequestConfig(
-    config: RequestConfig,
+    config: RequestConfig
   ): Promise<RequestConfig> {
     let processedConfig = { ...config };
 
@@ -139,7 +139,7 @@ export class HttpClient {
    */
   private async parseResponse<T>(
     response: Response,
-    responseType?: string,
+    responseType?: string
   ): Promise<T> {
     switch (responseType) {
       case "text":
@@ -215,7 +215,7 @@ export class HttpClient {
       // 检查响应状态
       if (!processedResponse.ok) {
         const error = new Error(
-          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`,
+          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`
         ) as ApiError;
 
         error.status = processedResponse.status;
@@ -226,7 +226,7 @@ export class HttpClient {
       // 解析响应数据
       const responseData = await this.parseResponse<T>(
         processedResponse,
-        requestConfig.responseType,
+        requestConfig.responseType
       );
 
       return {
@@ -259,7 +259,7 @@ export class HttpClient {
    */
   async get<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "GET", url, config });
   }
@@ -270,7 +270,7 @@ export class HttpClient {
   async post<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "POST", url, data, config });
   }
@@ -281,7 +281,7 @@ export class HttpClient {
   async put<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PUT", url, data, config });
   }
@@ -292,7 +292,7 @@ export class HttpClient {
   async patch<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PATCH", url, data, config });
   }
@@ -302,7 +302,7 @@ export class HttpClient {
    */
   async delete<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "DELETE", url, config });
   }
@@ -312,7 +312,7 @@ export class HttpClient {
    */
   async head<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "HEAD", url, config });
   }
@@ -322,7 +322,7 @@ export class HttpClient {
    */
   async options<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "OPTIONS", url, config });
   }
@@ -355,7 +355,7 @@ export class HttpClient {
 /**
  * 创建默认的HTTP客户端实例
  */
-export const httpClient = new HttpClient("/api");
+export const httpClient = new HttpClient(process.env.NEXT_PUBLIC_BASE_URL);
 
 /**
  * 创建带基础URL的HTTP客户端实例

@@ -1,7 +1,5 @@
 import ViewMore from "./viewMore";
 
-import { NewsResponse } from "@/types/news";
-
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -11,15 +9,17 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ScrollShadow } from "@heroui/scroll-shadow";
 
 import NewItem from "./news/newItem";
+import { getQuickNews } from "@/service/module/quick_news";
 
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
-  const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`
-  );
-  const data = (await res.json()) as NewsResponse;
+  const { data } = await getQuickNews({
+    limit: limit,
+    language: locale,
+    category: "quick_news",
+  });
 
-  return data.data;
+  return data;
 }
 
 export async function QuickNews({ limit = 30 }: { limit?: number }) {

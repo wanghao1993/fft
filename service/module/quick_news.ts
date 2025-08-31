@@ -1,6 +1,6 @@
 import { httpClient } from "../fetch";
 
-import { NewsResponse } from "@/types/news";
+import { News, NewsResponse } from "@/types/news";
 
 export const getQuickNews = async (params?: {
   category?: string;
@@ -20,9 +20,15 @@ export const getQuickNews = async (params?: {
   return response.data;
 };
 
+export const getNewsById = async (id: string) => {
+  const response = await httpClient.get<News>(`/news/${id}`, {});
+
+  return response.data;
+};
+
 export const getNewsShareImage = async (params?: { uuid: string }) => {
   const response = await httpClient.get<NewsResponse>(
-    `/news/${params?.uuid}/share`,
+    `/news/${params?.uuid}/share`
   );
 
   return response.data;

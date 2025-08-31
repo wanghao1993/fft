@@ -5,23 +5,25 @@ import NewItem from "../news/newItem";
 
 import { Blog, BlogRes } from "@/types/blog";
 import { Link } from "@/i18n/navigation";
-import { NewsResponse } from "@/types/news";
+import { getQuickNews } from "@/service/module/quick_news";
+import { getCarousel } from "@/service/module/carousel";
 
 async function getOriginContent() {
-  const res = await fetch("https://futurefrontier.ai/api/blog.php");
-  const data = (await res.json()) as BlogRes;
+  const res = await getCarousel();
 
-  return data.items;
+  return res.items;
 }
 
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
-  const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=${limit}&language=${locale}&category=quick_news`
-  );
-  const data = (await res.json()) as NewsResponse;
+  const res = await getQuickNews({
+    limit: limit,
+    language: locale,
+    category: "quick_news",
+  });
+  const data = res.data;
 
-  return data.data;
+  return data;
 }
 
 export default async function Hero() {

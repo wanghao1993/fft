@@ -1,9 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-import { News as NewsType } from "@/types/news";
+import type { News } from "@/types/news";
 import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
+import { httpClient } from "@/service/fetch";
+import { getNewsById } from "@/service/module/quick_news";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -12,7 +14,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
-  const data = await getData(id);
+  const data = await getNewsById(id);
 
   return {
     title: data.title,
@@ -21,14 +23,13 @@ export async function generateMetadata({ params }: Props) {
 }
 
 async function getData(id: string) {
-  return await fetch(`http://38.60.91.19:3001/news/${id}`).then((res) =>
-    res.json(),
-  );
+  const res = await getNewsById(id);
+  return res;
 }
 
 export default async function News({ params }: Props) {
   const { id } = await params;
-  const data: NewsType = await getData(id);
+  const data = await getData(id);
   const t = await getTranslations("Common");
 
   return (

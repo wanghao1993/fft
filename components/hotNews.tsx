@@ -6,17 +6,18 @@ import { ScrollShadow } from "@heroui/scroll-shadow";
 import NewItem from "./news/newItem";
 import ViewMore from "./viewMore";
 
-import { NewsResponse } from "@/types/news";
+import { getQuickNews } from "@/service/module/quick_news";
 dayjs.extend(relativeTime);
 
 async function getHotNews() {
   const locale = await getLocale();
-  const res = await fetch(
-    `http://38.60.91.19:3001/news?limit=30&language=${locale}&category=hot_news`
-  );
-  const data = (await res.json()) as NewsResponse;
+  const res = await getQuickNews({
+    limit: 30,
+    language: locale,
+    category: "hot_news",
+  });
 
-  return data.data;
+  return res.data;
 }
 
 export async function HowNews() {
