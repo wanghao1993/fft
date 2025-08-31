@@ -6,12 +6,12 @@ import NewItem from "../news/newItem";
 import { Blog, BlogRes } from "@/types/blog";
 import { Link } from "@/i18n/navigation";
 import { getQuickNews } from "@/service/module/quick_news";
-import { getCarousel } from "@/service/module/carousel";
 
 async function getOriginContent() {
-  const res = await getCarousel();
+  const res = await fetch("https://futurefrontier.ai/api/blog.php");
+  const data = (await res.json()) as BlogRes;
 
-  return res.items;
+  return data.items;
 }
 
 async function getQuickNewsList(limit: number) {
