@@ -28,9 +28,11 @@ export default async function IndexPage({
   setRequestLocale(locale);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 md:px-6 lg:px-8">
-      <Hero />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <main className="flex flex-col items-center justify-center gap-8 pb-8 md:pb-10 px-4 md:px-6 lg:px-8">
+      <div className="mt-8">
+        <Hero />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <QuickNews />
         <HowNews />
       </div>

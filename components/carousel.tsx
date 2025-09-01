@@ -17,7 +17,7 @@ export function EmblaCarousel() {
     {
       loop: true,
     },
-    [Autoplay({ delay: 10000 })]
+    [Autoplay({ delay: 10000 })],
   );
 
   const scrollPrev = useCallback(() => {

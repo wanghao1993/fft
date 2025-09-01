@@ -32,7 +32,7 @@ export default async function Hero() {
   const t = await getTranslations("QuickNews");
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] my-6 lg:my-10 gap-4 w-full place-items-center lg:place-items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 w-full place-items-center lg:place-items-start">
       <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border rounded-2xl  items-center container overflow-hidden">
         <EmblaCarousel />
         <div className="py-5 block pr-4 lg:px-0 px-4 h-full">

@@ -30,6 +30,7 @@ export default function Editor({
         success(editor, msg) {
           const data = JSON.parse(msg);
           const { url, filename } = data;
+
           vditor?.insertValue(`<img src="${url}" alt="${filename}" />`);
         },
       },

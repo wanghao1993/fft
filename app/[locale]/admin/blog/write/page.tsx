@@ -6,21 +6,20 @@ import { Select, SelectItem } from "@heroui/select";
 import { useEffect, useState } from "react";
 import { Form } from "@heroui/form";
 import { addToast } from "@heroui/toast";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 import Editor from "@/components/editor";
 import { getTags } from "@/service/module/tag";
 import { Tag } from "@/types/tag";
 import { uploadImage } from "@/service/module/file";
-import { createBlog, getBlogById } from "@/service/module/carousel";
+import { createBlog, getBlogById, updateBlog } from "@/service/module/carousel";
 
 export default function WriteArticlePage() {
   const [tags, settags] = useState<Tag[]>([]);
   const params = useSearchParams();
   const id = params.get("id");
-
-  const [cover, setCover] = useState("");
-  const [submitted, setSubmitted] = useState<any>(null);
+  const navigate = useRouter();
 
   const [editorValue, setEditorValue] = useState("");
   const getData = () => {
@@ -29,13 +28,46 @@ export default function WriteArticlePage() {
     });
   };
 
-  const [data, setData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     tag: [],
     cover: "",
-    content: "",
   });
 
+  const blogHandle = async () => {
+    try {
+      setIsLoading(true);
+
+      if (id) {
+        await updateBlog(
+          {
+            title: formData.title,
+            tag: Array.from(formData.tag).join(","),
+            content: editorValue,
+            cover: formData.cover,
+          },
+          id,
+        );
+      } else {
+        await createBlog({
+          title: formData.title,
+          tag: Array.from(formData.tag).join(","),
+          content: editorValue,
+          cover: formData.cover,
+        });
+      }
+
+      navigate.push("/admin/blog/list");
+    } catch {
+      addToast({
+        title: (id ? "更新" : "创建") + "博客失败",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -44,29 +76,31 @@ export default function WriteArticlePage() {
       any
     >;
 
-    setSubmitted(data);
     const file = data.cover;
 
-    try {
-      const res = await uploadImage(file as File);
-      const url = res.url;
+    if (file.name) {
+      try {
+        setIsLoading(true);
+        const res = await uploadImage(file as File);
+        const url = res.url;
 
-      setCover(url);
+        setFormData({
+          ...formData,
+          cover: url,
+        });
 
-      const { title, tag } = data;
-
-      createBlog({
-        title,
-        tag,
-        content: editorValue,
-        cover: url,
-      });
-    } catch (e: any) {
-      addToast({
-        title: "上传文件失败",
-        color: "danger",
-        description: e.message,
-      });
+        blogHandle();
+      } catch (e: any) {
+        addToast({
+          title: "上传文件失败",
+          color: "danger",
+          description: e.message,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      blogHandle();
     }
   };
 
@@ -74,6 +108,11 @@ export default function WriteArticlePage() {
     if (id) {
       getBlogById(id).then((res) => {
         setEditorValue(res.content);
+        setFormData({
+          title: res.title,
+          tag: res.tag?.split(","),
+          cover: res.cover,
+        });
       });
     }
   }, [id]);
@@ -94,35 +133,53 @@ export default function WriteArticlePage() {
               name="title"
               placeholder="请输入标题"
               type="text"
-              value={data.title}
+              value={formData.title}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  title: e.target.value,
+                });
+              }}
             />
 
             <Select
               isRequired
-              multiple
               className="w-full"
               errorMessage="请选择标签"
               label="标签"
               labelPlacement="inside"
               name="tag"
               placeholder="请选择标签"
-              value={data.tag}
+              selectedKeys={formData.tag}
+              selectionMode="multiple"
+              value={formData.tag}
+              onSelectionChange={(v) => {
+                setFormData({
+                  ...formData,
+                  tag: v as any,
+                });
+              }}
             >
               {tags.map((animal) => (
                 <SelectItem key={animal.id}>{animal.name}</SelectItem>
               ))}
             </Select>
 
-            <Input
-              accept="image/*"
-              errorMessage="请上传封面"
-              label="封面"
-              labelPlacement="inside"
-              name="cover"
-              placeholder="请上传封面"
-              type="file"
-            />
-            <Button color="primary" type="submit">
+            <div>
+              <Input
+                accept="image/*"
+                errorMessage="请上传封面"
+                label="封面"
+                labelPlacement="inside"
+                name="cover"
+                placeholder="请上传封面"
+                type="file"
+              />
+              {formData.cover && (
+                <Image alt="" height={200} src={formData.cover} width={400} />
+              )}
+            </div>
+            <Button color="primary" isLoading={isLoading} type="submit">
               {id ? "更新" : "发布"}
             </Button>
           </div>

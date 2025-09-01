@@ -23,11 +23,29 @@ const createBlog = async (
   data: Omit<
     Article,
     "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
-  >
+  >,
 ) => {
   const res = await httpClient.post<Article>(`/blogs`, data);
 
   return res.data;
 };
 
-export { getBlogs, getBlogById, createBlog };
+const updateBlog = async (
+  data: Omit<
+    Article,
+    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
+  >,
+  id: string,
+) => {
+  const res = await httpClient.patch<Article>(`/blogs/${id}`, data);
+
+  return res.data;
+};
+
+const deleteBlog = async (id: string) => {
+  const res = await httpClient.delete<Article>(`/blogs/${id}`);
+
+  return res.data;
+};
+
+export { getBlogs, getBlogById, createBlog, updateBlog, deleteBlog };

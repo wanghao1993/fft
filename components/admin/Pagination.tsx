@@ -8,6 +8,7 @@ interface PaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
   hasNext: boolean;
+  total: number;
   hasPrev: boolean;
 }
 
@@ -16,6 +17,7 @@ export default function Pagination({
   totalPages,
   onPageChange,
   hasNext,
+  total,
   hasPrev,
 }: PaginationProps) {
   const getPageNumbers = () => {
@@ -91,7 +93,7 @@ export default function Pagination({
       </div>
 
       <div className="text-sm text-gray-600">
-        第 {currentPage} 页，共 {totalPages} 页
+        第 {currentPage} 页，共 {totalPages} 页，共{total}项
       </div>
     </div>
   );

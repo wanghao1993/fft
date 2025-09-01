@@ -10,11 +10,9 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
 
-export async function DateFormatFromNow(date: number) {
-  const locale = await getLocale();
-
+export function DateFormatFromNow(date: number, locale?: string) {
   return dayjs(date * 1000)
-    .locale(locale)
+    .locale(locale || "zh-cn")
     .tz("Asia/Shanghai")
     .fromNow();
 }

@@ -2,30 +2,32 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig = {
-  // Add any other Next.js configurations here
-  rewrites: async () => {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://38.60.91.19:3001/:path*",
-      },
-      {
-        source: "/php/:path*",
-        destination: "https://www.futurefrontier.ai/:path*",
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*",
+        hostname: "i.ytimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i9.ytimg.com",
+      },
+      {
+        protocol: "http",
+        hostname: "38.60.91.19",
+      },
+      {
+        protocol: "https",
+        hostname: "38.60.91.19",
+      },
+      {
+        protocol: "https",
+        hostname: "blog.futurefrontier.ai",
       },
       {
         protocol: "http",
         hostname: "*",
       },
- 
     ],
   },
 };

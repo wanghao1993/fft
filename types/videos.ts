@@ -13,6 +13,7 @@ export interface Video {
   publishedAt: number;
   createdAt: string;
   updatedAt: string;
+  time: string;
 }
 
 export interface Meta {

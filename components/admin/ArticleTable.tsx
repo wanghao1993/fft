@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -9,18 +8,10 @@ import {
   TableRow,
   TableCell,
 } from "@heroui/table";
-import { Button } from "@heroui/button";
-import { Switch } from "@heroui/switch";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@heroui/dropdown";
-import { Tooltip } from "@heroui/tooltip";
 import { Spinner } from "@heroui/spinner";
-import { Edit, MoreVertical, Trash2, Plus } from "lucide-react";
 import dayjs from "dayjs";
+import { Button } from "@heroui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
 
 import { Article } from "@/types/blog";
 import { Link } from "@/i18n/navigation";
@@ -28,40 +19,16 @@ import { Link } from "@/i18n/navigation";
 interface ArticleTableProps {
   articles: Article[];
   isLoading: boolean;
-  onDelete: (id: string) => void;
-  onToggleStatus: (id: string, isActive: boolean) => void;
-  onAdd: () => void;
+  onDelete: (id: string) => Promise<void>;
 }
 
 export default function ArticleTable({
   articles = [],
   isLoading,
   onDelete,
-  onToggleStatus,
-  onAdd,
 }: ArticleTableProps) {
-  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
-    {}
-  );
-
-  const handleToggleStatus = async (id: string, isActive: boolean) => {
-    setLoadingStates((prev) => ({ ...prev, [id]: true }));
-    try {
-      await onToggleStatus(id, isActive);
-    } finally {
-      setLoadingStates((prev) => ({ ...prev, [id]: false }));
-    }
-  };
-
   const handleDelete = async (id: string) => {
-    if (confirm("确定要删除这个标签吗？")) {
-      setLoadingStates((prev) => ({ ...prev, [id]: true }));
-      try {
-        await onDelete(id);
-      } finally {
-        setLoadingStates((prev) => ({ ...prev, [id]: false }));
-      }
-    }
+    await onDelete(id);
   };
 
   if (isLoading) {
@@ -76,7 +43,9 @@ export default function ArticleTable({
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">文章管理</h2>
-        <Link href={"write"}>新增文章</Link>
+        <Link href={"write"}>
+          <Button color="primary">新增文章</Button>
+        </Link>
       </div>
 
       <Table aria-label="标签列表">
@@ -85,6 +54,7 @@ export default function ArticleTable({
           <TableColumn>创建时间</TableColumn>
           <TableColumn>更新时间</TableColumn>
           <TableColumn>阅读量</TableColumn>
+          <TableColumn>操作</TableColumn>
         </TableHeader>
         <TableBody>
           {articles.length === 0 ? (
@@ -109,38 +79,29 @@ export default function ArticleTable({
                   {dayjs(article.updatedAt).format("YYYY-MM-DD HH:mm")}
                 </TableCell>
                 <TableCell>{article.viewCount}</TableCell>
-                {/* <TableCell>
+                <TableCell>
                   <div className="flex items-center space-x-2">
-                    <Tooltip content="编辑">
-                      <Button
-                        isIconOnly
-                        size="sm"
-                        variant="light"
-                        onPress={() => onEdit(article)}
-                      >
-                        <Edit size={16} />
-                      </Button>
-                    </Tooltip>
-
-                    <Dropdown>
-                      <DropdownTrigger>
-                        <Button isIconOnly size="sm" variant="light">
-                          <MoreVertical size={16} />
-                        </Button>
-                      </DropdownTrigger>
-                      <DropdownMenu>
-                        <DropdownItem
-                          key="delete"
-                          color="danger"
-                          startContent={<Trash2 size={16} />}
-                          onPress={() => handleDelete(article.id)}
-                        >
+                    <Popover color="danger" placement="top">
+                      <PopoverTrigger>
+                        <Button color="danger" size="sm" variant="bordered">
                           删除
-                        </DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
+                        </Button>
+                      </PopoverTrigger>
+
+                      <PopoverContent>
+                        <div>是否确认删除？</div>
+                        <div className="mt-2 flex justify-end">
+                          <Button
+                            size="sm"
+                            onPress={() => handleDelete(article.id)}
+                          >
+                            确认
+                          </Button>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   </div>
-                </TableCell> */}
+                </TableCell>
               </TableRow>
             ))
           )}
