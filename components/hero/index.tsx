@@ -36,8 +36,8 @@ export default async function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border rounded-2xl  items-center container overflow-hidden">
         <EmblaCarousel />
         <div className="py-5 block pr-4 lg:px-0 px-4 h-full">
-          <div className="text-2xl font-bold italic">{t("mustread")}</div>
-          <div className="font-semibold space-y-4">
+          <div className="text-xl font-extrabold italic">{t("mustread")}</div>
+          <div className="font-semibold space-y-4 mt-4">
             {list.map((item: Article, index: number) => {
               return (
                 <div

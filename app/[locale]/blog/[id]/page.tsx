@@ -1,4 +1,5 @@
 import { getBlogById } from "@/service/module/carousel";
+
 import dayjs from "dayjs";
 import { getTranslations } from "next-intl/server";
 import "./style.css";
@@ -24,6 +25,7 @@ const getHtml = async (content: string) => {
 
     // 测试简单的Markdown解析
     const testContent = "# Test\nThis is a **test**.";
+
     console.log("Testing with simple content:", testContent);
 
     const testResult = await unified()
@@ -46,6 +48,7 @@ const getHtml = async (content: string) => {
       .process(processedContent);
 
     const html = result.toString();
+
     console.log("Parsed HTML length:", html.length);
     console.log("Parsed HTML preview:", html.substring(0, 300));
 
@@ -57,6 +60,7 @@ const getHtml = async (content: string) => {
       stack: error.stack,
       name: error.name,
     });
+
     // 如果解析失败，返回原始内容作为fallback
     return content;
   }
@@ -71,23 +75,27 @@ export default async function BlogPage({
   const t = await getTranslations("Common");
   const data = await getBlogById(id);
   const content = await getHtml(data.content);
-  console.log(content, "content");
+
   return (
-    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
-      <h1 className="font-bold text-2xl lg:text-3xl">{data.title} </h1>
-      <div className="flex items-center gap-5">
-        <div>{data.tag}</div>
-        <div>
-          {" "}
-          {t("publishedAt")}: {dayjs(data.createdAt).format("YYYY-MM-DD HH:mm")}
+    <main className="flex flex-col gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
+      <div className="container">
+        <h1 className="font-bold text-2xl lg:text-3xl text-center">
+          {data.title}{" "}
+        </h1>
+        <div className="flex justify-center items-center gap-5">
+          {/* <div>{data.tag}</div> */}
+          <div>
+            {t("publishedAt")}:{" "}
+            {dayjs(data.createdAt).format("YYYY-MM-DD HH:mm")}
+          </div>
+          <div>
+            {t("viewCount")}: {data.viewCount}
+          </div>
         </div>
-        <div>
-          {t("viewCount")}: {data.viewCount}
-        </div>
+        <article className="text-foreground/80 leading-7" id="article-content">
+          <div dangerouslySetInnerHTML={{ __html: content }} />
+        </article>
       </div>
-      <article id="article-content" className="text-foreground/80 leading-7">
-        <div dangerouslySetInnerHTML={{ __html: content }}></div>
-      </article>
     </main>
   );
 }

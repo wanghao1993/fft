@@ -9,6 +9,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ScrollShadow } from "@heroui/scroll-shadow";
 
 import NewItem from "./news/newItem";
+
 import { getQuickNews } from "@/service/module/quick_news";
 
 async function getQuickNewsList(limit: number) {

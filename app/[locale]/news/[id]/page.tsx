@@ -1,10 +1,10 @@
+import type { News } from "@/types/news";
+
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-import type { News } from "@/types/news";
 import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
-import { httpClient } from "@/service/fetch";
 import { getNewsById } from "@/service/module/quick_news";
 
 type Props = {
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props) {
 
 async function getData(id: string) {
   const res = await getNewsById(id);
+
   return res;
 }
 
@@ -33,7 +34,7 @@ export default async function News({ params }: Props) {
   const t = await getTranslations("Common");
 
   return (
-    <div className="container mx-auto mt-10">
+    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
       <h1 className="text-2xl font-bold">{data.title}</h1>
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
@@ -52,6 +53,6 @@ export default async function News({ params }: Props) {
         </Link>
         <Share data={data} />
       </div>
-    </div>
+    </main>
   );
 }

@@ -36,7 +36,6 @@ export function EmblaCarousel() {
     getBlogs()
       .then((res) => {
         setArticles(res.data || []);
-        console.log(articles, "articles");
       })
       .finally(() => {
         setLoading(false);

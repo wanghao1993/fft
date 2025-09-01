@@ -106,7 +106,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary font-semibold"
+                  "data-[active=true]:text-primary font-semibold",
                 )}
                 color="foreground"
                 href={item.href}

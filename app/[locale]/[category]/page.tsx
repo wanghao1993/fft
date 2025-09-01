@@ -14,10 +14,10 @@ export default function SubPage() {
   const path = usePathname();
 
   return (
-    <div className="mt-20">
+    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
       {path === "/quick-news" && <QuickNewsList />}
       {path === "/hot-news" && <HotNewList />}
       {(path === "/podcasts" || path === "/videos") && <Videos />}
-    </div>
+    </main>
   );
 }

@@ -15,7 +15,19 @@ const getBlogs = async (params?: { limit?: number; page?: number }) => {
 
 const getBlogById = async (id: string) => {
   const res = await httpClient.get<Article>(`/blogs/${id}`);
+
   return res.data;
 };
 
-export { getBlogs, getBlogById };
+const createBlog = async (
+  data: Omit<
+    Article,
+    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
+  >
+) => {
+  const res = await httpClient.post<Article>(`/blogs`, data);
+
+  return res.data;
+};
+
+export { getBlogs, getBlogById, createBlog };

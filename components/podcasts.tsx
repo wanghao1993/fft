@@ -1,5 +1,3 @@
-import type { VideoResponse } from "@/types/videos";
-
 import { Card, CardBody } from "@heroui/card";
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
@@ -23,6 +21,7 @@ async function getPoadcasts(limit: number) {
     language: locale,
     category: "podcast",
   });
+
   return res.data;
 }
 export async function PodCasts() {

@@ -205,6 +205,7 @@ export class HttpClient {
       // 应用请求拦截器
       const processedConfig = await this.processRequestConfig(requestConfig);
 
+      console.log(processedConfig, "config");
       // 执行请求
       const response = await fetch(fullURL, {
         ...processedConfig,

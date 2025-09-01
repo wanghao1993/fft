@@ -1,7 +1,5 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
-
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -13,6 +11,7 @@ import { Skeleton } from "@heroui/skeleton";
 dayjs.extend(relativeTime);
 import Share from "./share";
 
+import { Link, usePathname } from "@/i18n/navigation";
 import { getQuickNews } from "@/service/module/quick_news";
 import { News } from "@/types/news";
 

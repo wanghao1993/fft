@@ -27,9 +27,9 @@ export const getNewsById = async (id: string) => {
 };
 
 export const getNewsShareImage = async (params?: { uuid: string }) => {
-  const response = await httpClient.get<NewsResponse>(
-    `/news/${params?.uuid}/share`
-  );
+  const response = await httpClient.get<Blob>(`/news/${params?.uuid}/share`, {
+    responseType: "blob",
+  });
 
   return response.data;
 };
