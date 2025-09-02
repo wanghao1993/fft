@@ -14,6 +14,7 @@ import { getTags } from "@/service/module/tag";
 import { Tag } from "@/types/tag";
 import { uploadImage } from "@/service/module/file";
 import { createBlog, getBlogById, updateBlog } from "@/service/module/carousel";
+import AuthWrapper from "@/components/admin/AuthWrapper";
 
 export default function WriteArticlePage() {
   const [tags, settags] = useState<Tag[]>([]);
@@ -46,7 +47,7 @@ export default function WriteArticlePage() {
             content: editorValue,
             cover: formData.cover,
           },
-          id,
+          id
         );
       } else {
         await createBlog({
@@ -121,71 +122,73 @@ export default function WriteArticlePage() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
-      <div className="container">
-        <Form className="gap-4 w-full" onSubmit={onSubmit}>
-          <div className="w-full grid grid-cols-2 gap-4">
-            <Input
-              isRequired
-              errorMessage="标题不能为空"
-              label="标题"
-              labelPlacement="inside"
-              name="title"
-              placeholder="请输入标题"
-              type="text"
-              value={formData.title}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  title: e.target.value,
-                });
-              }}
-            />
-
-            <Select
-              isRequired
-              className="w-full"
-              errorMessage="请选择标签"
-              label="标签"
-              labelPlacement="inside"
-              name="tag"
-              placeholder="请选择标签"
-              selectedKeys={formData.tag}
-              selectionMode="multiple"
-              value={formData.tag}
-              onSelectionChange={(v) => {
-                setFormData({
-                  ...formData,
-                  tag: v as any,
-                });
-              }}
-            >
-              {tags.map((animal) => (
-                <SelectItem key={animal.id}>{animal.name}</SelectItem>
-              ))}
-            </Select>
-
-            <div>
+    <AuthWrapper>
+      <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
+        <div className="container">
+          <Form className="gap-4 w-full" onSubmit={onSubmit}>
+            <div className="w-full grid grid-cols-2 gap-4">
               <Input
-                accept="image/*"
-                errorMessage="请上传封面"
-                label="封面"
+                isRequired
+                errorMessage="标题不能为空"
+                label="标题"
                 labelPlacement="inside"
-                name="cover"
-                placeholder="请上传封面"
-                type="file"
+                name="title"
+                placeholder="请输入标题"
+                type="text"
+                value={formData.title}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    title: e.target.value,
+                  });
+                }}
               />
-              {formData.cover && (
-                <Image alt="" height={200} src={formData.cover} width={400} />
-              )}
+
+              <Select
+                isRequired
+                className="w-full"
+                errorMessage="请选择标签"
+                label="标签"
+                labelPlacement="inside"
+                name="tag"
+                placeholder="请选择标签"
+                selectedKeys={formData.tag}
+                selectionMode="multiple"
+                value={formData.tag}
+                onSelectionChange={(v) => {
+                  setFormData({
+                    ...formData,
+                    tag: v as any,
+                  });
+                }}
+              >
+                {tags.map((animal) => (
+                  <SelectItem key={animal.id}>{animal.name}</SelectItem>
+                ))}
+              </Select>
+
+              <div>
+                <Input
+                  accept="image/*"
+                  errorMessage="请上传封面"
+                  label="封面"
+                  labelPlacement="inside"
+                  name="cover"
+                  placeholder="请上传封面"
+                  type="file"
+                />
+                {formData.cover && (
+                  <Image alt="" height={200} src={formData.cover} width={400} />
+                )}
+              </div>
+              <Button color="primary" isLoading={isLoading} type="submit">
+                {id ? "更新" : "发布"}
+              </Button>
             </div>
-            <Button color="primary" isLoading={isLoading} type="submit">
-              {id ? "更新" : "发布"}
-            </Button>
-          </div>
-        </Form>
-        <Editor value={editorValue} onChange={setEditorValue} />
-      </div>
-    </main>
+          </Form>
+          <Editor value={editorValue} onChange={setEditorValue} />
+        </div>
+      </main>
+    </AuthWrapper>
   );
 }

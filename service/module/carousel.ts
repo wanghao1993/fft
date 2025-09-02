@@ -23,7 +23,7 @@ const createBlog = async (
   data: Omit<
     Article,
     "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
-  >,
+  >
 ) => {
   const res = await httpClient.post<Article>(`/blogs`, data);
 
@@ -35,7 +35,7 @@ const updateBlog = async (
     Article,
     "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
   >,
-  id: string,
+  id: string
 ) => {
   const res = await httpClient.patch<Article>(`/blogs/${id}`, data);
 
@@ -48,4 +48,17 @@ const deleteBlog = async (id: string) => {
   return res.data;
 };
 
-export { getBlogs, getBlogById, createBlog, updateBlog, deleteBlog };
+const addViewCount = async (id: string) => {
+  const res = await httpClient.post<Article>(`/blogs/${id}/view`);
+
+  return res.data;
+};
+
+export {
+  getBlogs,
+  getBlogById,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+  addViewCount,
+};

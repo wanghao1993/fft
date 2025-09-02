@@ -1,5 +1,8 @@
 import { User, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
+
+import { DateFormatFromNow } from "./date.format";
 
 import { getBlogs } from "@/service/module/carousel";
 import { Link } from "@/i18n/navigation";
@@ -14,6 +17,8 @@ export const dynamic = "force-dynamic";
 
 export async function OriginalContent() {
   const t = await getTranslations("Deep");
+
+  const locale = await getLocale();
 
   const articles = await getOriginContent();
 
@@ -42,7 +47,9 @@ export async function OriginalContent() {
                 {article.title}
               </h3>
 
-              <p className="text-default-500 line-clamp-3">{article.content}</p>
+              <p className="text-default-500 line-clamp-3">
+                {article.content.replaceAll("#", "")}
+              </p>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -51,7 +58,9 @@ export async function OriginalContent() {
                     <span>Future Frontier</span>
                   </div>
                   <span className="text-default-500">·</span>
-                  <span className="text-sm text-default-500">2天前</span>
+                  <span className="text-sm text-default-500">
+                    {DateFormatFromNow(+article.createdAt / 1000, locale)}
+                  </span>
                 </div>
 
                 <Link href={`blog/${article.id}`}>

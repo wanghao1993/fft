@@ -7,6 +7,7 @@ import { Toast } from "@/components/ui/Toast";
 import { deleteBlog, getBlogs } from "@/service/module/carousel";
 import { Article, BlogRes } from "@/types/blog";
 import Pagination from "@/components/admin/Pagination";
+import AuthWrapper from "@/components/admin/AuthWrapper";
 
 export default function BlogList() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -51,27 +52,29 @@ export default function BlogList() {
   }, []);
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <ArticleTable
-        articles={articles}
-        isLoading={isLoading}
-        onDelete={onDelete}
-      />
-      <Pagination
-        currentPage={pagi?.page || 0}
-        hasNext={pagi?.hasNext || false}
-        hasPrev={pagi?.hasPrev || false}
-        total={pagi?.total || 0}
-        totalPages={pagi?.totalPages || 0}
-        onPageChange={(page) => {
-          setCurrentPage(page);
-        }}
-      />
+    <AuthWrapper>
+      <div className="container mx-auto py-8 px-4">
+        <ArticleTable
+          articles={articles}
+          isLoading={isLoading}
+          onDelete={onDelete}
+        />
+        <Pagination
+          currentPage={pagi?.page || 0}
+          hasNext={pagi?.hasNext || false}
+          hasPrev={pagi?.hasPrev || false}
+          total={pagi?.total || 0}
+          totalPages={pagi?.totalPages || 0}
+          onPageChange={(page) => {
+            setCurrentPage(page);
+          }}
+        />
 
-      {/* Toast 通知 */}
-      {toasts.map((toastItem) => (
-        <Toast key={toastItem.id} {...toastItem} />
-      ))}
-    </div>
+        {/* Toast 通知 */}
+        {toasts.map((toastItem) => (
+          <Toast key={toastItem.id} {...toastItem} />
+        ))}
+      </div>
+    </AuthWrapper>
   );
 }

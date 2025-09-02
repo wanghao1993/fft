@@ -5,6 +5,7 @@ import {
   Interceptor,
   RequestOptions,
 } from "../types";
+import { getTokenFromCookies } from "../utils/auth";
 
 /**
  * 检查是否在服务端环境
@@ -26,10 +27,24 @@ export class HttpClient {
     this.defaultConfig = {
       headers: {
         "Content-Type": "application/json",
+        ...this.getAuthHeaders(),
       },
       timeout: 30000, // 默认30秒超时
       ...config,
     };
+  }
+
+  /**
+   * 获取认证头信息
+   */
+  private getAuthHeaders(): Record<string, string> {
+    const token = getTokenFromCookies();
+    if (token) {
+      return {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+    return {};
   }
 
   /**
@@ -74,7 +89,7 @@ export class HttpClient {
    * 处理请求配置
    */
   private async processRequestConfig(
-    config: RequestConfig,
+    config: RequestConfig
   ): Promise<RequestConfig> {
     let processedConfig = { ...config };
 
@@ -138,7 +153,7 @@ export class HttpClient {
    */
   private async parseResponse<T>(
     response: Response,
-    responseType?: string,
+    responseType?: string
   ): Promise<T> {
     switch (responseType) {
       case "text":
@@ -166,6 +181,11 @@ export class HttpClient {
       ...this.defaultConfig,
       ...config,
       method,
+      headers: {
+        ...this.defaultConfig.headers,
+        ...this.getAuthHeaders(),
+        ...config.headers,
+      },
     };
 
     // 处理请求体
@@ -217,7 +237,7 @@ export class HttpClient {
       // 检查响应状态
       if (!processedResponse.ok) {
         const error = new Error(
-          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`,
+          `HTTP ${processedResponse.status}: ${processedResponse.statusText}`
         ) as ApiError;
 
         error.status = processedResponse.status;
@@ -228,7 +248,7 @@ export class HttpClient {
       // 解析响应数据
       const responseData = await this.parseResponse<T>(
         processedResponse,
-        requestConfig.responseType,
+        requestConfig.responseType
       );
 
       return {
@@ -261,7 +281,7 @@ export class HttpClient {
    */
   async get<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "GET", url, config });
   }
@@ -272,7 +292,7 @@ export class HttpClient {
   async post<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "POST", url, data, config });
   }
@@ -283,7 +303,7 @@ export class HttpClient {
   async put<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PUT", url, data, config });
   }
@@ -294,7 +314,7 @@ export class HttpClient {
   async patch<T = any>(
     url: string,
     data?: any,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "PATCH", url, data, config });
   }
@@ -304,7 +324,7 @@ export class HttpClient {
    */
   async delete<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "DELETE", url, config });
   }
@@ -314,7 +334,7 @@ export class HttpClient {
    */
   async head<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "HEAD", url, config });
   }
@@ -324,7 +344,7 @@ export class HttpClient {
    */
   async options<T = any>(
     url: string,
-    config?: Omit<RequestConfig, "method">,
+    config?: Omit<RequestConfig, "method">
   ): Promise<ResponseData<T>> {
     return this.request<T>({ method: "OPTIONS", url, config });
   }
@@ -344,6 +364,16 @@ export class HttpClient {
    */
   setDefaultConfig(config: Partial<RequestConfig>): void {
     this.defaultConfig = { ...this.defaultConfig, ...config };
+  }
+
+  /**
+   * 刷新认证头信息
+   */
+  refreshAuthHeaders(): void {
+    this.defaultConfig.headers = {
+      ...this.defaultConfig.headers,
+      ...this.getAuthHeaders(),
+    };
   }
 
   /**

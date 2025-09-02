@@ -44,7 +44,7 @@ export default async function Hero() {
                   key={item.id}
                   className="line-clamp-1 hover:text-primary-400 hover:underline text-lg"
                 >
-                  <Link href={`blog/${item.id}`} target="_blank">
+                  <Link href={`blog/${item.id}`}>
                     {index + 1}. {item.title}
                   </Link>
                 </div>

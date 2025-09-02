@@ -14,6 +14,7 @@ import {
 } from "@/service/module/tag";
 import { Tag, TagFormData } from "@/types/tag";
 import { Toast } from "@/components/ui/Toast";
+import AuthWrapper from "@/components/admin/AuthWrapper";
 
 export default function AdminTagPage() {
   const [tags, setTags] = useState<Tag[]>([]);
@@ -130,28 +131,30 @@ export default function AdminTagPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <TagTable
-        isLoading={isLoading}
-        tags={tags}
-        onAdd={handleAdd}
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-        onToggleStatus={handleToggleStatus}
-      />
+    <AuthWrapper>
+      <div className="container mx-auto py-8 px-4">
+        <TagTable
+          isLoading={isLoading}
+          tags={tags}
+          onAdd={handleAdd}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          onToggleStatus={handleToggleStatus}
+        />
 
-      <TagForm
-        isLoading={isSubmitting}
-        isOpen={isFormOpen}
-        tag={editingTag}
-        onClose={() => setIsFormOpen(false)}
-        onSubmit={handleFormSubmit}
-      />
+        <TagForm
+          isLoading={isSubmitting}
+          isOpen={isFormOpen}
+          tag={editingTag}
+          onClose={() => setIsFormOpen(false)}
+          onSubmit={handleFormSubmit}
+        />
 
-      {/* Toast 通知 */}
-      {toasts.map((toastItem) => (
-        <Toast key={toastItem.id} {...toastItem} />
-      ))}
-    </div>
+        {/* Toast 通知 */}
+        {toasts.map((toastItem) => (
+          <Toast key={toastItem.id} {...toastItem} />
+        ))}
+      </div>
+    </AuthWrapper>
   );
 }
