@@ -44,7 +44,7 @@ export function VideoItem({ video, locale }: { video: Video; locale: string }) {
           </Chip>
         </div>
 
-        <CardBody className="p-4">
+        <CardBody className="p-4 h-24 flex flex-col justify-between">
           <h3 className="font-medium text-sm text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
             {video.title}
           </h3>

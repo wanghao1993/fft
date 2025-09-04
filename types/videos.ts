@@ -10,7 +10,7 @@ export interface Video {
   language: string;
   tags?: any;
   category: string;
-  publishedAt: number;
+  publishedAt: string;
   createdAt: string;
   updatedAt: string;
   time: string;
