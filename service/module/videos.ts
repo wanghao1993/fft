@@ -19,3 +19,9 @@ export const getVideos = async (params?: {
 
   return response.data;
 };
+
+export const deleteVideo = async (id: string) => {
+  const response = await httpClient.delete(`/videos/${id}`);
+
+  return response.data;
+};

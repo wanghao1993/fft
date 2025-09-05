@@ -1,6 +1,5 @@
 export interface Video {
-  uuid?: string;
-  id?: any;
+  uuid: string;
   source: string;
   title: string;
   videoId: string;
@@ -17,7 +16,7 @@ export interface Video {
 }
 
 export interface Meta {
-  page: string;
+  page: number;
   limit: string;
   total: number;
   totalPages: number;
