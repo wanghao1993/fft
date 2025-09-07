@@ -34,6 +34,7 @@ export default function QuickNewsList() {
       setLoading(true);
       getQuickNews({
         category: "quick_news",
+        language: locale,
         page: page,
         limit: 20,
       })

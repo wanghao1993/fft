@@ -21,19 +21,19 @@ import { Toast } from "@/components/ui/Toast";
 import Pagination from "@/components/admin/Pagination";
 import AuthWrapper from "@/components/admin/AuthWrapper";
 import {
-  deleteVideo,
-  getVideos,
-  updateVideoById,
-} from "@/service/module/videos";
-import { Video, VideoResponse } from "@/types/videos";
+  deleteById,
+  getQuickNews,
+  updateNewsById,
+} from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
+import { News, NewsResponse } from "@/types/news";
 
-export default function AdminVideoPage() {
-  const [videos, setVideos] = useState<VideoResponse["data"]>([]);
+export default function AdminNewsPage() {
+  const [news, setNews] = useState<NewsResponse["data"]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const { toast, toasts } = useToast();
-  const [pagi, setPagi] = useState<VideoResponse["meta"]>();
+  const [pagi, setPagi] = useState<NewsResponse["meta"]>();
   const [currentPage, setCurrentPage] = useState(1);
 
   const columns = [
@@ -52,11 +52,7 @@ export default function AdminVideoPage() {
       label: "来源",
       with: 100,
     },
-    {
-      key: "channel",
-      label: "频道",
-      with: 200,
-    },
+
     {
       key: "category",
       label: "分类",
@@ -67,11 +63,7 @@ export default function AdminVideoPage() {
       label: "语言",
       with: 100,
     },
-    {
-      key: "time",
-      label: "时长",
-      with: 60,
-    },
+
     {
       key: "publishedAt",
       label: "发布时间",
@@ -83,10 +75,16 @@ export default function AdminVideoPage() {
       with: 100,
     },
   ];
+  const onFixTop = async (id: string, value: boolean) => {
+    await updateNewsById(id, {
+      fixTop: value,
+    });
+    getList();
+  };
 
-  const renderCell = useCallback((item: Video, columnKey: string | number) => {
+  const renderCell = useCallback((item: News, columnKey: string | number) => {
     if (columnKey === "publishedAt") {
-      return dayjs(item.publishedAt).format("YYYY-MM-DD HH:mm");
+      return dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm");
     } else if (columnKey === "fix_top") {
       return (
         <Switch
@@ -117,7 +115,7 @@ export default function AdminVideoPage() {
   const getList = async () => {
     setIsLoading(true);
     try {
-      const response = await getVideos({
+      const response = await getQuickNews({
         limit: 20,
         page: currentPage,
         ...formData,
@@ -125,11 +123,11 @@ export default function AdminVideoPage() {
 
       setPagi(response.meta);
 
-      setVideos(response.data);
+      setNews(response.data);
     } catch (error: any) {
       toast.error({
         title: "错误",
-        description: "加载视频列表失敗",
+        description: "加载新闻列表失敗",
       });
     } finally {
       setIsLoading(false);
@@ -141,14 +139,7 @@ export default function AdminVideoPage() {
   }, [currentPage]);
 
   const onDelete = async (id: string) => {
-    await deleteVideo(id);
-    getList();
-  };
-
-  const onFixTop = async (id: string, value: boolean) => {
-    await updateVideoById(id, {
-      fixTop: value,
-    });
+    await deleteById(id);
     getList();
   };
 
@@ -168,7 +159,7 @@ export default function AdminVideoPage() {
 
   return (
     <AuthWrapper>
-      <h2 className="font-bold text-2xl mb-4">视频管理</h2>
+      <h2 className="font-bold text-2xl mb-4">新闻管理</h2>
       <div className="container mx-auto px-4">
         <div className="flex gap-4 mb-4">
           <Input
@@ -219,8 +210,8 @@ export default function AdminVideoPage() {
               } as any);
             }}
           >
-            <SelectItem key="video">视频</SelectItem>
-            <SelectItem key="podcast">播客</SelectItem>
+            <SelectItem key="quick_news">快讯</SelectItem>
+            <SelectItem key="hot_news">热点新闻</SelectItem>
           </Select>
 
           <Button onPress={handleSearch}>搜索</Button>
@@ -238,7 +229,7 @@ export default function AdminVideoPage() {
             )}
           </TableHeader>
           <TableBody
-            items={videos || []}
+            items={news || []}
             loadingContent={<Spinner color="primary" size="lg" />}
             loadingState={isLoading ? "loading" : undefined}
           >
@@ -252,13 +243,12 @@ export default function AdminVideoPage() {
           </TableBody>
         </Table>
         <Pagination
-          currentPage={pagi?.page || 1}
+          currentPage={pagi?.page || 0}
           hasNext={pagi?.hasNext || false}
           hasPrev={pagi?.hasPrev || false}
-          total={pagi?.total || 20}
+          total={pagi?.total || 0}
           totalPages={pagi?.totalPages || 0}
           onPageChange={(page) => {
-            console.log(page, page, "page");
             setCurrentPage(page);
           }}
         />

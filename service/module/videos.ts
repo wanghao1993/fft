@@ -1,19 +1,23 @@
 import { httpClient } from "../fetch";
 
-import { VideoResponse } from "@/types/videos";
+import { Video, VideoResponse } from "@/types/videos";
 
 export const getVideos = async (params?: {
+  title?: string;
   category?: string;
   limit?: number;
   page?: number;
   language?: string;
 }) => {
+  const { title, category, limit, page, language } = params || {};
+
   const response = await httpClient.get<VideoResponse>(`/videos`, {
     params: {
-      category: params?.category || "podcast",
-      limit: params?.limit || 9,
-      page: params?.page || 1,
-      language: params?.language || "zh-CN",
+      title,
+      category,
+      limit: limit || 9,
+      page: page || 1,
+      language: language,
     },
   });
 
@@ -22,6 +26,12 @@ export const getVideos = async (params?: {
 
 export const deleteVideo = async (id: string) => {
   const response = await httpClient.delete(`/videos/${id}`);
+
+  return response.data;
+};
+
+export const updateVideoById = async (id: string, data: Partial<Video>) => {
+  const response = await httpClient.patch<Video>(`/videos/${id}`, data);
 
   return response.data;
 };

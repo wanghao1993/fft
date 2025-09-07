@@ -13,6 +13,7 @@ export interface Video {
   createdAt: string;
   updatedAt: string;
   time: string;
+  fixTop: boolean;
 }
 
 export interface Meta {

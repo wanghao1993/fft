@@ -1,5 +1,6 @@
 export interface News {
   uuid: string;
+  fixTop: boolean;
   id?: any;
   source: string;
   title: string;
@@ -14,8 +15,8 @@ export interface News {
 }
 
 export interface Meta {
-  page: string;
-  limit: string;
+  page: number;
+  limit: number;
   total: number;
   totalPages: number;
   hasNext: boolean;

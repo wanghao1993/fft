@@ -11,15 +11,9 @@ import {
 } from "@heroui/table";
 import { Button } from "@heroui/button";
 import { Switch } from "@heroui/switch";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@heroui/dropdown";
 import { Tooltip } from "@heroui/tooltip";
 import { Spinner } from "@heroui/spinner";
-import { Edit, MoreVertical, Trash2, Plus } from "lucide-react";
+import { Edit, Trash2, Plus } from "lucide-react";
 import dayjs from "dayjs";
 
 import { Tag } from "../../types/tag";
@@ -42,13 +36,13 @@ export default function TagTable({
   onAdd,
 }: TagTableProps) {
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
-    {},
+    {}
   );
 
   const handleToggleStatus = async (id: string, isActive: boolean) => {
     setLoadingStates((prev) => ({ ...prev, [id]: true }));
     try {
-      await onToggleStatus(id, isActive);
+      onToggleStatus(id, isActive);
     } finally {
       setLoadingStates((prev) => ({ ...prev, [id]: false }));
     }
@@ -134,23 +128,16 @@ export default function TagTable({
                       </Button>
                     </Tooltip>
 
-                    <Dropdown>
-                      <DropdownTrigger>
-                        <Button isIconOnly size="sm" variant="light">
-                          <MoreVertical size={16} />
-                        </Button>
-                      </DropdownTrigger>
-                      <DropdownMenu>
-                        <DropdownItem
-                          key="delete"
-                          color="danger"
-                          startContent={<Trash2 size={16} />}
-                          onPress={() => handleDelete(tag.id)}
-                        >
-                          删除
-                        </DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
+                    <Tooltip content="删除">
+                      <Button
+                        isIconOnly
+                        size="sm"
+                        variant="light"
+                        onPress={() => handleDelete(tag.id)}
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    </Tooltip>
                   </div>
                 </TableCell>
               </TableRow>
