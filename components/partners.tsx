@@ -15,7 +15,7 @@ export default function Partners() {
 
   return (
     <section className="py-8 bg-default-50 w-full" id="partners">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.6 }}

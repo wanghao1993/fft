@@ -17,7 +17,7 @@ export function EmblaCarousel() {
     {
       loop: true,
     },
-    [Autoplay({ delay: 10000 })],
+    [Autoplay({ delay: 10000 })]
   );
 
   const scrollPrev = useCallback(() => {
@@ -53,7 +53,7 @@ export function EmblaCarousel() {
         {articles.map((item, index) => (
           <div
             key={index}
-            className="embla__slide aspect-[2/1] lg:aspect-[3/2] min-h-[20px] lg:min-h-[395px]"
+            className="embla__slide aspect-[2/1] lg:aspect-[16/8] min-h-[20px] lg:min-h-[395px]"
           >
             <Link
               className="block w-full h-full"

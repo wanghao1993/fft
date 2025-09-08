@@ -15,6 +15,12 @@ import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@heroui/dropdown";
 
 import LanguageSwitch from "./lan-switch";
 import SearchDialog from "./searchDialog";
@@ -22,11 +28,12 @@ import SearchDialog from "./searchDialog";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
 import { Link as NextLink } from "@/i18n/navigation";
-
+import { ChevronDownIcon } from "lucide-react";
 // 定义导航项的类型
 interface NavItem {
   href: string;
   label: string;
+  children?: NavItem[];
 }
 
 // 定义Navbar组件的props
@@ -101,20 +108,63 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-6 justify-start ml-2">
-          {navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary font-semibold",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
+          {navItems.map((item) => {
+            if (item.children) {
+              return (
+                <Dropdown key={item.label}>
+                  <NavbarItem>
+                    <DropdownTrigger>
+                      <span
+                        className={clsx(
+                          linkStyles({ color: "foreground" }),
+                          "data-[active=true]:text-primary font-semibold text-foreground text-base flex items-center gap-2"
+                        )}
+                      >
+                        {item.label}
+                        <ChevronDownIcon className="w-4 h-4" />
+                      </span>
+                    </DropdownTrigger>
+                  </NavbarItem>
+                  <DropdownMenu
+                    aria-label={item.label}
+                    itemClasses={{
+                      base: "gap-4",
+                    }}
+                  >
+                    {item.children.map((child) => (
+                      <DropdownItem key={child.label}>
+                        <NextLink
+                          className={clsx(
+                            linkStyles({ color: "foreground" }),
+                            "data-[active=true]:text-primary font-semibold"
+                          )}
+                          color="foreground"
+                          href={child.href}
+                        >
+                          {child.label}
+                        </NextLink>
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown>
+              );
+            }
+
+            return (
+              <NavbarItem key={item.href}>
+                <NextLink
+                  className={clsx(
+                    linkStyles({ color: "foreground" }),
+                    "data-[active=true]:text-primary font-semibold"
+                  )}
+                  color="foreground"
+                  href={item.href}
+                >
+                  {item.label}
+                </NextLink>
+              </NavbarItem>
+            );
+          })}
         </ul>
       </NavbarContent>
 

@@ -34,27 +34,25 @@ export default async function News({ params }: Props) {
   const t = await getTranslations("Common");
 
   return (
-    <main className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
-      <div className="container">
-        <h1 className="text-2xl font-bold">{data.title}</h1>
-        <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
-          <span>
-            {t("publishedAt")}: {DateFormat({ date: data.publishedAt })}
-          </span>
-        </p>
-        <p className="mt-4">{data.summary}</p>
+    <>
+      <h1 className="text-2xl font-bold mt-8">{data.title}</h1>
+      <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
+        <span>
+          {t("publishedAt")}: {DateFormat({ date: data.publishedAt })}
+        </span>
+      </p>
+      <p className="mt-4">{data.summary}</p>
 
-        <div className="mt-10 flex items-center gap-8">
-          <Link
-            className="text-sm text-gray-500"
-            href={data.link}
-            target="_blank"
-          >
-            {t("source")}: {data.source}
-          </Link>
-          <Share data={data} />
-        </div>
+      <div className="mt-10 flex items-center gap-8">
+        <Link
+          className="text-sm text-gray-500"
+          href={data.link}
+          target="_blank"
+        >
+          {t("source")}: {data.source}
+        </Link>
+        <Share data={data} />
       </div>
-    </main>
+    </>
   );
 }

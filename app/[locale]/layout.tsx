@@ -25,11 +25,7 @@ async function NavbarWrapper() {
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = await getLocalizedSiteConfig();
 
   return {
@@ -94,7 +90,7 @@ export default async function LocaleLayout({
         className={clsx(
           "min-h-screen text-foreground bg-background font-sans antialiased",
           robotoMono.variable,
-          fontSans.variable,
+          fontSans.variable
         )}
       >
         <NextIntlClientProvider locale={locale}>

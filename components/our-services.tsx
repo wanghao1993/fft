@@ -34,56 +34,54 @@ export function Services() {
 
   return (
     <section className="py-16 bg-default-50 w-full" id="about-us">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Services Section */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          <h2 className="text-3xl font-bold text-foreground mb-4">服务</h2>
-          <p className="text-lg text-default-500 max-w-2xl mx-auto">
-            为Web3项目提供全方位的咨询和技术服务
-          </p>
-        </motion.div>
+      {/* Services Section */}
+      <motion.div
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 30 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        whileInView={{ opacity: 1, y: 0 }}
+      >
+        <h2 className="text-3xl font-bold text-foreground mb-4">服务</h2>
+        <p className="text-lg text-default-500 max-w-2xl mx-auto">
+          为Web3项目提供全方位的咨询和技术服务
+        </p>
+      </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {services.map((service, index) => {
-            return (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-              >
-                <Card className="h-full group hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <h3 className="text-lg font-semibold">{service.title}</h3>
-                  </CardHeader>
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {services.map((service, index) => {
+          return (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              <Card className="h-full group hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <h3 className="text-lg font-semibold">{service.title}</h3>
+                </CardHeader>
 
-                  <CardBody className="space-y-4">
-                    <p className="text-sm text-default-500">
-                      {service.description}
-                    </p>
-                    <Button
-                      className="w-full group/btn"
-                      endContent={
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                      }
-                      variant="bordered"
-                    >
-                      了解详情
-                    </Button>
-                  </CardBody>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
+                <CardBody className="space-y-4">
+                  <p className="text-sm text-default-500">
+                    {service.description}
+                  </p>
+                  <Button
+                    className="w-full group/btn"
+                    endContent={
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    }
+                    variant="bordered"
+                  >
+                    了解详情
+                  </Button>
+                </CardBody>
+              </Card>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

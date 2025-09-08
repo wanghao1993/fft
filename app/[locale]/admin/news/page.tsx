@@ -160,104 +160,102 @@ export default function AdminNewsPage() {
   return (
     <AuthWrapper>
       <h2 className="font-bold text-2xl mb-4">新闻管理</h2>
-      <div className="container mx-auto px-4">
-        <div className="flex gap-4 mb-4">
-          <Input
-            isClearable={true}
-            label="标题"
-            labelPlacement="inside"
-            name="title"
-            placeholder="请输入标题"
-            type="text"
-            value={formData.title}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                title: e.target.value,
-              });
-            }}
-          />
-
-          <Select
-            isClearable={true}
-            label="语言"
-            labelPlacement="inside"
-            name="language"
-            placeholder="请输入语言"
-            value={formData.language}
-            onSelectionChange={(e) => {
-              setFormData({
-                ...formData,
-                language: e.currentKey,
-              } as any);
-            }}
-          >
-            <SelectItem key="en">English</SelectItem>
-            <SelectItem key="zh-CN">中文</SelectItem>
-          </Select>
-
-          <Select
-            isClearable={true}
-            label="分类"
-            labelPlacement="inside"
-            name="category"
-            placeholder="请输入分类"
-            value={formData.category}
-            onSelectionChange={(e) => {
-              setFormData({
-                ...formData,
-                category: e.currentKey,
-              } as any);
-            }}
-          >
-            <SelectItem key="quick_news">快讯</SelectItem>
-            <SelectItem key="hot_news">热点新闻</SelectItem>
-          </Select>
-
-          <Button onPress={handleSearch}>搜索</Button>
-        </div>
-        <Table
-          isHeaderSticky
-          isStriped
-          aria-label="Example table with dynamic content"
-        >
-          <TableHeader columns={columns}>
-            {(column) => (
-              <TableColumn key={column.key} width={column.with}>
-                {column.label}
-              </TableColumn>
-            )}
-          </TableHeader>
-          <TableBody
-            items={news || []}
-            loadingContent={<Spinner color="primary" size="lg" />}
-            loadingState={isLoading ? "loading" : undefined}
-          >
-            {(item) => (
-              <TableRow key={item.uuid}>
-                {(columnKey) => (
-                  <TableCell>{renderCell(item, columnKey)}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <Pagination
-          currentPage={pagi?.page || 0}
-          hasNext={pagi?.hasNext || false}
-          hasPrev={pagi?.hasPrev || false}
-          total={pagi?.total || 0}
-          totalPages={pagi?.totalPages || 0}
-          onPageChange={(page) => {
-            setCurrentPage(page);
+      <div className="flex gap-4 mb-4">
+        <Input
+          isClearable={true}
+          label="标题"
+          labelPlacement="inside"
+          name="title"
+          placeholder="请输入标题"
+          type="text"
+          value={formData.title}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              title: e.target.value,
+            });
           }}
         />
 
-        {/* Toast 通知 */}
-        {toasts.map((toastItem) => (
-          <Toast key={toastItem.id} {...toastItem} />
-        ))}
+        <Select
+          isClearable={true}
+          label="语言"
+          labelPlacement="inside"
+          name="language"
+          placeholder="请输入语言"
+          value={formData.language}
+          onSelectionChange={(e) => {
+            setFormData({
+              ...formData,
+              language: e.currentKey,
+            } as any);
+          }}
+        >
+          <SelectItem key="en">English</SelectItem>
+          <SelectItem key="zh-CN">中文</SelectItem>
+        </Select>
+
+        <Select
+          isClearable={true}
+          label="分类"
+          labelPlacement="inside"
+          name="category"
+          placeholder="请输入分类"
+          value={formData.category}
+          onSelectionChange={(e) => {
+            setFormData({
+              ...formData,
+              category: e.currentKey,
+            } as any);
+          }}
+        >
+          <SelectItem key="quick_news">快讯</SelectItem>
+          <SelectItem key="hot_news">热点新闻</SelectItem>
+        </Select>
+
+        <Button onPress={handleSearch}>搜索</Button>
       </div>
+      <Table
+        isHeaderSticky
+        isStriped
+        aria-label="Example table with dynamic content"
+      >
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn key={column.key} width={column.with}>
+              {column.label}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody
+          items={news || []}
+          loadingContent={<Spinner color="primary" size="lg" />}
+          loadingState={isLoading ? "loading" : undefined}
+        >
+          {(item) => (
+            <TableRow key={item.uuid}>
+              {(columnKey) => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <Pagination
+        currentPage={pagi?.page || 0}
+        hasNext={pagi?.hasNext || false}
+        hasPrev={pagi?.hasPrev || false}
+        total={pagi?.total || 0}
+        totalPages={pagi?.totalPages || 0}
+        onPageChange={(page) => {
+          setCurrentPage(page);
+        }}
+      />
+
+      {/* Toast 通知 */}
+      {toasts.map((toastItem) => (
+        <Toast key={toastItem.id} {...toastItem} />
+      ))}
     </AuthWrapper>
   );
 }

@@ -46,35 +46,34 @@ export function Videos() {
 
   return (
     <section className="w-full">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Videos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {videos.map((video) => (
-            <motion.div
-              key={video.uuid}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
-            >
-              <VideoItem locale={locale} video={video} />
-            </motion.div>
-          ))}
+      {/* Videos Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {videos.map((video) => (
+          <motion.div
+            key={video.uuid}
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            <VideoItem locale={locale} video={video} />
+          </motion.div>
+        ))}
+      </div>
+      {hasMore && !isLoading && (
+        <div className="flex justify-center py-8">
+          <Button
+            className="mt-4"
+            isDisabled={!hasMore}
+            onPress={() => setPage(page + 1)}
+          >
+            {tc("loadMore")}
+          </Button>
         </div>
-        {hasMore && !isLoading && (
-          <div className="flex justify-center py-8">
-            <Button
-              className="mt-4"
-              isDisabled={!hasMore}
-              onPress={() => setPage(page + 1)}
-            >
-              {tc("loadMore")}
-            </Button>
-          </div>
-        )}
+      )}
 
-        {/* YouTube Channel CTA */}
-        {/* <motion.div
+      {/* YouTube Channel CTA */}
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
@@ -107,12 +106,11 @@ export function Videos() {
         </Card>
       </motion.div> */}
 
-        {isLoading && (
-          <div className="flex justify-center">
-            <Spinner />
-          </div>
-        )}
-      </div>
+      {isLoading && (
+        <div className="flex justify-center">
+          <Spinner />
+        </div>
+      )}
     </section>
   );
 }

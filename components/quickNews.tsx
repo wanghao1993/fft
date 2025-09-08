@@ -34,24 +34,22 @@ export async function QuickNews({ limit = 30 }: { limit?: number }) {
         className="w-full min-h-24 bg-default-50 p-8 border rounded-2xl"
         id="news"
       >
-        <div className="container mx-auto ">
-          {/* Section Header */}
-          <div className="flex justify-between items-center mb-4">
-            <h2
-              className="text-2xl lg:text-3xl font-extrabold italic text-foreground "
-              id="quick-news"
-            >
-              {t("title")}
-            </h2>
-            <ViewMore type="quick-news" />
-          </div>
-
-          <ScrollShadow className="space-y-4 h-[810px] overflow-y-auto">
-            {newsItems.map((item, index) => (
-              <NewItem key={item.uuid} data={item} index={index} />
-            ))}
-          </ScrollShadow>
+        {/* Section Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2
+            className="text-2xl lg:text-3xl font-extrabold italic text-foreground "
+            id="quick-news"
+          >
+            {t("title")}
+          </h2>
+          <ViewMore type="quick-news" />
         </div>
+
+        <ScrollShadow className="space-y-4 h-[810px] overflow-y-auto">
+          {newsItems.map((item, index) => (
+            <NewItem key={item.uuid} data={item} index={index} />
+          ))}
+        </ScrollShadow>
       </section>
     </Suspense>
   );

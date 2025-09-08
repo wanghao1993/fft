@@ -42,7 +42,7 @@ export async function Interviews() {
       className="py-6 bg-default-50 w-full border rounded-2xl"
       id="interviews"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
           <h2

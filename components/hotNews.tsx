@@ -29,26 +29,24 @@ export async function HowNews() {
       className="bg-default-50 p-8 w-full border rounded-2xl"
       id="hot-news"
     >
-      <div className="container mx-auto">
-        {/* Section Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h2
-            className="text-2xl lg:text-3xl font-extrabold italic text-foreground mb-2"
-            id="quick-news"
-          >
-            {t("title")}{" "}
-            <span className="text-default-500">({t("subtitle")})</span>
-          </h2>
-          <ViewMore type="hot-news" />
-        </div>
-
-        {/* News Grid */}
-        <ScrollShadow className="space-y-4 h-[810px] overflow-y-auto">
-          {newsItems.map((item, index) => (
-            <NewItem key={item.uuid} data={item} index={index} />
-          ))}
-        </ScrollShadow>
+      {/* Section Header */}
+      <div className="flex justify-between items-center mb-4">
+        <h2
+          className="text-2xl lg:text-3xl font-extrabold italic text-foreground mb-2"
+          id="quick-news"
+        >
+          {t("title")}{" "}
+          <span className="text-default-500">({t("subtitle")})</span>
+        </h2>
+        <ViewMore type="hot-news" />
       </div>
+
+      {/* News Grid */}
+      <ScrollShadow className="space-y-4 h-[810px] overflow-y-auto">
+        {newsItems.map((item, index) => (
+          <NewItem key={item.uuid} data={item} index={index} />
+        ))}
+      </ScrollShadow>
     </section>
   );
 }

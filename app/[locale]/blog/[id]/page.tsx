@@ -22,24 +22,21 @@ export default async function BlogPage({
 
   return (
     <main className="flex flex-col gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
-      <div className="container">
-        <h1 className="font-bold text-2xl lg:text-3xl text-center">
-          {data.title}
-        </h1>
-        <div className="flex justify-center items-center gap-5 mt-4">
-          {/* <div>{data.tag}</div> */}
-          <div>
-            {t("publishedAt")}:
-            {dayjs(data.createdAt).format("YYYY-MM-DD HH:mm")}
-          </div>
-          <div>
-            {t("viewCount")}: {data.viewCount}
-          </div>
+      <h1 className="font-bold text-2xl lg:text-3xl text-center">
+        {data.title}
+      </h1>
+      <div className="flex justify-center items-center gap-5 mt-4">
+        {/* <div>{data.tag}</div> */}
+        <div>
+          {t("publishedAt")}:{dayjs(data.createdAt).format("YYYY-MM-DD HH:mm")}
         </div>
-        <article className="text-foreground/80 leading-7" id="article-content">
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </article>
+        <div>
+          {t("viewCount")}: {data.viewCount}
+        </div>
       </div>
+      <article className="text-foreground/80 leading-7" id="article-content">
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      </article>
     </main>
   );
 }

@@ -4,7 +4,6 @@ import Hero from "@/components/hero";
 import { QuickNews } from "@/components/quickNews";
 import { LatestVideos } from "@/components/latestVideo";
 import { OriginalContent } from "@/components/originalContent";
-import { Services } from "@/components/our-services";
 import Partners from "@/components/partners";
 import { routing } from "@/i18n/routing";
 import { HowNews } from "@/components/hotNews";
@@ -40,7 +39,7 @@ export default async function IndexPage({
       <PodCasts />
       <LatestVideos />
       <Interviews />
-      <Services />
+      {/* <Services /> */}
       <Partners />
     </main>
   );

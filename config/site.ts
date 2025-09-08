@@ -168,7 +168,13 @@ export async function getLocalizedSiteConfig() {
       },
       {
         href: "/#about-us",
-        label: t("navItems.aboutUs"),
+        label: t("navItems.company"),
+        children: [
+          {
+            href: "/about",
+            label: t("navItems.aboutUs"),
+          },
+        ],
       },
     ],
     navMenuItems: [
@@ -200,109 +206,6 @@ export async function getLocalizedSiteConfig() {
         href: "/#about-us",
         label: t("navItems.aboutUs"),
       },
-    ],
-    tags: [
-      {
-        label: t("tags.home"),
-        value: "/",
-      },
-      {
-        label: t("tags.bitcoin"),
-        value: "Bitcoin",
-      },
-      {
-        label: t("tags.ethereum"),
-        value: "Ethereum",
-      },
-      {
-        label: t("tags.etf"),
-        value: "ETF",
-      },
-      {
-        label: t("tags.vitalik"),
-        value: "Vitalik",
-      },
-      {
-        label: t("tags.solana"),
-        value: "Solana",
-      },
-      {
-        label: t("tags.ton"),
-        value: "Ton",
-      },
-      {
-        label: t("tags.nft"),
-        value: "NFT",
-      },
-      {
-        label: t("tags.defi"),
-        value: "DeFi",
-      },
-      {
-        label: t("tags.hongKong"),
-        value: "Hk",
-      },
-      {
-        label: t("tags.singapore"),
-        value: "Singapore",
-      },
-      {
-        label: t("tags.mining"),
-        value: "挖矿",
-      },
-      {
-        label: t("tags.deep"),
-        value: "deep",
-      },
-      {
-        label: t("tags.contactUs"),
-        value: "contractus",
-      },
-    ],
-    // 扩展的标签配置，用于Tags组件
-    extendedTags: [
-      { id: "home", label: t("tags.home"), category: "main" },
-      { id: "bitcoin", label: t("tags.bitcoin"), category: "crypto" },
-      { id: "ethereum", label: t("tags.ethereum"), category: "crypto" },
-      { id: "etf", label: t("tags.etf"), category: "finance" },
-      { id: "sec", label: t("ui.sec"), category: "regulation" },
-      { id: "vitalik", label: t("tags.vitalik"), category: "people" },
-      { id: "solana", label: t("tags.solana"), category: "crypto" },
-      { id: "ton", label: t("tags.ton"), category: "crypto" },
-      { id: "arthur-hayes", label: t("ui.arthurHayes"), category: "people" },
-      { id: "nft", label: t("tags.nft"), category: "crypto" },
-      { id: "gaming", label: t("ui.gaming"), category: "sector" },
-      { id: "defi", label: t("tags.defi"), category: "crypto" },
-      { id: "rwa", label: t("ui.rwa"), category: "crypto" },
-      { id: "stablecoin", label: t("ui.stablecoin"), category: "crypto" },
-      { id: "ai", label: t("ui.ai"), category: "tech" },
-      { id: "layer2", label: t("ui.layer2"), category: "crypto" },
-      { id: "hongkong", label: t("tags.hongKong"), category: "region" },
-      { id: "singapore", label: t("tags.singapore"), category: "region" },
-      { id: "japan", label: t("ui.japan"), category: "region" },
-      { id: "korea", label: t("ui.korea"), category: "region" },
-      { id: "usa", label: t("ui.usa"), category: "region" },
-      { id: "europe", label: t("ui.europe"), category: "region" },
-      { id: "mining", label: t("tags.mining"), category: "sector" },
-      { id: "analysis", label: t("tags.deep"), category: "content" },
-      { id: "education", label: t("ui.education"), category: "content" },
-      { id: "podcast", label: t("navItems.podcast"), category: "content" },
-      { id: "video", label: t("navItems.videos"), category: "content" },
-      { id: "app", label: t("ui.appReading"), category: "tools" },
-      { id: "contact", label: t("tags.contactUs"), category: "main" },
-    ],
-    categories: [
-      { key: "all", label: t("categories.all") },
-      { key: "main", label: t("categories.main") },
-      { key: "crypto", label: t("categories.crypto") },
-      { key: "finance", label: t("categories.finance") },
-      { key: "regulation", label: t("categories.regulation") },
-      { key: "people", label: t("categories.people") },
-      { key: "sector", label: t("categories.sector") },
-      { key: "region", label: t("categories.region") },
-      { key: "content", label: t("categories.content") },
-      { key: "tech", label: t("categories.tech") },
-      { key: "tools", label: t("categories.tools") },
     ],
     uiText: {
       filtering: t("ui.filtering"),

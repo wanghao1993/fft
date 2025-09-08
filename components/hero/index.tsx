@@ -3,16 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { EmblaCarousel } from "../carousel";
 import NewItem from "../news/newItem";
 
-import { Link } from "@/i18n/navigation";
 import { getQuickNews } from "@/service/module/quick_news";
-import { getBlogs } from "@/service/module/carousel";
-import { Article } from "@/types/blog";
-
-async function getOriginContent() {
-  const res = await getBlogs();
-
-  return res.data;
-}
 
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();
@@ -27,31 +18,13 @@ async function getQuickNewsList(limit: number) {
 }
 
 export default async function Hero() {
-  const list = await getOriginContent();
   const news = await getQuickNewsList(50);
   const t = await getTranslations("QuickNews");
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 w-full place-items-center lg:place-items-start">
-      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border rounded-2xl  items-center container overflow-hidden">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-8 w-full place-items-center lg:place-items-start">
+      <div className="grid grid-cols-1  gap-4 border rounded-2xl  items-center overflow-hidden">
         <EmblaCarousel />
-        <div className="py-5 block pr-4 lg:px-0 px-4 h-full">
-          <div className="text-xl font-extrabold italic">{t("mustread")}</div>
-          <div className="font-semibold space-y-4 mt-4">
-            {list.map((item: Article, index: number) => {
-              return (
-                <div
-                  key={item.id}
-                  className="line-clamp-1 hover:text-primary-400 hover:underline text-lg"
-                >
-                  <Link href={`blog/${item.id}`}>
-                    {index + 1}. {item.title}
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
       <div className="flex-col gap-4 border p-4 rounded-2xl hidden lg:flex">
         <div className="flex flex-col gap-4">

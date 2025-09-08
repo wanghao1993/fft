@@ -53,11 +53,11 @@ export default function Share({ data }: { data: News }) {
             handleShare(
               "twitter",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`,
+              `${window.location.origin}/news/${data.uuid}`
             );
           }}
         >
-          <Image alt="twitter" height={12} src={"/images/x.svg"} width={12} />
+          <Image alt="twitter" height={16} src={"/images/x.svg"} width={16} />
         </Button>
       </Tooltip>
 
@@ -70,15 +70,15 @@ export default function Share({ data }: { data: News }) {
             handleShare(
               "telegram",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`,
+              `${window.location.origin}/news/${data.uuid}`
             );
           }}
         >
-          <Send className="h-3 w-3" />
+          <Send className="size-4" />
         </Button>
       </Tooltip>
 
-      <Tooltip content="下载分享图片">
+      {/* <Tooltip content="下载分享图片">
         <Button
           isIconOnly
           size="sm"
@@ -87,7 +87,7 @@ export default function Share({ data }: { data: News }) {
         >
           <ImageIcon className="h-3 w-3" />
         </Button>
-      </Tooltip>
+      </Tooltip> */}
     </div>
   );
 }

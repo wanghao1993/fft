@@ -132,29 +132,27 @@ export default function AdminTagPage() {
 
   return (
     <AuthWrapper>
-      <div className="container mx-auto py-8 px-4">
-        <TagTable
-          isLoading={isLoading}
-          tags={tags}
-          onAdd={handleAdd}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-          onToggleStatus={handleToggleStatus}
-        />
+      <TagTable
+        isLoading={isLoading}
+        tags={tags}
+        onAdd={handleAdd}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        onToggleStatus={handleToggleStatus}
+      />
 
-        <TagForm
-          isLoading={isSubmitting}
-          isOpen={isFormOpen}
-          tag={editingTag}
-          onClose={() => setIsFormOpen(false)}
-          onSubmit={handleFormSubmit}
-        />
+      <TagForm
+        isLoading={isSubmitting}
+        isOpen={isFormOpen}
+        tag={editingTag}
+        onClose={() => setIsFormOpen(false)}
+        onSubmit={handleFormSubmit}
+      />
 
-        {/* Toast 通知 */}
-        {toasts.map((toastItem) => (
-          <Toast key={toastItem.id} {...toastItem} />
-        ))}
-      </div>
+      {/* Toast 通知 */}
+      {toasts.map((toastItem) => (
+        <Toast key={toastItem.id} {...toastItem} />
+      ))}
     </AuthWrapper>
   );
 }

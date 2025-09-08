@@ -53,28 +53,26 @@ export default function BlogList() {
 
   return (
     <AuthWrapper>
-      <div className="container mx-auto py-8 px-4">
-        <ArticleTable
-          articles={articles}
-          isLoading={isLoading}
-          onDelete={onDelete}
-        />
-        <Pagination
-          currentPage={pagi?.page || 0}
-          hasNext={pagi?.hasNext || false}
-          hasPrev={pagi?.hasPrev || false}
-          total={pagi?.total || 0}
-          totalPages={pagi?.totalPages || 0}
-          onPageChange={(page) => {
-            setCurrentPage(page);
-          }}
-        />
+      <ArticleTable
+        articles={articles}
+        isLoading={isLoading}
+        onDelete={onDelete}
+      />
+      <Pagination
+        currentPage={pagi?.page || 0}
+        hasNext={pagi?.hasNext || false}
+        hasPrev={pagi?.hasPrev || false}
+        total={pagi?.total || 0}
+        totalPages={pagi?.totalPages || 0}
+        onPageChange={(page) => {
+          setCurrentPage(page);
+        }}
+      />
 
-        {/* Toast 通知 */}
-        {toasts.map((toastItem) => (
-          <Toast key={toastItem.id} {...toastItem} />
-        ))}
-      </div>
+      {/* Toast 通知 */}
+      {toasts.map((toastItem) => (
+        <Toast key={toastItem.id} {...toastItem} />
+      ))}
     </AuthWrapper>
   );
 }

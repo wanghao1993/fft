@@ -1,77 +1,7 @@
 "use client";
-import { X, Linkedin, Mail, Send, Youtube, Rss } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Footer() {
-  const footerLinks = [
-    {
-      title: "内容分类",
-      links: [
-        { name: "最新快讯", href: "#news" },
-        { name: "深度分析", href: "#depth" },
-        { name: "原创内容", href: "#original" },
-        { name: "视频内容", href: "#videos" },
-      ],
-    },
-    {
-      title: "服务项目",
-      links: [
-        { name: "Web3策略", href: "#services" },
-        { name: "媒体公关", href: "#services" },
-        { name: "技术开发", href: "#services" },
-        { name: "品牌设计", href: "#services" },
-      ],
-    },
-    {
-      title: "关于我们",
-      links: [
-        { name: "团队介绍", href: "#about" },
-        { name: "合作伙伴", href: "#partners" },
-        { name: "媒体报道", href: "#" },
-        { name: "加入我们", href: "#" },
-      ],
-    },
-    {
-      title: "联系方式",
-      links: [
-        { name: "商务合作", href: "#contact" },
-        { name: "媒体咨询", href: "#contact" },
-        { name: "投稿建议", href: "#contact" },
-        { name: "技术支持", href: "#contact" },
-      ],
-    },
-  ];
-
-  const socialLinks = [
-    { name: "X", icon: X, href: "#", color: "hover:text-primary" },
-    { name: "Telegram", icon: Send, href: "#", color: "hover:text-primary" },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      href: "#",
-      color: "hover:text-primary",
-    },
-    { name: "YouTube", icon: Youtube, href: "#", color: "hover:text-red-500" },
-    { name: "RSS", icon: Rss, href: "#", color: "hover:text-orange-500" },
-    {
-      name: "Email",
-      icon: Mail,
-      href: "mailto:contact@futurefrontier.ai",
-      color: "hover:text-green-500",
-    },
-  ];
-
-  const quickLinks = [
-    "Web3",
-    "Crypto",
-    "DeFi",
-    "NFT",
-    "Layer2",
-    "RWA",
-    "Stablecoin",
-    "AI",
-  ];
-
   return (
     <footer className="bg-default-100 border-t border-divider">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
