@@ -85,6 +85,7 @@ export default function WriteArticlePage() {
         const res = await uploadImage(file as File);
         const url = res.url;
 
+        console.log(url, "xxx");
         setFormData({
           ...formData,
           cover: url,

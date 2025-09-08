@@ -12,20 +12,8 @@ export default function AdminBlogPage() {
             href={"admin/blog/list"}
           >
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                博客列表
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">博客</h3>
               <p className="text-gray-600 text-sm">管理所有博客文章</p>
-            </div>
-          </Link>
-
-          <Link
-            className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
-            href={"admin/blog/write"}
-          >
-            <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">写作</h3>
-              <p className="text-gray-600 text-sm">创建新的博客文章</p>
             </div>
           </Link>
 
@@ -41,7 +29,7 @@ export default function AdminBlogPage() {
 
           <Link
             className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
-            href={"admin/video"}
+            href={"admin/news"}
           >
             <div className="text-center">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
