@@ -45,7 +45,7 @@ export function EmblaCarousel() {
   return (
     <div ref={emblaRef} className="embla w-full relative overflow-hidden pl-4 ">
       {loading && (
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center aspect-[2/1] lg:aspect-[16/8] min-h-[20px] lg:min-h-[395px]">
           <Spinner />
         </div>
       )}
