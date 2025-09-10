@@ -83,8 +83,6 @@ export default function TagTable({
       <Table aria-label="标签列表">
         <TableHeader>
           <TableColumn>标签名称</TableColumn>
-          <TableColumn>英文名称</TableColumn>
-          <TableColumn>中文名称</TableColumn>
           <TableColumn>状态</TableColumn>
           <TableColumn>创建时间</TableColumn>
           <TableColumn>操作</TableColumn>
@@ -102,8 +100,6 @@ export default function TagTable({
                 <TableCell>
                   <span className="font-medium">{tag.name}</span>
                 </TableCell>
-                <TableCell>{tag.nameEn}</TableCell>
-                <TableCell>{tag.nameZh}</TableCell>
                 <TableCell>
                   <Switch
                     isDisabled={loadingStates[tag.id]}

@@ -1,13 +1,68 @@
+import { getLocale, getTranslations } from "next-intl/server";
+
 import { EmblaCarousel } from "../carousel";
+import NewItem from "../news/newItem";
+
+import { Link } from "@/i18n/navigation";
+import { getQuickNews } from "@/service/module/quick_news";
+import { getBlogs } from "@/service/module/carousel";
+import { Article } from "@/types/blog";
+
+async function getOriginContent() {
+  const res = await getBlogs();
+
+  return res.data;
+}
+
+async function getQuickNewsList(limit: number) {
+  const locale = await getLocale();
+  const res = await getQuickNews({
+    limit: limit,
+    language: locale,
+    category: "quick_news",
+  });
+  const data = res.data;
+
+  return data;
+}
 
 export default async function Hero() {
+  const list = await getOriginContent();
+  const news = await getQuickNewsList(50);
+  const t = await getTranslations("QuickNews");
+
   return (
-    <section className="relative w-full">
-      <div className="text-center max-w-4xl mx-auto">
-        <div className="hidden md:flex md:flex-start">
-          <EmblaCarousel />
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 w-full place-items-center lg:place-items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 lg:gap-0 border rounded-2xl  items-center container overflow-hidden">
+        <EmblaCarousel />
+        <div className="py-5 block pr-4 lg:px-0 px-4 h-full">
+          <div className="text-xl font-extrabold italic">{t("mustread")}</div>
+          <div className="font-semibold space-y-4 mt-4">
+            {list.map((item: Article) => {
+              return (
+                <div
+                  key={item.id}
+                  className="line-clamp-1 hover:text-primary-400 hover:underline text-lg"
+                >
+                  <Link href={`blog/${item.id}`}>{item.title}</Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </section>
+      <div className="flex-col gap-4 border p-4 rounded-2xl hidden lg:flex">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-2xl  lg:text-3xl font-extrabold italic">
+            {t("sub-title")}
+          </h2>
+          <div className="h-[310px] space-y-4 overflow-y-auto">
+            {news.map((item, index) => (
+              <NewItem key={item.uuid} data={item} index={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

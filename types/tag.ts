@@ -10,8 +10,6 @@ export interface Tag {
 
 export interface TagFormData {
   name: string;
-  nameEn: string;
-  nameZh: string;
   isActive: boolean;
 }
 

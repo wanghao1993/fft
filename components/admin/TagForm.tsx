@@ -31,8 +31,6 @@ export default function TagForm({
 }: TagFormProps) {
   const [formData, setFormData] = useState<TagFormData>({
     name: "",
-    nameEn: "",
-    nameZh: "",
     isActive: true,
   });
 
@@ -40,15 +38,11 @@ export default function TagForm({
     if (tag) {
       setFormData({
         name: tag.name,
-        nameEn: tag.nameEn,
-        nameZh: tag.nameZh,
         isActive: tag.isActive,
       });
     } else {
       setFormData({
         name: "",
-        nameEn: "",
-        nameZh: "",
         isActive: true,
       });
     }
@@ -61,7 +55,7 @@ export default function TagForm({
 
   const handleInputChange = (
     field: keyof TagFormData,
-    value: string | boolean,
+    value: string | boolean
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -88,36 +82,6 @@ export default function TagForm({
                   placeholder="请输入标签名称"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                  htmlFor="nameEn"
-                >
-                  英文名称 *
-                </label>
-                <Input
-                  required
-                  placeholder="Enter English name"
-                  value={formData.nameEn}
-                  onChange={(e) => handleInputChange("nameEn", e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                  htmlFor="nameZh"
-                >
-                  中文名称 *
-                </label>
-                <Input
-                  required
-                  placeholder="请输入中文名称"
-                  value={formData.nameZh}
-                  onChange={(e) => handleInputChange("nameZh", e.target.value)}
                 />
               </div>
 

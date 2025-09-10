@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Vditor from "vditor";
+
+import { getTokenFromCookies } from "@/utils/auth";
 import "vditor/dist/index.css";
 
 export default function Editor({
@@ -21,11 +23,14 @@ export default function Editor({
         setContent(value);
         onChange(value);
       },
-      mode: "wysiwyg",
+      mode: "ir",
       upload: {
         max: 1024 * 1024 * 5,
         url: process.env.NEXT_PUBLIC_BASE_URL + "/upload/image",
         multiple: false,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
         fieldName: "file",
         success(editor, msg) {
           const data = JSON.parse(msg);
@@ -37,15 +42,12 @@ export default function Editor({
     });
 
     setEditorRef(vditor);
+    // vditor.setValue(value, true);
   };
 
   useEffect(() => {
     editorRef?.setValue(value, true);
   }, [value]);
-
-  const getHtml = () => {
-    return editorRef?.getHTML();
-  };
 
   useEffect(() => {
     initEditor("editor");

@@ -51,6 +51,7 @@ export default function ArticleTable({
       <Table aria-label="标签列表">
         <TableHeader>
           <TableColumn>标题</TableColumn>
+          <TableColumn>标签</TableColumn>
           <TableColumn>创建时间</TableColumn>
           <TableColumn>更新时间</TableColumn>
           <TableColumn>阅读量</TableColumn>
@@ -72,6 +73,7 @@ export default function ArticleTable({
                   </Link>
                 </TableCell>
 
+                <TableCell>{article.tag}</TableCell>
                 <TableCell>
                   {dayjs(article.createdAt).format("YYYY-MM-DD HH:mm")}
                 </TableCell>

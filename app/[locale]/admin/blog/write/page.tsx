@@ -15,6 +15,7 @@ import { Tag } from "@/types/tag";
 import { uploadImage } from "@/service/module/file";
 import { createBlog, getBlogById, updateBlog } from "@/service/module/carousel";
 import AuthWrapper from "@/components/admin/AuthWrapper";
+import { Spinner } from "@heroui/spinner";
 
 export default function WriteArticlePage() {
   const [tags, settags] = useState<Tag[]>([]);
@@ -23,6 +24,8 @@ export default function WriteArticlePage() {
   const navigate = useRouter();
 
   const [editorValue, setEditorValue] = useState("");
+
+  const [detail, setDetail] = useState("");
   const getData = () => {
     getTags().then((res) => {
       settags(res);
@@ -69,6 +72,7 @@ export default function WriteArticlePage() {
   };
 
   const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -82,13 +86,9 @@ export default function WriteArticlePage() {
     if (file.name) {
       try {
         setIsLoading(true);
-        const res = await uploadImage(file as File);
-        const url = res.url;
 
-        console.log(url, "xxx");
         setFormData({
           ...formData,
-          cover: url,
         });
 
         blogHandle();
@@ -110,6 +110,7 @@ export default function WriteArticlePage() {
     if (id) {
       getBlogById(id).then((res) => {
         setEditorValue(res.content);
+        setDetail(res.content);
         setFormData({
           title: res.title,
           tag: res.tag?.split(","),
@@ -121,6 +122,12 @@ export default function WriteArticlePage() {
   useEffect(() => {
     getData();
   }, []);
+
+  const setValue = (value: string) => {
+    setEditorValue(value);
+  };
+
+  const [uploading, setUploading] = useState(false);
 
   return (
     <AuthWrapper>
@@ -169,23 +176,45 @@ export default function WriteArticlePage() {
           <div>
             <Input
               accept="image/*"
+              disabled={uploading}
               errorMessage="请上传封面"
               label="封面"
               labelPlacement="inside"
               name="cover"
               placeholder="请上传封面"
               type="file"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  setUploading(true);
+                  uploadImage(e.target.files[0])
+                    .then((res) => {
+                      setFormData({
+                        ...formData,
+                        cover: res.url,
+                      });
+                    })
+                    .finally(() => {
+                      setUploading(false);
+                    });
+                }
+              }}
             />
+            {uploading && <Spinner />}
             {formData.cover && (
               <Image alt="" height={200} src={formData.cover} width={400} />
             )}
           </div>
-          <Button color="primary" isLoading={isLoading} type="submit">
+          <Button
+            color="primary"
+            disabled={isLoading}
+            isLoading={isLoading}
+            type="submit"
+          >
             {id ? "更新" : "发布"}
           </Button>
         </div>
       </Form>
-      <Editor value={editorValue} onChange={setEditorValue} />
+      <Editor value={detail} onChange={setValue} />
     </AuthWrapper>
   );
 }

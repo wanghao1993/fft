@@ -20,11 +20,11 @@ interface Language {
 }
 
 const languages: Language[] = [
-  {
-    code: "en",
-    name: "English",
-    nativeName: "English",
-  },
+  // {
+  //   code: "en",
+  //   name: "English",
+  //   nativeName: "English",
+  // },
   {
     code: "zh-CN",
     name: "Chinese",
