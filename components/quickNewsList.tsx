@@ -53,7 +53,7 @@ export default function QuickNewsList() {
       <div className="grid grid-cols-1 gap-6 min-h-screen">
         {newsItems.map((item) => (
           <motion.div
-            key={item.uuid || item.id}
+            key={item.uuid}
             className="border-b py-2 border-b-gray-200 flex"
             initial={{ opacity: 0, y: 20 }}
             viewport={{ once: true }}

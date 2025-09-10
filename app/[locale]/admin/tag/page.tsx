@@ -71,8 +71,6 @@ export default function AdminTagPage() {
         // 创建标签时需要包含 name 字段
         const createData = {
           name: data.name,
-          nameEn: data.nameEn,
-          nameZh: data.nameZh,
           isActive: data.isActive,
         };
 

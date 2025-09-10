@@ -1,6 +1,6 @@
 import { httpClient } from "../fetch";
 
-import { News, NewsResponse } from "@/types/news";
+import { CreateNews, News, NewsResponse } from "@/types/news";
 
 export const getQuickNews = async (params: {
   category: string;
@@ -43,8 +43,14 @@ export const deleteById = async (id: string) => {
   return response.data;
 };
 
-export const updateNewsById = async (id: string, data: Partial<News>) => {
+export const updateNewsById = async (id: string, data: Partial<CreateNews>) => {
   const response = await httpClient.patch<News>(`/news/${id}`, data);
+
+  return response.data;
+};
+
+export const createNews = async (data: Partial<CreateNews>) => {
+  const response = await httpClient.post<News>(`/news`, data);
 
   return response.data;
 };

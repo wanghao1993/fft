@@ -6,6 +6,7 @@ import Link from "next/link";
 import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
 import { getNewsById } from "@/service/module/quick_news";
+import { Chip } from "@heroui/chip";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -44,13 +45,28 @@ export default async function News({ params }: Props) {
       <p className="mt-4">{data.summary}</p>
 
       <div className="mt-10 flex items-center gap-8">
-        <Link
-          className="text-sm text-gray-500"
-          href={data.link}
-          target="_blank"
-        >
-          {t("source")}: {data.source}
-        </Link>
+        {data.source !== "Future Frontier" ? (
+          <Link
+            className="text-sm text-gray-500"
+            href={data.link}
+            target="_blank"
+          >
+            {t("source")}: {data.source}
+          </Link>
+        ) : (
+          <span className="text-sm text-gray-500">
+            {t("source")}: {data.source}
+          </span>
+        )}
+
+        <div className="flex items-center gap-2">
+          {data.tags.map((tag) => (
+            <Chip key={tag.id} color="default" variant="flat">
+              {tag.name}
+            </Chip>
+          ))}
+        </div>
+
         <Share data={data} />
       </div>
     </>

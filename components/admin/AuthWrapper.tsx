@@ -41,7 +41,7 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
           <p className="mt-4 text-gray-600">验证身份中...</p>
         </div>
       </div>
@@ -61,8 +61,10 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">
-                <Link href={"/admin"}>管理后台</Link>
+              <h1 className="text-xl font-semibold text-primary">
+                <Link className="cursor-pointer" href={"/admin"}>
+                  管理后台
+                </Link>
               </h1>
             </div>
             <div className="flex items-center space-x-4">

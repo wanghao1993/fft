@@ -27,11 +27,12 @@ import {
 } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
 import { News, NewsResponse } from "@/types/news";
+import NewsModal from "@/components/admin/NewModal";
 
 export default function AdminNewsPage() {
   const [news, setNews] = useState<NewsResponse["data"]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast, toasts } = useToast();
   const [pagi, setPagi] = useState<NewsResponse["meta"]>();
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +42,11 @@ export default function AdminNewsPage() {
       key: "title",
       label: "标题",
       with: 300,
+    },
+    {
+      key: "tags",
+      label: "标签",
+      with: 160,
     },
     {
       key: "fix_top",
@@ -82,8 +88,18 @@ export default function AdminNewsPage() {
     getList();
   };
 
+  const [id, setId] = useState<string>("");
+  const onEdit = async (id: string) => {
+    setId(id);
+    setIsModalOpen(true);
+  };
+
   const renderCell = useCallback((item: News, columnKey: string | number) => {
     if (columnKey === "publishedAt") {
+      return dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm");
+    } else if (columnKey === "tags") {
+      return item.tags.map((item) => item.name).join(", ");
+    } else if (columnKey === "publishedAt") {
       return dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm");
     } else if (columnKey === "fix_top") {
       return (
@@ -96,6 +112,9 @@ export default function AdminNewsPage() {
     } else if (columnKey === "action") {
       return (
         <div className="flex gap-4">
+          <Button color="primary" size="sm" onPress={() => onEdit(item.uuid)}>
+            编辑
+          </Button>
           <Button color="danger" size="sm" onPress={() => onDelete(item.uuid)}>
             删除
           </Button>
@@ -139,8 +158,14 @@ export default function AdminNewsPage() {
   }, [currentPage]);
 
   const onDelete = async (id: string) => {
-    await deleteById(id);
-    getList();
+    if (confirm(`确定删除吗？`)) {
+      await deleteById(id);
+      getList();
+      toast.success({
+        title: "成功",
+        description: "删除成功",
+      });
+    }
   };
 
   useEffect(() => {
@@ -155,6 +180,19 @@ export default function AdminNewsPage() {
 
   const handleSearch = () => {
     getList();
+  };
+
+  const handleModalSuccess = () => {
+    getList();
+    setIsModalOpen(false);
+    setId("");
+    setFormData({
+      title: "",
+      category: "",
+      language: "",
+    });
+    setCurrentPage(1);
+    setIsLoading(false);
   };
 
   return (
@@ -214,6 +252,9 @@ export default function AdminNewsPage() {
         </Select>
 
         <Button onPress={handleSearch}>搜索</Button>
+        <Button color="primary" onPress={() => setIsModalOpen(true)}>
+          新增
+        </Button>
       </div>
       <Table
         isHeaderSticky
@@ -256,6 +297,13 @@ export default function AdminNewsPage() {
       {toasts.map((toastItem) => (
         <Toast key={toastItem.id} {...toastItem} />
       ))}
+
+      <NewsModal
+        id={id}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleModalSuccess}
+      />
     </AuthWrapper>
   );
 }

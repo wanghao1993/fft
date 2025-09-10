@@ -1,12 +1,15 @@
+type Tag = {
+  id: string;
+  name: string;
+};
 export interface News {
   uuid: string;
   fixTop: boolean;
-  id?: any;
   source: string;
   title: string;
   link: string;
   summary: string;
-  tags?: any;
+  tags: Tag[];
   category: string;
   language: string;
   publishedAt: number;
@@ -14,6 +17,16 @@ export interface News {
   updatedAt: string;
 }
 
+export interface CreateNews {
+  fixTop: boolean;
+  source: string;
+  title: string;
+  link: string;
+  summary: string;
+  tags: string;
+  category: string;
+  language: string;
+}
 export interface Meta {
   page: number;
   limit: number;
