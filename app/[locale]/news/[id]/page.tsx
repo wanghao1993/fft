@@ -2,11 +2,11 @@ import type { News } from "@/types/news";
 
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { Chip } from "@heroui/chip";
 
 import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
 import { getNewsById } from "@/service/module/quick_news";
-import { Chip } from "@heroui/chip";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -35,7 +35,7 @@ export default async function News({ params }: Props) {
   const t = await getTranslations("Common");
 
   return (
-    <>
+    <div className="px-4 py-8 md:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mt-8">{data.title}</h1>
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
@@ -69,6 +69,6 @@ export default async function News({ params }: Props) {
 
         <Share data={data} />
       </div>
-    </>
+    </div>
   );
 }

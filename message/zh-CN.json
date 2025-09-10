@@ -10,7 +10,8 @@
         "loadMore": "加载更多",
         "source": "来源",
         "publishedAt": "发布时间",
-        "viewCount": "浏览量"
+        "viewCount": "浏览量",
+        "downloadImageLoading":"下载图片中，请稍后"
     },
     "Site": {
         "name": "FutureFrontier",

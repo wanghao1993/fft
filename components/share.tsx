@@ -3,15 +3,27 @@ import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
 import { Image as ImageIcon, Send } from "lucide-react";
 import Image from "next/image";
-import { addToast } from "@heroui/toast";
+import { addToast, closeToast } from "@heroui/toast";
+import { useState } from "react";
+import { Spinner } from "@heroui/spinner";
 
 import { handleShare } from "@/utils/share";
 import { News } from "@/types/news";
 import { getNewsShareImage } from "@/service/module/quick_news";
+import { useTranslations } from "next-intl";
 
 export default function Share({ data }: { data: News }) {
+  const [loading, setIsLoading] = useState(false);
+  const t = useTranslations("Common");
   const handleDownloadImage = async () => {
+    if (loading) return;
     try {
+      setIsLoading(true);
+      addToast({
+        title: t("downloadImageLoading"),
+        color: "primary",
+        loadingComponent: <Spinner />,
+      });
       const blob = await getNewsShareImage({ uuid: data.uuid });
 
       // 创建下载链接
@@ -33,6 +45,8 @@ export default function Share({ data }: { data: News }) {
         color: "success",
       });
     } catch (error: any) {
+      setIsLoading(false);
+      closeToast("download-image");
       addToast({
         title: "下载图片失败",
         description: error.message,
@@ -78,16 +92,16 @@ export default function Share({ data }: { data: News }) {
         </Button>
       </Tooltip>
 
-      {/* <Tooltip content="下载分享图片">
+      <Tooltip content="下载分享图片">
         <Button
           isIconOnly
           size="sm"
           variant="light"
           onPress={handleDownloadImage}
         >
-          <ImageIcon className="h-3 w-3" />
+          <ImageIcon className="size-4" />
         </Button>
-      </Tooltip> */}
+      </Tooltip>
     </div>
   );
 }

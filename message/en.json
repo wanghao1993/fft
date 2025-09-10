@@ -10,7 +10,8 @@
         "loadMore": "Load More",
         "source": "Source",
         "publishedAt": "Published At",
-        "viewCount": "View Count"
+        "viewCount": "View Count",
+        "downloadImageLoading":"Image generating, please wait..."
     },
     "Site": {
         "name": "FutureFrontier",
