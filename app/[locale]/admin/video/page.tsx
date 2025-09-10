@@ -15,11 +15,13 @@ import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { Switch } from "@heroui/switch";
+import { Edit2, Trash2 } from "lucide-react";
 
 import { useToast } from "@/components/ui/Toast";
 import { Toast } from "@/components/ui/Toast";
 import Pagination from "@/components/admin/Pagination";
 import AuthWrapper from "@/components/admin/AuthWrapper";
+import VideoModal from "@/components/admin/VideoModal";
 import {
   deleteVideo,
   getVideos,
@@ -84,6 +86,7 @@ export default function AdminVideoPage() {
     },
   ];
 
+  const [id, setId] = useState("");
   const renderCell = useCallback((item: Video, columnKey: string | number) => {
     if (columnKey === "publishedAt") {
       return dayjs(item.publishedAt).format("YYYY-MM-DD HH:mm");
@@ -98,9 +101,24 @@ export default function AdminVideoPage() {
     } else if (columnKey === "action") {
       return (
         <div className="flex gap-4">
-          <Button color="danger" size="sm" onPress={() => onDelete(item.uuid)}>
-            删除
-          </Button>
+          <Edit2
+            className="cursor-pointer"
+            size={14}
+            onClick={() => {
+              setId(item.uuid);
+              setIsModalOpen(true);
+            }}
+          />
+          <Trash2
+            className="cursor-pointer"
+            color="red"
+            size={14}
+            onClick={() => {
+              if (confirm(`确定删除[${item.title}]吗？`)) {
+                onDelete(item.uuid);
+              }
+            }}
+          />
         </div>
       );
     } else if (columnKey === "title") {
@@ -162,13 +180,21 @@ export default function AdminVideoPage() {
     language: "",
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleSearch = () => {
+    getList();
+  };
+
+  const handleModalSuccess = () => {
     getList();
   };
 
   return (
     <AuthWrapper>
-      <h2 className="font-bold text-2xl mb-4">视频管理</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-bold text-2xl">视频管理</h2>
+      </div>
       <div className="flex gap-4 mb-4">
         <Input
           isClearable={true}
@@ -223,6 +249,9 @@ export default function AdminVideoPage() {
         </Select>
 
         <Button onPress={handleSearch}>搜索</Button>
+        <Button color="primary" onPress={() => setIsModalOpen(true)}>
+          新增视频
+        </Button>
       </div>
       <Table
         isHeaderSticky
@@ -257,7 +286,6 @@ export default function AdminVideoPage() {
         total={pagi?.total || 20}
         totalPages={pagi?.totalPages || 0}
         onPageChange={(page) => {
-          console.log(page, page, "page");
           setCurrentPage(page);
         }}
       />
@@ -266,6 +294,17 @@ export default function AdminVideoPage() {
       {toasts.map((toastItem) => (
         <Toast key={toastItem.id} {...toastItem} />
       ))}
+
+      {/* 新增视频Modal */}
+      <VideoModal
+        id={id}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setId("");
+        }}
+        onSuccess={handleModalSuccess}
+      />
     </AuthWrapper>
   );
 }

@@ -35,3 +35,25 @@ export const updateVideoById = async (id: string, data: Partial<Video>) => {
 
   return response.data;
 };
+
+export const createVideo = async (data: {
+  title: string;
+  link: string;
+  source: string;
+  channel: string;
+  category: string;
+  fixTop: boolean;
+  language: string;
+  time?: string;
+  thumbnail?: string;
+}) => {
+  const response = await httpClient.post<Video>(`/videos`, data);
+
+  return response.data;
+};
+
+export const getVideoDetail = async (id: string) => {
+  const response = await httpClient.get<Video>(`/videos/${id}`);
+
+  return response.data;
+};
