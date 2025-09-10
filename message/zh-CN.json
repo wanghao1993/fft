@@ -5,9 +5,6 @@
         "en": "English",
         "zh-CN": "中文"
     },
-    "Hero": {
-        "title": "FFT 是一家全球媒体与商业战略机构，聚焦科技与资本交汇的前沿，专注于Web3与创新金融，涵盖加密资产、RWA、稳定币等关键领域，致力于洞察趋势、塑造未来"
-    },
     "Common": {
         "viewMore": "更多 >>",
         "loadMore": "加载更多",
@@ -17,7 +14,7 @@
     },
     "Site": {
         "name": "FutureFrontier",
-        "description": "FFT 是一家全球媒体与商业战略机构，聚焦科技与资本交汇的前沿，专注于Web3与创新金融，涵盖加密资产、RWA、稳定币等关键领域，致力于洞察趋势、塑造未来",
+        "description": "Future Frontier（梵境传媒）是一家总部位于香港、面向全球的Web3品牌战略与内容传播机构。我们致力于连接新兴数字金融与文化叙事，为加密行业提供前沿的内容生产、媒体策略、品牌建设与战略顾问服务。",
         "navItems": {
             "quickNews": "快讯",
             "hotNews": "热点新闻",
@@ -26,6 +23,7 @@
             "videos": "视频",
             "interviews": "人物专访",
             "aboutUs": "关于我们",
+            "contactUs": "联系我们",
             "company": "公司"
         },
         "tags": {
@@ -103,5 +101,9 @@
     "SearchDialog": {
         "title": "搜索",
         "placeholder": "搜索"
+    },
+    "ContactUs": {
+        "title": "联系我们",
+        "subtitle": "寻求报道、相关合作"
     }
 }

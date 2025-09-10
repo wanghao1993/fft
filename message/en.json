@@ -5,9 +5,6 @@
         "en": "English",
         "zh-CN": "中文"
     },
-    "Hero": {
-        "title": "FFT is a global media and business strategy group navigating the frontiers of Web3, AI, and emerging finance — from crypto and RWA  to Stablecoins and beyond."
-    },
     "Common": {
         "viewMore": "More >>",
         "loadMore": "Load More",
@@ -17,7 +14,7 @@
     },
     "Site": {
         "name": "FutureFrontier",
-        "description": "FFT is a global media and business strategy group navigating the frontiers of Web3, AI, and emerging finance — from crypto and RWA  to Stablecoins and beyond.",
+        "description": "Future Frontier is a global Web3 brand strategy and content communications agency headquartered in Hong Kong. We are dedicated to connecting emerging digital finance and cultural narratives, providing cutting-edge content production, media strategy, brand building, and strategic consulting services to the crypto industry.",
         "navItems": {
             "quickNews": "Quick News",
             "hotNews": "Hot News",
@@ -26,6 +23,7 @@
             "videos": "Videos",
             "interviews": "Interviews",
             "aboutUs": "About Us",
+            "contactUs": "Contact Us",
             "company": "Company"
         },
         "tags": {
@@ -103,5 +101,9 @@
     "SearchDialog": {
         "title": "Search",
         "placeholder": "Search"
+    },
+    "ContactUs": {
+        "title": "Contact Us",
+        "subtitle": "Seek reporting, related cooperation"
     }
 }

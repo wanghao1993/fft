@@ -174,6 +174,10 @@ export async function getLocalizedSiteConfig() {
             href: "/about",
             label: t("navItems.aboutUs"),
           },
+          {
+            href: "/contact-us",
+            label: t("navItems.contactUs"),
+          },
         ],
       },
     ],
@@ -203,7 +207,7 @@ export async function getLocalizedSiteConfig() {
         label: t("navItems.interviews"),
       },
       {
-        href: "/#about-us",
+        href: "/about",
         label: t("navItems.aboutUs"),
       },
     ],

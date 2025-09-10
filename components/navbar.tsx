@@ -9,7 +9,6 @@ import {
   NavbarMenuItem,
 } from "@heroui/navbar";
 import { Kbd } from "@heroui/kbd";
-import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
@@ -111,7 +110,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
           {navItems.map((item) => {
             if (item.children) {
               return (
-                <Dropdown key={item.label}>
+                <Dropdown key={item.href}>
                   <NavbarItem>
                     <DropdownTrigger>
                       <span
@@ -136,7 +135,7 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
                         <NextLink
                           className={clsx(
                             linkStyles({ color: "foreground" }),
-                            "data-[active=true]:text-primary font-semibold"
+                            "data-[active=true]:text-primary font-semibold w-full !block"
                           )}
                           color="foreground"
                           href={child.href}
@@ -191,7 +190,8 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
+              <NextLink
+                className="w-full"
                 color={
                   index === 2
                     ? "primary"
@@ -199,11 +199,10 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
-                size="lg"
+                href={item.href}
               >
                 {item.label}
-              </Link>
+              </NextLink>
             </NavbarMenuItem>
           ))}
         </div>
