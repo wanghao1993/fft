@@ -18,7 +18,7 @@ export interface Video {
 
 export interface Meta {
   page: number;
-  limit: string;
+  limit: number;
   total: number;
   totalPages: number;
   hasNext: boolean;

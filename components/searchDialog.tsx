@@ -7,6 +7,13 @@ import {
 } from "@heroui/modal";
 import { Button } from "@heroui/button";
 import { useTranslations } from "next-intl";
+import { Input } from "@heroui/input";
+import { useEffect, useState } from "react";
+import { Chip } from "@heroui/chip";
+
+import { Tag } from "@/types/tag";
+import { getTags } from "@/service/module/tag";
+import { useRouter } from "@/i18n/navigation";
 
 export default function SearchDialog({
   isOpen,
@@ -16,10 +23,22 @@ export default function SearchDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations("SearchDialog");
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState<Tag[]>([]);
+  const getTagList = () => {
+    getTags().then((res) => {
+      setTags(res);
+    });
+  };
+
+  useEffect(() => {
+    getTagList();
+  }, []);
 
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} size="3xl" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -27,31 +46,36 @@ export default function SearchDialog({
                 {t("title")}
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <Input
+                  placeholder={t("placeholder")}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <div className="mt-3 space-x-2 space-y-2">
+                  🔥{" "}
+                  {tags.map((item) => (
+                    <Chip
+                      key={item.id}
+                      className="cursor-pointer"
+                      color="primary"
+                      size="sm"
+                      onClick={() => {
+                        onOpenChange(false);
+
+                        router.push(`search?keywords=${item.name}`);
+                      }}
+                    >
+                      {item.name}
+                    </Chip>
+                  ))}
+                </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                <Button color="default" variant="light" onPress={onClose}>
+                  {t("close")}
                 </Button>
                 <Button color="primary" onPress={onClose}>
-                  Action
+                  {t("title")}
                 </Button>
               </ModalFooter>
             </>

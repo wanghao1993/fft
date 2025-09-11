@@ -3,15 +3,17 @@ import { httpClient } from "../fetch";
 import { CreateNews, News, NewsResponse } from "@/types/news";
 
 export const getQuickNews = async (params: {
-  category: string;
+  category?: string;
   limit?: number;
   title?: string;
   page?: number;
+  keyword?: string;
   language: string;
 }) => {
-  const { category, limit, title, page, language } = params;
+  const { category, limit, title, page, language, keyword } = params;
   const response = await httpClient.get<NewsResponse>(`/news`, {
     params: {
+      keyword,
       title,
       category,
       limit: limit || 9,

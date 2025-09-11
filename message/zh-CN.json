@@ -13,6 +13,9 @@
         "viewCount": "浏览量",
         "downloadImageLoading":"下载图片中，请稍后"
     },
+    "Search": {
+        "search": "搜索"
+    },
     "Site": {
         "name": "FutureFrontier",
         "description": "Future Frontier（梵境传媒）是一家总部位于香港、面向全球的Web3品牌战略与内容传播机构。我们致力于连接新兴数字金融与文化叙事，为加密行业提供前沿的内容生产、媒体策略、品牌建设与战略顾问服务。",
@@ -101,7 +104,8 @@
     },
     "SearchDialog": {
         "title": "搜索",
-        "placeholder": "搜索"
+        "placeholder": "搜索",
+        "close": "关闭"
     },
     "ContactUs": {
         "title": "联系我们",

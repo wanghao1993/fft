@@ -34,6 +34,7 @@ export default function AdminNewsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast, toasts } = useToast();
+
   const [pagi, setPagi] = useState<NewsResponse["meta"]>();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -173,7 +174,7 @@ export default function AdminNewsPage() {
   }, []);
 
   const [formData, setFormData] = useState({
-    title: "",
+    keyword: "",
     category: "",
     language: "",
   });
@@ -187,7 +188,7 @@ export default function AdminNewsPage() {
     setIsModalOpen(false);
     setId("");
     setFormData({
-      title: "",
+      keyword: "",
       category: "",
       language: "",
     });
@@ -201,16 +202,22 @@ export default function AdminNewsPage() {
       <div className="flex gap-4 mb-4">
         <Input
           isClearable={true}
-          label="标题"
+          label="关键字"
           labelPlacement="inside"
-          name="title"
-          placeholder="请输入标题"
+          name="keyword"
+          placeholder="查询标题，内容和标签包含关键字的数据"
           type="text"
-          value={formData.title}
+          value={formData.keyword}
           onChange={(e) => {
             setFormData({
               ...formData,
-              title: e.target.value,
+              keyword: e.target.value,
+            });
+          }}
+          onClear={() => {
+            setFormData({
+              ...formData,
+              keyword: "",
             });
           }}
         />
@@ -251,10 +258,18 @@ export default function AdminNewsPage() {
           <SelectItem key="hot_news">热点新闻</SelectItem>
         </Select>
 
-        <Button onPress={handleSearch}>搜索</Button>
-        <Button color="primary" onPress={() => setIsModalOpen(true)}>
-          新增
-        </Button>
+        <div className="space-y-2">
+          <Button size="sm" onPress={handleSearch}>
+            搜索
+          </Button>
+          <Button
+            color="primary"
+            size="sm"
+            onPress={() => setIsModalOpen(true)}
+          >
+            新增
+          </Button>
+        </div>
       </div>
       <Table
         isHeaderSticky

@@ -97,7 +97,7 @@ export default async function LocaleLayout({
           <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
             <div className="relative flex flex-col h-screen">
               <NavbarWrapper />
-              <main className="container mx-auto max-w-7xl flex-grow">
+              <main className="container mx-auto max-w-[1536px] flex-grow">
                 {children}
               </main>
               <Footer />

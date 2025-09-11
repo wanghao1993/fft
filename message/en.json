@@ -13,6 +13,9 @@
         "viewCount": "View Count",
         "downloadImageLoading":"Image generating, please wait..."
     },
+    "Search": {
+        "search": "Search"
+    },
     "Site": {
         "name": "FutureFrontier",
         "description": "Future Frontier is a global Web3 brand strategy and content communications agency headquartered in Hong Kong. We are dedicated to connecting emerging digital finance and cultural narratives, providing cutting-edge content production, media strategy, brand building, and strategic consulting services to the crypto industry.",
@@ -101,7 +104,8 @@
     },
     "SearchDialog": {
         "title": "Search",
-        "placeholder": "Search"
+        "placeholder": "Search",
+        "close": "close"
     },
     "ContactUs": {
         "title": "Contact Us",

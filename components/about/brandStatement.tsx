@@ -18,7 +18,7 @@ export function BrandStatement() {
             <span className="text-white/80">我们是谁</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight">
+          <h1 className="text-5xl md:text-[1536px] lg:text-8xl text-white mb-6 leading-tight">
             <motion.div
               animate={{ opacity: 1, x: 0 }}
               className="block"

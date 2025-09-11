@@ -60,7 +60,7 @@ export default function HotNewList() {
 
             <div>
               <Link
-                className="hover:text-primary  font-semibold"
+                className="text-primary"
                 href={`${item.link}`}
                 target="_blank"
               >

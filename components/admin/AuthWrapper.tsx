@@ -58,7 +58,7 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Admin Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-xl font-semibold text-primary">
@@ -80,7 +80,7 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
       </header>
 
       {/* Admin Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
     </div>
