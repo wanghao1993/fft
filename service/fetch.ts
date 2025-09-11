@@ -5,7 +5,7 @@ import {
   Interceptor,
   RequestOptions,
 } from "../types";
-import { getTokenFromCookies } from "../utils/auth";
+import { getTokenFromCookies, removeToken } from "../utils/auth";
 
 /**
  * 检查是否在服务端环境
@@ -114,6 +114,9 @@ export class HttpClient {
       if (interceptor.response) {
         processedResponse = await interceptor.response(processedResponse);
       }
+    }
+    if (response.status === 401) {
+      removeToken();
     }
 
     return processedResponse;

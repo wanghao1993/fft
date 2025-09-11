@@ -26,6 +26,17 @@ export default function AdminBlogPage() {
               <p className="text-gray-600 text-sm">视频管理</p>
             </div>
           </Link>
+          <Link
+            className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
+            href={"admin/video-resource"}
+          >
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Youtube视频来源
+              </h3>
+              <p className="text-gray-600 text-sm">视频抓取资源管理</p>
+            </div>
+          </Link>
 
           <Link
             className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
@@ -36,6 +47,18 @@ export default function AdminBlogPage() {
                 新闻/快讯
               </h3>
               <p className="text-gray-600 text-sm">新闻/快讯管理</p>
+            </div>
+          </Link>
+
+          <Link
+            className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
+            href={"admin/news-resource"}
+          >
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                新闻来源
+              </h3>
+              <p className="text-gray-600 text-sm">新闻抓取资源管理</p>
             </div>
           </Link>
 
