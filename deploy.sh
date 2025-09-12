@@ -121,7 +121,8 @@ pull_code() {
     
     # 拉取最新代码
     git fetch origin
-    git reset --hard origin/master
+    git restore .
+    git pull origin master
     
     success "代码拉取完成"
 }
