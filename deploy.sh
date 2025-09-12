@@ -195,19 +195,47 @@ start_app() {
     log "启动应用在端口 $port..."
     cd "$PROJECT_DIR"
     
+    # 检查是否已经构建
+    if [ ! -d ".next" ]; then
+        error "应用未构建，请先运行构建命令"
+        exit 1
+    fi
+    
+    # 清理之前的日志
+    > "$PROJECT_DIR/app.log"
+    
     # 启动应用并保存PID
+    log "执行命令: pnpm run start -- -p $port"
     nohup pnpm run start -- -p "$port" > "$PROJECT_DIR/app.log" 2>&1 &
-    echo $! > "$PID_FILE"
+    local start_pid=$!
+    echo $start_pid > "$PID_FILE"
+    
+    log "启动命令已执行，PID: $start_pid"
     
     # 等待应用启动
-    sleep 5
+    log "等待应用启动..."
+    sleep 8
     
     # 检查应用是否成功启动
-    if ps -p $(cat "$PID_FILE") > /dev/null 2>&1; then
-        success "应用已成功启动 (PID: $(cat "$PID_FILE"), 端口: $port)"
-        log "应用日志: $PROJECT_DIR/app.log"
+    if ps -p $start_pid > /dev/null 2>&1; then
+        # 检查端口是否被占用
+        if lsof -ti:$port > /dev/null 2>&1; then
+            success "应用已成功启动 (PID: $start_pid, 端口: $port)"
+            log "应用日志: $PROJECT_DIR/app.log"
+        else
+            error "应用进程存在但端口未被占用，可能启动失败"
+            log "最近的日志内容:"
+            tail -20 "$PROJECT_DIR/app.log" | while read line; do
+                log "  $line"
+            done
+            exit 1
+        fi
     else
-        error "应用启动失败"
+        error "应用启动失败，进程已退出"
+        log "启动日志内容:"
+        cat "$PROJECT_DIR/app.log" | while read line; do
+            error "  $line"
+        done
         exit 1
     fi
 }
@@ -221,17 +249,27 @@ health_check() {
     log "执行健康检查..."
     
     while [ $attempt -le $max_attempts ]; do
+        # 检查端口是否被占用
+        if ! lsof -ti:$port > /dev/null 2>&1; then
+            log "健康检查尝试 $attempt/$max_attempts - 端口 $port 未被占用"
+            sleep 2
+            ((attempt++))
+            continue
+        fi
+        
+        # 尝试访问应用
         if curl -f -s "http://localhost:$port" > /dev/null 2>&1; then
-            success "健康检查通过"
+            success "健康检查通过 - 应用响应正常"
             return 0
         fi
         
-        log "健康检查尝试 $attempt/$max_attempts..."
+        log "健康检查尝试 $attempt/$max_attempts - 端口已占用但应用未响应"
         sleep 2
         ((attempt++))
     done
     
     error "健康检查失败，应用可能未正常启动"
+    log "请检查应用日志: $PROJECT_DIR/app.log"
     return 1
 }
 
@@ -291,6 +329,7 @@ show_help() {
     echo "  -r, --restart  仅重启应用"
     echo "  -b, --build    仅构建应用"
     echo "  -p, --pull     仅拉取代码"
+    echo "  -d, --debug    调试模式，检查环境"
     echo ""
     echo "参数:"
     echo "  环境           部署环境 (默认: production)"
@@ -328,6 +367,35 @@ case "${1:-}" in
     -p|--pull)
         check_commands
         pull_code
+        exit 0
+        ;;
+    -d|--debug)
+        log "调试模式 - 检查环境..."
+        check_commands
+        setup_environment
+        log "Node.js 版本: $(node --version)"
+        log "pnpm 版本: $(pnpm --version)"
+        log "当前目录: $(pwd)"
+        log "项目目录: $PROJECT_DIR"
+        log "端口: ${2:-$DEFAULT_PORT}"
+        if [ -d "$PROJECT_DIR" ]; then
+            log "项目目录存在"
+            cd "$PROJECT_DIR"
+            log "项目目录内容:"
+            ls -la
+            if [ -f "package.json" ]; then
+                log "package.json 存在"
+            else
+                error "package.json 不存在"
+            fi
+            if [ -d ".next" ]; then
+                log "构建目录 .next 存在"
+            else
+                warning "构建目录 .next 不存在，需要先构建"
+            fi
+        else
+            error "项目目录不存在: $PROJECT_DIR"
+        fi
         exit 0
         ;;
     *)
