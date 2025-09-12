@@ -44,7 +44,39 @@ check_command() {
         exit 1
     fi
 }
-
+# 设置环境变量
+setup_environment() {
+    log "设置环境变量..."
+    
+    # 尝试找到 pnpm 的安装位置
+    local pnpm_paths=(
+        "$HOME/.local/share/pnpm"
+        "/usr/local/bin"
+        "$HOME/.npm-global/bin"
+        "/opt/homebrew/bin"
+        "/usr/bin"
+    )
+    
+    for path in "${pnpm_paths[@]}"; do
+        if [ -f "$path/pnpm" ]; then
+            export PATH="$path:$PATH"
+            log "找到 pnpm 在: $path"
+            break
+        fi
+    done
+    
+    # 如果还是找不到，尝试使用 npm 全局安装
+    if ! command -v pnpm &> /dev/null; then
+        log "未找到 pnpm，尝试使用 npm 安装..."
+        if command -v npm &> /dev/null; then
+            npm install -g pnpm
+            export PATH="$HOME/.npm-global/bin:$PATH"
+        else
+            error "无法安装 pnpm，请手动安装"
+            exit 1
+        fi
+    fi
+}
 # 检查必要的命令
 check_commands() {
     log "检查必要的命令..."
@@ -181,7 +213,8 @@ deploy() {
     
     # 检查命令
     check_commands
-    
+    # 设置环境变量
+    setup_environment    
     # 停止现有应用
     stop_app
     
