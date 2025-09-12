@@ -133,7 +133,7 @@ install_dependencies() {
     cd "$PROJECT_DIR"
     
     # 使用pnpm安装依赖
-    pnpm install --frozen-lockfile
+    pnpm install
     
     success "依赖安装完成"
 }
