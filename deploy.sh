@@ -206,7 +206,7 @@ start_app() {
     
     # 启动应用并保存PID
     log "执行命令: pnpm run start -- -p $port"
-    nohup pnpm run start -- -p "$port" > "$PROJECT_DIR/app.log" 2>&1 &
+    nohup pnpm run start > "$PROJECT_DIR/app.log" 2>&1 &
     local start_pid=$!
     echo $start_pid > "$PID_FILE"
     
