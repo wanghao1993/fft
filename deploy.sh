@@ -111,7 +111,7 @@ stop_app() {
     log "检查并停止所有相关Node.js进程..."
     
     # 查找并杀死在项目目录下运行的Node.js进程
-    local node_pids=$(ps aux | grep -E "(node|pnpm|next)" | grep -v grep | awk '{print $2}')
+    local node_pids=$(ps aux | grep -E "(next)" | grep -v grep | awk '{print $2}')
     if [ -n "$node_pids" ]; then
         log "发现相关进程: $node_pids"
         for pid in $node_pids; do
@@ -144,7 +144,7 @@ stop_app() {
     sleep 3
     
     # 5. 最终检查
-    local remaining_pids=$(ps aux | grep -E "(node|pnpm|next)" | grep -v grep | awk '{print $2}')
+    local remaining_pids=$(ps aux | grep -E "(next)" | grep -v grep | awk '{print $2}')
     if [ -n "$remaining_pids" ]; then
         warning "仍有进程在运行: $remaining_pids"
         for pid in $remaining_pids; do
