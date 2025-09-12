@@ -6,7 +6,7 @@
 set -e
 
 PROJECT_DIR="/www/wwwroot/fftnode/fft"
-SCRIPT_PATH="$PROJECT_DIR/quick_deploy.sh"
+SCRIPT_PATH="$PROJECT_DIR/deploy.sh"
 CRON_LOG="$PROJECT_DIR/cron.log"
 
 # 颜色输出
