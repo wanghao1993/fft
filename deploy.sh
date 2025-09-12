@@ -88,7 +88,8 @@ check_commands() {
 
 # 停止现有应用
 stop_app() {
-    log "停止现有应用..."
+    local port=${1:-$DEFAULT_PORT}
+    log "停止占用端口 $port 的进程..."
     
     # 1. 通过PID文件停止应用
     if [ -f "$PID_FILE" ]; then
@@ -107,47 +108,33 @@ stop_app() {
         rm -f "$PID_FILE"
     fi
     
-    # 2. 杀死所有相关的Node.js进程
-    log "检查并停止所有相关Node.js进程..."
-    
-    # 查找并杀死在项目目录下运行的Node.js进程
-    local node_pids=$(ps aux | grep -E "(next)" | grep -v grep | awk '{print $2}')
-    if [ -n "$node_pids" ]; then
-        log "发现相关进程: $node_pids"
-        for pid in $node_pids; do
+    # 2. 杀死占用指定端口的进程
+    local port_pids=$(lsof -ti:$port 2>/dev/null)
+    if [ -n "$port_pids" ]; then
+        log "发现端口 $port 被以下进程占用: $port_pids"
+        for pid in $port_pids; do
             if ps -p "$pid" > /dev/null 2>&1; then
-                log "停止进程 $pid..."
+                log "停止占用端口的进程 $pid..."
                 kill "$pid" || true
-                sleep 1
+                sleep 2
                 if ps -p "$pid" > /dev/null 2>&1; then
                     warning "强制停止进程 $pid..."
                     kill -9 "$pid" || true
                 fi
             fi
         done
+    else
+        log "端口 $port 未被占用"
     fi
     
-    # 3. 杀死占用指定端口的进程
-    local port=${1:-$DEFAULT_PORT}
-    local port_pid=$(lsof -ti:$port 2>/dev/null)
-    if [ -n "$port_pid" ]; then
-        log "发现端口 $port 被进程 $port_pid 占用，正在停止..."
-        kill "$port_pid" || true
-        sleep 2
-        if ps -p "$port_pid" > /dev/null 2>&1; then
-            warning "强制停止占用端口的进程 $port_pid..."
-            kill -9 "$port_pid" || true
-        fi
-    fi
+    # 3. 等待进程完全停止
+    sleep 2
     
-    # 4. 等待进程完全停止
-    sleep 3
-    
-    # 5. 最终检查
-    local remaining_pids=$(ps aux | grep -E "(next)" | grep -v grep | awk '{print $2}')
-    if [ -n "$remaining_pids" ]; then
-        warning "仍有进程在运行: $remaining_pids"
-        for pid in $remaining_pids; do
+    # 4. 最终检查端口是否已释放
+    local remaining_port_pids=$(lsof -ti:$port 2>/dev/null)
+    if [ -n "$remaining_port_pids" ]; then
+        warning "端口 $port 仍被占用: $remaining_port_pids"
+        for pid in $remaining_port_pids; do
             if ps -p "$pid" > /dev/null 2>&1; then
                 warning "最终强制停止进程 $pid..."
                 kill -9 "$pid" || true
@@ -155,7 +142,7 @@ stop_app() {
         done
     fi
     
-    success "应用已停止"
+    success "端口 $port 已释放"
 }
 
 # 拉取最新代码
