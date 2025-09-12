@@ -88,6 +88,9 @@ check_commands() {
 
 # 停止现有应用
 stop_app() {
+    log "停止现有应用..."
+    
+    # 1. 通过PID文件停止应用
     if [ -f "$PID_FILE" ]; then
         local pid=$(cat "$PID_FILE")
         if ps -p "$pid" > /dev/null 2>&1; then
@@ -102,10 +105,57 @@ stop_app() {
             fi
         fi
         rm -f "$PID_FILE"
-        success "应用已停止"
-    else
-        log "没有找到运行中的应用"
     fi
+    
+    # 2. 杀死所有相关的Node.js进程
+    log "检查并停止所有相关Node.js进程..."
+    
+    # 查找并杀死在项目目录下运行的Node.js进程
+    local node_pids=$(ps aux | grep -E "(node|pnpm|next)" | grep -v grep | awk '{print $2}')
+    if [ -n "$node_pids" ]; then
+        log "发现相关进程: $node_pids"
+        for pid in $node_pids; do
+            if ps -p "$pid" > /dev/null 2>&1; then
+                log "停止进程 $pid..."
+                kill "$pid" || true
+                sleep 1
+                if ps -p "$pid" > /dev/null 2>&1; then
+                    warning "强制停止进程 $pid..."
+                    kill -9 "$pid" || true
+                fi
+            fi
+        done
+    fi
+    
+    # 3. 杀死占用指定端口的进程
+    local port=${1:-$DEFAULT_PORT}
+    local port_pid=$(lsof -ti:$port 2>/dev/null)
+    if [ -n "$port_pid" ]; then
+        log "发现端口 $port 被进程 $port_pid 占用，正在停止..."
+        kill "$port_pid" || true
+        sleep 2
+        if ps -p "$port_pid" > /dev/null 2>&1; then
+            warning "强制停止占用端口的进程 $port_pid..."
+            kill -9 "$port_pid" || true
+        fi
+    fi
+    
+    # 4. 等待进程完全停止
+    sleep 3
+    
+    # 5. 最终检查
+    local remaining_pids=$(ps aux | grep -E "(node|pnpm|next)" | grep -v grep | awk '{print $2}')
+    if [ -n "$remaining_pids" ]; then
+        warning "仍有进程在运行: $remaining_pids"
+        for pid in $remaining_pids; do
+            if ps -p "$pid" > /dev/null 2>&1; then
+                warning "最终强制停止进程 $pid..."
+                kill -9 "$pid" || true
+            fi
+        done
+    fi
+    
+    success "应用已停止"
 }
 
 # 拉取最新代码
@@ -217,7 +267,7 @@ deploy() {
     # 设置环境变量
     setup_environment    
     # 停止现有应用
-    stop_app
+    stop_app "$port"
     
     # 拉取代码
     pull_code
@@ -278,7 +328,7 @@ case "${1:-}" in
         ;;
     -r|--restart)
         log "重启应用..."
-        stop_app
+        stop_app "${2:-$DEFAULT_PORT}"
         sleep 2
         start_app "${2:-$DEFAULT_PORT}"
         exit 0
