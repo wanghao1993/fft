@@ -32,6 +32,16 @@ export default function SearchDialog({
     });
   };
 
+  const onSearch = () => {
+    if (!search) {
+      return;
+    }
+
+    onOpenChange(false);
+
+    router.push(`search?keywords=${search}`);
+  };
+
   useEffect(() => {
     getTagList();
   }, []);
@@ -74,7 +84,12 @@ export default function SearchDialog({
                 <Button color="default" variant="light" onPress={onClose}>
                   {t("close")}
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    onSearch();
+                  }}
+                >
                   {t("title")}
                 </Button>
               </ModalFooter>

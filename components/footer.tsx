@@ -1,9 +1,14 @@
-"use client";
-import { motion } from "framer-motion";
+import { Tooltip } from "@heroui/tooltip";
 
-export default function Footer() {
+import { getSocials } from "@/service/module/social";
+import { socialIcons } from "@/config/socialIcons";
+
+export default async function Footer() {
+  const list = await getSocials();
+  const isActiveList = list.filter((item) => item.isActive);
+
   return (
-    <footer className="bg-default-100 border-t border-divider">
+    <footer className="bg-default-100 border-t border-divider py-4">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter Section */}
         {/* <motion.div
@@ -117,19 +122,42 @@ export default function Footer() {
         {/* <Divider /> */}
 
         {/* Bottom Footer */}
-        <motion.div
-          className="py-6"
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1 }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm text-default-500">
-              © 2025 Future Frontier. 保留所有权利。
-            </div>
 
-            {/* <div className="flex items-center gap-6 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-sm text-default-500">
+            © 2025 Future Frontier. 保留所有权利。
+          </div>
+
+          <div className="flex gap-3">
+            {isActiveList.map((item) =>
+              item.url.startsWith("http") ? (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt={item.platform}
+                    src={socialIcons[item.platform]}
+                    style={{ height: "20px" }}
+                  />
+                </a>
+              ) : (
+                <div key={item.id}>
+                  <Tooltip content={item.url}>
+                    <img
+                      alt={item.platform}
+                      src={socialIcons[item.platform]}
+                      style={{ height: "20px" }}
+                    />
+                  </Tooltip>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* <div className="flex items-center gap-6 text-sm">
               <a
                 href="#"
                 className="text-default-500 hover:text-primary transition-colors duration-200"
@@ -149,8 +177,7 @@ export default function Footer() {
                 免责声明
               </a>
             </div> */}
-          </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

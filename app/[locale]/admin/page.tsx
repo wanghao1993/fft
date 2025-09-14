@@ -73,6 +73,18 @@ export default function AdminBlogPage() {
               <p className="text-gray-600 text-sm">管理系统标签</p>
             </div>
           </Link>
+
+          <Link
+            className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 hover:border-blue-300"
+            href={"/admin/social"}
+          >
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                社交媒体
+              </h3>
+              <p className="text-gray-600 text-sm">管理社交媒体</p>
+            </div>
+          </Link>
         </div>
       </div>
     </AuthWrapper>

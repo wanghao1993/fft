@@ -11,7 +11,8 @@
         "source": "来源",
         "publishedAt": "发布时间",
         "viewCount": "浏览量",
-        "downloadImageLoading":"下载图片中，请稍后"
+        "downloadImageLoading":"下载图片中，请稍后",
+        "noData": "没有相关数据"
     },
     "Search": {
         "search": "搜索"
@@ -110,5 +111,48 @@
     "ContactUs": {
         "title": "联系我们",
         "subtitle": "寻求报道、相关合作"
+    },
+    "Social": {
+        "title": "社交媒体管理",
+        "platform": "平台",
+        "image": "图标",
+        "url": "链接",
+        "status": "状态",
+        "addSocial": "新增社交媒体",
+        "editSocial": "编辑社交媒体",
+        "deleteConfirm": "确定要删除这个社交媒体链接吗？",
+        "platformOptions": {
+            "twitter": "Twitter/X",
+            "facebook": "Facebook",
+            "instagram": "Instagram",
+            "linkedin": "LinkedIn",
+            "youtube": "YouTube",
+            "tiktok": "TikTok",
+            "telegram": "Telegram",
+            "discord": "Discord",
+            "wechat": "微信",
+            "weibo": "微博",
+            "bilibili": "B站",
+            "other": "其他"
+        },
+        "form": {
+            "platformLabel": "平台",
+            "platformPlaceholder": "请选择社交媒体平台",
+            "imageLabel": "图标链接",
+            "imagePlaceholder": "请输入图标图片链接",
+            "imageHint": "建议使用 32x32 像素的图片，支持 PNG、JPG、SVG 格式",
+            "urlLabel": "链接地址",
+            "urlPlaceholder": "请输入社交媒体链接",
+            "urlHint": "请输入完整的 URL 地址，例如：https://twitter.com/username",
+            "statusLabel": "启用状态"
+        },
+        "messages": {
+            "loadError": "加载社交媒体数据失败",
+            "createSuccess": "社交媒体创建成功",
+            "updateSuccess": "社交媒体更新成功",
+            "deleteSuccess": "社交媒体删除成功",
+            "toggleSuccess": "社交媒体状态更新成功",
+            "operationError": "操作失败"
+        }
     }
 }

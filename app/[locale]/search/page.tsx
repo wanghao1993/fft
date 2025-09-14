@@ -23,6 +23,8 @@ export default function SearchPage() {
   const params = useSearchParams();
 
   const keyword = params.get("keywords");
+
+  const [preKeyword, setPreKeyword] = useState("");
   const locale = useLocale();
   // 快讯
   const [newsList, setNewsList] = useState<News[]>([]);
@@ -48,7 +50,7 @@ export default function SearchPage() {
     hasPrev: false,
   });
 
-  const getNewsList = (page: number) => {
+  const getNewsList = (page: number, reset?: boolean) => {
     setLoading(true);
     getQuickNews({
       language: locale,
@@ -58,7 +60,11 @@ export default function SearchPage() {
       limit: 20,
     })
       .then((res) => {
-        setNewsList([...newsList, ...res.data]);
+        if (reset) {
+          setNewsList([...res.data]);
+        } else {
+          setNewsList([...newsList, ...res.data]);
+        }
         setNewPage(res.meta);
       })
       .finally(() => {
@@ -66,8 +72,9 @@ export default function SearchPage() {
       });
   };
 
-  const getHowNewsList = (page: number) => {
-    setLoading(true);
+  const [newLoading, setNewLoading] = useState(false);
+  const getHowNewsList = (page: number, reset?: boolean) => {
+    setNewLoading(true);
     getQuickNews({
       language: locale,
       keyword: keyword || "",
@@ -76,14 +83,19 @@ export default function SearchPage() {
       limit: 20,
     })
       .then((res) => {
-        setHotNewsList([...hotNewsList, ...res.data]);
+        if (reset) {
+          setHotNewsList([...res.data]);
+        } else {
+          setHotNewsList([...hotNewsList, ...res.data]);
+        }
         setHotNewsPage(res.meta);
       })
       .finally(() => {
-        setLoading(false);
+        setNewLoading(false);
       });
   };
 
+  const [videoLoading, setVideoLoading] = useState(false);
   const [videoList, setVideoList] = useState<Video[]>([]);
   const [videoPage, setVideoPage] = useState<Meta>({
     page: 1,
@@ -93,7 +105,8 @@ export default function SearchPage() {
     hasNext: true,
     hasPrev: false,
   });
-  const getVideoList = (page: number) => {
+  const getVideoList = (page: number, reset?: boolean) => {
+    setVideoLoading(true);
     getVideos({
       title: keyword || "",
       page: page,
@@ -101,11 +114,15 @@ export default function SearchPage() {
       language: locale,
     })
       .then((res) => {
-        setVideoList([...videoList, ...res.data]);
+        if (reset) {
+          setVideoList([...res.data]);
+        } else {
+          setVideoList([...videoList, ...res.data]);
+        }
         setVideoPage(res.meta);
       })
       .finally(() => {
-        setLoading(false);
+        setVideoLoading(false);
       });
   };
 
@@ -134,11 +151,52 @@ export default function SearchPage() {
   //     });
   //   };
 
+  const getData = (reset?: boolean) => {
+    getNewsList(newPage.page, reset);
+    getHowNewsList(hotNewsPage.page, reset);
+    getVideoList(videoPage.page, reset);
+  };
+
+  const resetData = () => {
+    setNewsList([]);
+    setHotNewsList([]);
+    setVideoList([]);
+    setNewPage({
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNext: true,
+      hasPrev: false,
+    });
+    setHotNewsPage({
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNext: true,
+      hasPrev: false,
+    });
+    setVideoPage({
+      page: 1,
+      limit: 20,
+      total: 0,
+      totalPages: 0,
+      hasNext: true,
+      hasPrev: false,
+    });
+  };
+
   useEffect(() => {
-    getNewsList(newPage.page);
-    getHowNewsList(hotNewsPage.page);
-    getVideoList(videoPage.page);
-  }, []);
+    if (preKeyword === keyword) return;
+    else {
+      resetData();
+      setTimeout(() => {
+        getData(true);
+        setPreKeyword(keyword || "");
+      }, 1000);
+    }
+  }, [keyword, preKeyword]);
 
   return (
     <main className="flex flex-col gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
@@ -200,6 +258,12 @@ export default function SearchPage() {
               </div>
             )}
           </div>
+
+          {newsList.length === 0 && !loading && (
+            <div className="mt-4 text-center">
+              <span className="text-default-400">{tc("noData")}</span>
+            </div>
+          )}
         </Tab>
         <Tab key="hot_news" title={t("hotNews")}>
           {hotNewsList.map((item) => (
@@ -245,7 +309,7 @@ export default function SearchPage() {
             </motion.div>
           ))}
           <div>
-            {hotNewsPage.hasNext && !loading && (
+            {hotNewsPage.hasNext && !newLoading && (
               <div className="mt-4 text-center">
                 <Button onPress={() => getHowNewsList(hotNewsPage.page + 1)}>
                   {tc("loadMore")}
@@ -258,6 +322,12 @@ export default function SearchPage() {
               </div>
             )}
           </div>
+
+          {hotNewsList.length === 0 && !newLoading && (
+            <div className="mt-4 text-center">
+              <span className="text-default-400">{tc("noData")}</span>
+            </div>
+          )}
         </Tab>
         {/* <Tab key="deep" title={t("deep")}>
           <div>22</div>
@@ -268,15 +338,21 @@ export default function SearchPage() {
               <VideoItem key={item.uuid} locale={locale} video={item} />
             ))}
           </div>
+
+          {videoList.length === 0 && !videoLoading && (
+            <div className="mt-4 text-center">
+              <span className="text-default-400">{tc("noData")}</span>
+            </div>
+          )}
           <div>
-            {videoPage.hasNext && !loading && (
+            {videoPage.hasNext && !videoLoading && (
               <div className="mt-4 text-center">
-                <Button onPress={() => getHowNewsList(videoPage.page + 1)}>
+                <Button onPress={() => getVideoList(videoPage.page + 1)}>
                   {tc("loadMore")}
                 </Button>
               </div>
             )}
-            {loading && (
+            {videoLoading && (
               <div className="mt-4 text-center">
                 <Spinner />
               </div>
