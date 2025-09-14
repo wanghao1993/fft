@@ -120,9 +120,7 @@ export default function SocialForm({
                   }}
                 >
                   {PLATFORM_OPTIONS.map((option) => (
-                    <SelectItem key={option.key} value={option.value}>
-                      {option.label}
-                    </SelectItem>
+                    <SelectItem key={option.key}>{option.label}</SelectItem>
                   ))}
                 </Select>
               </div>
