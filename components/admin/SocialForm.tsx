@@ -24,18 +24,18 @@ interface SocialFormProps {
 }
 
 const PLATFORM_OPTIONS = [
-  { key: "email", label: "邮箱" },
-  { key: "twitter", label: "Twitter/X" },
-  { key: "facebook", label: "Facebook" },
-  { key: "instagram", label: "Instagram" },
-  { key: "linkedin", label: "LinkedIn" },
-  { key: "youtube", label: "YouTube" },
-  { key: "tiktok", label: "TikTok" },
+  { key: "email", value: "email", label: "邮箱" },
+  { key: "twitter", value: "twitter", label: "Twitter/X" },
+  { key: "facebook", value: "facebook", label: "Facebook" },
+  { key: "instagram", value: "instagram", label: "Instagram" },
+  { key: "linkedin", value: "linkedin", label: "LinkedIn" },
+  { key: "youtube", value: "youtube", label: "YouTube" },
+  { key: "tiktok", value: "tiktok", label: "TikTok" },
   { key: "telegram", label: "Telegram" },
   { key: "discord", label: "Discord" },
-  { key: "wechat", label: "微信" },
-  { key: "weibo", label: "微博" },
-  { key: "bilibili", label: "B站" },
+  { key: "wechat", value: "wechat", label: "微信" },
+  { key: "weibo", value: "weibo", label: "微博" },
+  { key: "bilibili", value: "bilibili", label: "B站" },
 ];
 
 export default function SocialForm({
@@ -115,11 +115,12 @@ export default function SocialForm({
                   selectedKeys={formData.platform ? [formData.platform] : []}
                   onSelectionChange={(keys) => {
                     const selectedKey = Array.from(keys)[0] as string;
+
                     handleInputChange("platform", selectedKey || "");
                   }}
                 >
                   {PLATFORM_OPTIONS.map((option) => (
-                    <SelectItem key={option.key} value={option.key}>
+                    <SelectItem key={option.key} value={option.value}>
                       {option.label}
                     </SelectItem>
                   ))}
