@@ -1,12 +1,12 @@
 import type { News } from "@/types/news";
 
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { Chip } from "@heroui/chip";
 
 import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
 import { getNewsById } from "@/service/module/quick_news";
+import { Link } from "@/i18n/navigation";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -61,9 +61,11 @@ export default async function News({ params }: Props) {
 
         <div className="flex items-center gap-2">
           {data.tags.map((tag) => (
-            <Chip key={tag.id} color="default" variant="flat">
-              {tag.name}
-            </Chip>
+            <Link key={tag.id} href={`/search?keyword=${tag.name}`}>
+              <Chip color="default" variant="flat">
+                {tag.name}
+              </Chip>
+            </Link>
           ))}
         </div>
 

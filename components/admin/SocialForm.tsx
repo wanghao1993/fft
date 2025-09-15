@@ -139,7 +139,7 @@ export default function SocialForm({
                   onChange={(e) => handleInputChange("url", e.target.value)}
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  请输入完整的 URL 地址，例如：https://twitter.com/username
+                  请输入完整的 URL 地址 或者邮箱
                 </p>
               </div>
 

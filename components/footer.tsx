@@ -128,7 +128,7 @@ export default async function Footer() {
             © 2025 Future Frontier. 保留所有权利。
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             {isActiveList.map((item) =>
               item.url.startsWith("http") ? (
                 <a
@@ -137,20 +137,12 @@ export default async function Footer() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <img
-                    alt={item.platform}
-                    src={socialIcons[item.platform]}
-                    style={{ height: "20px" }}
-                  />
+                  {socialIcons[item.platform]}
                 </a>
               ) : (
                 <div key={item.id}>
                   <Tooltip content={item.url}>
-                    <img
-                      alt={item.platform}
-                      src={socialIcons[item.platform]}
-                      style={{ height: "20px" }}
-                    />
+                    {socialIcons[item.platform]}
                   </Tooltip>
                 </div>
               )

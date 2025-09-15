@@ -106,11 +106,7 @@ export default function SocialTable({
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center">
-                    <img
-                      alt={social.platform}
-                      style={{ height: "24px" }}
-                      src={socialIcons[social.platform]}
-                    />
+                    {socialIcons[social.platform]}
                   </div>
                 </TableCell>
                 <TableCell>
