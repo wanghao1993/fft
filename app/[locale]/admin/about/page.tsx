@@ -88,9 +88,9 @@ export default function AdminAboutPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, sequence: number) => {
     try {
-      await deleteAboutById(id);
+      await deleteAboutById(id, sequence);
       toast.success({
         title: "成功",
         description: "关于我们删除成功",

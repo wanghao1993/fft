@@ -35,11 +35,11 @@ export default function AboutTable({
     {}
   );
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, sequence: number) => {
     if (confirm("确定要删除这个社交媒体链接吗？")) {
       setLoadingStates((prev) => ({ ...prev, [id]: true }));
       try {
-        await onDelete(id);
+        await onDelete(id, sequence);
       } finally {
         setLoadingStates((prev) => ({ ...prev, [id]: false }));
       }
@@ -120,7 +120,7 @@ export default function AboutTable({
                         isIconOnly
                         size="sm"
                         variant="light"
-                        onPress={() => handleDelete(about.id)}
+                        onPress={() => handleDelete(about.id, about.sequence)}
                       >
                         <Trash2 size={16} />
                       </Button>

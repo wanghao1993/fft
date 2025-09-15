@@ -32,6 +32,9 @@ export const updateAboutById = async (
   return response.data;
 };
 
-export const deleteAboutById = async (id: string): Promise<void> => {
-  await httpClient.delete(`${BASE_URL}/${id}`);
+export const deleteAboutById = async (
+  id: string,
+  sequence: number
+): Promise<void> => {
+  await httpClient.delete(`${BASE_URL}/${id}?sequence=${sequence}`);
 };
