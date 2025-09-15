@@ -20,7 +20,7 @@ interface AboutTableProps {
   abouts: About[];
   isLoading: boolean;
   onEdit: (about: About) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, sequence: number) => void;
   onAdd: () => void;
 }
 
