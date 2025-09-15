@@ -32,7 +32,11 @@ export default function WriteArticlePage() {
     });
   };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    tag: string[];
+    cover: string;
+  }>({
     title: "",
     tag: [],
     cover: "",
@@ -113,7 +117,7 @@ export default function WriteArticlePage() {
         setDetail(res.content);
         setFormData({
           title: res.title,
-          tag: res.tag?.split(","),
+          tag: res.tags?.map((tag) => tag.id),
           cover: res.cover,
         });
       });

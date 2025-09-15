@@ -1,6 +1,9 @@
+import { Tag } from "./tag";
+
 export interface Article {
   id: string;
-  tag?: any;
+  tags: Tag[];
+  tag: string;
   title: string;
   content: string;
   cover?: any;

@@ -23,7 +23,7 @@ export default function Editor({
         setContent(value);
         onChange(value);
       },
-      mode: "ir",
+      mode: "sv",
       upload: {
         max: 1024 * 1024 * 5,
         url: process.env.NEXT_PUBLIC_BASE_URL + "/upload/image",
@@ -34,9 +34,8 @@ export default function Editor({
         fieldName: "file",
         success(editor, msg) {
           const data = JSON.parse(msg);
-          const { url, filename } = data;
-
-          vditor?.insertValue(`<img src="${url}" alt="${filename}" />`);
+          const { url, originalName } = data;
+          vditor?.insertValue(`![${originalName}](${url})`);
         },
       },
     });

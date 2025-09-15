@@ -73,7 +73,9 @@ export default function ArticleTable({
                   </Link>
                 </TableCell>
 
-                <TableCell>{article.tag}</TableCell>
+                <TableCell>
+                  {article.tags.map((tag) => tag.name).join(",")}
+                </TableCell>
                 <TableCell>
                   {dayjs(article.createdAt).format("YYYY-MM-DD HH:mm")}
                 </TableCell>

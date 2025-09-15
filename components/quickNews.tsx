@@ -1,16 +1,14 @@
-import ViewMore from "./viewMore";
-
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(relativeTime);
 import { Suspense } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ScrollShadow } from "@heroui/scroll-shadow";
+import relativeTime from "dayjs/plugin/relativeTime";
 
+import ViewMore from "./viewMore";
 import NewItem from "./news/newItem";
 
 import { getQuickNews } from "@/service/module/quick_news";
+dayjs.extend(relativeTime);
 
 async function getQuickNewsList(limit: number) {
   const locale = await getLocale();

@@ -22,7 +22,7 @@ const getBlogById = async (id: string) => {
 const createBlog = async (
   data: Omit<
     Article,
-    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
+    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount" | "tags"
   >
 ) => {
   const res = await httpClient.post<Article>(`/blogs`, data);
@@ -33,7 +33,7 @@ const createBlog = async (
 const updateBlog = async (
   data: Omit<
     Article,
-    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount"
+    "id" | "createdAt" | "updatedAt" | "viewCount" | "likeCount" | "tags"
   >,
   id: string
 ) => {

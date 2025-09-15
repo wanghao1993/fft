@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
+// eslint-disable-next-line import/order
 import { getTranslations } from "next-intl/server";
 import "./style.css";
-
+import Image from "next/image";
+import { Chip } from "@heroui/chip";
 import { addViewCount, getBlogById } from "@/service/module/carousel";
 import { getHtml } from "@/utils/md";
-
+import { Link } from "@/i18n/navigation";
 export default async function BlogPage({
   params,
 }: {
@@ -26,13 +28,24 @@ export default async function BlogPage({
         {data.title}
       </h1>
       <div className="flex justify-center items-center gap-5 mt-4">
-        {/* <div>{data.tag}</div> */}
+        <div>
+          {data.tags.map((tag) => (
+            <Link key={tag.id} href={`/search?keyword=${tag.name}`}>
+              <Chip color="default" variant="flat">
+                {tag.name}
+              </Chip>
+            </Link>
+          ))}
+        </div>
         <div>
           {t("publishedAt")}:{dayjs(data.createdAt).format("YYYY-MM-DD HH:mm")}
         </div>
         <div>
           {t("viewCount")}: {data.viewCount}
         </div>
+      </div>
+      <div className="flex justify-center items-center">
+        <Image alt={data.title} height={1000} src={data.cover} width={680} />
       </div>
       <article className="text-foreground/80 leading-7" id="article-content">
         <div dangerouslySetInnerHTML={{ __html: content }} />

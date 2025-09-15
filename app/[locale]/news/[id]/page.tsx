@@ -35,13 +35,22 @@ export default async function News({ params }: Props) {
   const t = await getTranslations("Common");
 
   return (
-    <div className="px-4 py-8 md:px-6 lg:px-8">
+    <div className="py-8 px-6 lg:px-8">
       <h1 className="text-2xl font-bold mt-8">{data.title}</h1>
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
           {t("publishedAt")}: {DateFormat({ date: data.publishedAt })}
         </span>
       </p>
+      <div className="flex items-center gap-2 mt-4">
+        {data.tags.map((tag) => (
+          <Link key={tag.id} href={`/search?keyword=${tag.name}`}>
+            <Chip color="default" variant="flat">
+              {tag.name}
+            </Chip>
+          </Link>
+        ))}
+      </div>
       <p className="mt-4">{data.summary}</p>
 
       <div className="mt-10 flex items-center gap-8">
@@ -58,16 +67,6 @@ export default async function News({ params }: Props) {
             {t("source")}: {data.source}
           </span>
         )}
-
-        <div className="flex items-center gap-2">
-          {data.tags.map((tag) => (
-            <Link key={tag.id} href={`/search?keyword=${tag.name}`}>
-              <Chip color="default" variant="flat">
-                {tag.name}
-              </Chip>
-            </Link>
-          ))}
-        </div>
 
         <Share data={data} />
       </div>
