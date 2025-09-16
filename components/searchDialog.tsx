@@ -39,7 +39,7 @@ export default function SearchDialog({
 
     onOpenChange(false);
 
-    router.push(`search?keywords=${search}`);
+    router.push(`/search?keywords=${search}`);
   };
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function SearchDialog({
                       onClick={() => {
                         onOpenChange(false);
 
-                        router.push(`search?keywords=${item.name}`);
+                        router.push(`/search?keywords=${item.name}`);
                       }}
                     >
                       {item.name}
