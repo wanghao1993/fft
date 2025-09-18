@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-
+import { TwitterIcon } from "@/components/icons";
 export type enumPlatform =
   | "email"
   | "twitter"
@@ -18,9 +18,7 @@ export const socialIcons: Record<enumPlatform, ReactNode> = {
   email: (
     <img alt={"email"} style={{ height: "26px" }} src={"/images/email.png"} />
   ),
-  twitter: (
-    <img alt={"twitter"} style={{ height: "20px" }} src={"/images/x.svg"} />
-  ),
+  twitter: <TwitterIcon />,
   facebook: (
     <img
       alt={"facebook"}
