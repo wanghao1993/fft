@@ -17,18 +17,18 @@
 }
 
 
-code {
+.content code {
     background-color: #f1f1f1;
     padding: 5px;
     border-radius: 5px;
 }
 
-p {
+.content p {
     margin: 20px 0;
     opacity: 0.8;
 }
 
-p:has(img) {
+.content p:has(img) {
     margin: 10px 0;
     opacity: 1;
     display: block;
@@ -37,7 +37,7 @@ p:has(img) {
 }
 
 
-h1,h2,h3,h4,h5,h6 {
+.content h1,h2,h3,h4,h5,h6 {
     margin: 10px 0;
     font-weight: bold;
     font-size: 1.2em;

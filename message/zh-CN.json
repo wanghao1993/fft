@@ -12,7 +12,13 @@
         "publishedAt": "发布时间",
         "viewCount": "浏览量",
         "downloadImageLoading":"下载图片中，请稍后",
-        "noData": "没有相关数据"
+        "noData": "没有相关数据",
+        "shareToTwitter": "分享到 Twitter",
+        "shareToTelegram": "分享到 Telegram",
+        "scanToReadMore": "扫码阅读更多",
+        "downLoadImage": "下载图片",
+        "downLoadImageSuccess": "下载图片成功",
+        "downLoadImageFailed": "下载图片失败"
     },
     "Search": {
         "search": "搜索"
@@ -154,5 +160,6 @@
             "toggleSuccess": "社交媒体状态更新成功",
             "operationError": "操作失败"
         }
+      
     }
 }

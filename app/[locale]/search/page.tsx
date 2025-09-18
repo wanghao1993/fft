@@ -216,7 +216,7 @@ export default function SearchPage() {
               <div>
                 <Link
                   className="hover:text-primary font-medium"
-                  href={`/news/${item.uuid}`}
+                  href={`/news/${item.uuid}?type=quick_news`}
                   target="_blank"
                 >
                   {item.title}
@@ -275,7 +275,7 @@ export default function SearchPage() {
               <div>
                 <Link
                   className="hover:text-primary font-medium"
-                  href={`/news/${item.uuid}`}
+                  href={`/news/${item.uuid}?type=hot_news`}
                   target="_blank"
                 >
                   {item.title}

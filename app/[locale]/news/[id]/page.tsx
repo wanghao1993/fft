@@ -29,14 +29,16 @@ async function getData(id: string) {
   return res;
 }
 
-export default async function News({ params }: Props) {
+export default async function News({ params, searchParams }: Props) {
   const { id } = await params;
+  const { type } = await searchParams;
   const data = await getData(id);
   const t = await getTranslations("Common");
 
   return (
     <div className="py-8 px-6 lg:px-8">
       <h1 className="text-2xl font-bold mt-8">{data.title}</h1>
+
       <p className="text-sm text-gray-500 mt-4 flex items-center gap-2">
         <span>
           {t("publishedAt")}: {DateFormat({ date: data.publishedAt })}
@@ -53,7 +55,7 @@ export default async function News({ params }: Props) {
       </div>
       <p
         dangerouslySetInnerHTML={{ __html: data.content || data.summary }}
-        className="mt-4 content"
+        className={type === "hot_news" ? "mt-4 content" : "mt-4"}
       />
 
       <div className="mt-10 flex items-center gap-8">
@@ -71,7 +73,7 @@ export default async function News({ params }: Props) {
           </span>
         )}
 
-        <Share canShare={!data.content} data={data} />
+        <Share canShare={type === "quick_news"} data={data} />
       </div>
     </div>
   );

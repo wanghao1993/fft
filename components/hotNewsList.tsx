@@ -62,7 +62,7 @@ export default function HotNewList() {
             <div>
               <Link
                 className="hover:text-primary font-medium"
-                href={`/news/${item.uuid}`}
+                href={`/news/${item.uuid}?type=hot_news`}
                 target="_blank"
               >
                 {item.title}

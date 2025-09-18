@@ -8,9 +8,11 @@ import { useState } from "react";
 import { Spinner } from "@heroui/spinner";
 import { useTranslations } from "next-intl";
 import dayjs from "dayjs";
+import { useSearchParams } from "next/navigation";
 
 import ShareBg from "./../public/images/logo.png";
 import ShareQrcode from "./../public/images/qrcode.png";
+import { TwitterIcon } from "./icons";
 
 import { handleShare } from "@/utils/share";
 import { News } from "@/types/news";
@@ -25,6 +27,9 @@ export default function Share({
 }) {
   const [loading, setIsLoading] = useState(false);
   const t = useTranslations("Common");
+  const params = useSearchParams();
+
+  const type = params.get("type");
   const handleDownloadImage = async () => {
     if (loading) return;
     try {
@@ -41,7 +46,7 @@ export default function Share({
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = `${data.title}-分享图片.png`;
+      link.download = `${data.title}.png`;
 
       // 触发下载
       document.body.appendChild(link);
@@ -51,14 +56,14 @@ export default function Share({
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
       addToast({
-        title: "下载图片成功",
+        title: t("downLoadImageSuccess"),
         color: "success",
       });
     } catch (error: any) {
       setIsLoading(false);
       closeToast("download-image");
       addToast({
-        title: "下载图片失败",
+        title: t("downLoadImageFailed"),
         description: error.message,
         color: "danger",
       });
@@ -68,7 +73,7 @@ export default function Share({
 
   return (
     <div className="flex items-center gap-2">
-      <Tooltip content="分享到 Twitter">
+      <Tooltip content={t("shareToTwitter")}>
         <Button
           isIconOnly
           size="sm"
@@ -77,15 +82,15 @@ export default function Share({
             handleShare(
               "twitter",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`
+              `${window.location.origin}/news/${data.uuid}?type=${type}`
             );
           }}
         >
-          <Image alt="twitter" height={16} src={"/images/x.svg"} width={16} />
+          <TwitterIcon className="size-4" />
         </Button>
       </Tooltip>
 
-      <Tooltip content="分享到 Telegram">
+      <Tooltip content={t("shareToTelegram")}>
         <Button
           isIconOnly
           size="sm"
@@ -94,7 +99,7 @@ export default function Share({
             handleShare(
               "telegram",
               data.title,
-              `${window.location.origin}/news/${data.uuid}`
+              `${window.location.origin}/news/${data.uuid}?type=${type}`
             );
           }}
         >
@@ -108,19 +113,22 @@ export default function Share({
             <div className="w-[400px] flex flex-col">
               <Image alt="share" src={ShareBg} width={400} />
               <div className="bg-[#005d18] py-4">
-                <div className="bg-white rounded-lg px-3 py-2 w-92/100 mx-auto">
-                  <p className="font-bold text-lg">{data.title}</p>
+                <div className="bg-white rounded-lg px-3 py-2 w-92/100 mx-auto flex flex-col gap-1">
+                  <div className="font-bold text-lg flex">{data.title}</div>
 
-                  <div className="text-sm my-3 text-gray-500">
+                  <div className="text-sm  text-gray-500">
                     {dayjs(data.publishedAt * 1000).format("YYYY-MM-DD HH:mm")}
                   </div>
-                  <p className="text-sm text-black">{data.summary}</p>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: data.summary }}
+                    className="text-sm text-black line-clamp-4 mb-2"
+                  />
                 </div>
               </div>
               <div className="bg-[#005d18] py-4 flex items-center justify-between gap-2 p-4">
                 <span className="text-white">{}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white">扫码阅读更多</span>
+                  <span className="text-white">{t("scanToReadMore")}</span>
                   <Image alt="share" src={ShareQrcode} width={60} />
                 </div>
               </div>
@@ -130,12 +138,14 @@ export default function Share({
                 color="primary"
                 onPress={handleDownloadImage}
               >
-                下载图片
+                {t("downLoadImage")}
               </Button>
             </div>
           }
         >
-          <ImageIcon className="size-4" />
+          <Button isIconOnly size="sm" variant="light">
+            <ImageIcon className="size-4" />
+          </Button>
         </Tooltip>
       )}
     </div>

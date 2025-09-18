@@ -24,7 +24,7 @@ export default async function NewItem({ data }: { data: News; index: number }) {
         </div>
         <Link
           className="hover:text-primary font-medium line-clamp-1"
-          href={`/news/${data.uuid}`}
+          href={`/news/${data.uuid}?type=${data.category}`}
         >
           {data.title}
         </Link>

@@ -11,7 +11,13 @@
         "source": "Source",
         "publishedAt": "Published At",
         "viewCount": "View Count",
-        "downloadImageLoading":"Image generating, please wait..."
+        "downloadImageLoading":"Image generating, please wait...",
+        "shareToTwitter": "Share to Twitter",
+        "shareToTelegram": "Share to Telegram",
+        "scanToReadMore": "Scan to read more",
+        "downLoadImage": "Download image",
+        "downLoadImageSuccess": "Down load image success",
+        "downLoadImageFailed": "Down load image failed"
     },
     "Search": {
         "search": "Search"
