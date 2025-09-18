@@ -19,7 +19,7 @@ export default async function NewItem({ data }: { data: News; index: number }) {
     <div className="flex items-baseline gap-2 space-y-8">
       <span className=" bg-red-400 size-1.5 rounded-full " />
       <div>
-        <div className="text-sm text-gray-500 flex items-center gap-2">
+        <div className="text-sm text-gray-400 flex items-center gap-2">
           <span>{DateFormatFromNow(data.publishedAt, locale)}</span>
         </div>
         <Link

@@ -16,7 +16,6 @@ import Share from "@/components/share";
 import { getVideos } from "@/service/module/videos";
 import { Video } from "@/types/videos";
 import { VideoItem } from "@/components/videoItem";
-import { getBlogs } from "@/service/module/carousel";
 export default function SearchPage() {
   const t = useTranslations("Site.navItems");
   const tc = useTranslations("Common");
@@ -216,30 +215,22 @@ export default function SearchPage() {
 
               <div>
                 <Link
-                  className="text-primary  font-semibold"
-                  href={`news/${item.uuid}`}
+                  className="hover:text-primary font-medium"
+                  href={`/news/${item.uuid}`}
                   target="_blank"
                 >
                   {item.title}
                 </Link>
                 <div
-                  className="text-default line-clamp-2"
-                  style={{
-                    overflowWrap: "anywhere",
-                  }}
-                >
-                  {item.summary}
-                </div>
+                  dangerouslySetInnerHTML={{ __html: item.summary }}
+                  className="line-clamp-2 text-default-700"
+                />
 
                 <div className="flex justify-between">
-                  <div className="space-x-4">
-                    {item.tags.map((tag) => (
-                      <Chip key={tag.id} color="default" size="sm">
-                        {tag.name}
-                      </Chip>
-                    ))}
-                  </div>
-                  <Share data={item} />
+                  <Chip className="mt-3" color="primary">
+                    {item.source}
+                  </Chip>
+                  <Share canShare={true} data={item} />
                 </div>
               </div>
             </motion.div>
@@ -247,7 +238,10 @@ export default function SearchPage() {
           <div>
             {newPage.hasNext && !loading && (
               <div className="mt-4 text-center">
-                <Button onPress={() => getNewsList(newPage.page + 1)}>
+                <Button
+                  color="primary"
+                  onPress={() => getNewsList(newPage.page + 1)}
+                >
                   {tc("loadMore")}
                 </Button>
               </div>
@@ -280,29 +274,19 @@ export default function SearchPage() {
 
               <div>
                 <Link
-                  className="text-primary  font-semibold"
-                  href={`news/${item.uuid}`}
+                  className="hover:text-primary font-medium"
+                  href={`/news/${item.uuid}`}
                   target="_blank"
                 >
                   {item.title}
                 </Link>
                 <div
-                  className="text-default line-clamp-2"
-                  style={{
-                    overflowWrap: "anywhere",
-                  }}
-                >
-                  {item.summary}
-                </div>
+                  dangerouslySetInnerHTML={{ __html: item.summary }}
+                  className="line-clamp-2 text-default-700"
+                />
 
-                <div className="flex justify-between">
-                  <div className="space-x-4">
-                    {item.tags.map((tag) => (
-                      <Chip key={tag.id} color="default" size="sm">
-                        {tag.name}
-                      </Chip>
-                    ))}
-                  </div>
+                <div className="flex justify-between mt-3">
+                  <Chip color="primary">{item.source}</Chip>
                   <Share data={item} />
                 </div>
               </div>
@@ -311,7 +295,10 @@ export default function SearchPage() {
           <div>
             {hotNewsPage.hasNext && !newLoading && (
               <div className="mt-4 text-center">
-                <Button onPress={() => getHowNewsList(hotNewsPage.page + 1)}>
+                <Button
+                  color="primary"
+                  onPress={() => getHowNewsList(hotNewsPage.page + 1)}
+                >
                   {tc("loadMore")}
                 </Button>
               </div>
@@ -347,7 +334,10 @@ export default function SearchPage() {
           <div>
             {videoPage.hasNext && !videoLoading && (
               <div className="mt-4 text-center">
-                <Button onPress={() => getVideoList(videoPage.page + 1)}>
+                <Button
+                  color="primary"
+                  onPress={() => getVideoList(videoPage.page + 1)}
+                >
                   {tc("loadMore")}
                 </Button>
               </div>

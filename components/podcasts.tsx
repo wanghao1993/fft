@@ -25,10 +25,7 @@ export async function PodCasts() {
   const videos = await getPoadcasts(12, locale);
 
   return (
-    <section
-      className="py-8 bg-default-50 w-full border rounded-2xl"
-      id="podcasts"
-    >
+    <section className="py-8 w-full border rounded-2xl" id="podcasts">
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">

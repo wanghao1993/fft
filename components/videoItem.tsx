@@ -48,15 +48,12 @@ export function VideoItem({ video, locale }: { video: Video; locale: string }) {
           <h3 className="font-medium text-sm text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
             {video.title}
           </h3>
-          {/* <p className="text-sm text-default-500 mb-3">
-    {video}
-  </p> */}
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1 text-xs text-default-500">
+            <div className="flex items-center gap-1 text-xs text-default-700">
               <span>{video.source}</span>
             </div>
-            <div className="flex items-center gap-1 text-xs text-default-500">
+            <div className="flex items-center gap-1 text-xs text-default-700">
               <Clock className="h-3 w-3" />
               <span>{DateFormatFromNow(video.publishedAt, locale)}</span>
             </div>

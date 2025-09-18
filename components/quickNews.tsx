@@ -28,10 +28,7 @@ export async function QuickNews({ limit = 30 }: { limit?: number }) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <section
-        className="w-full min-h-24 bg-default-50 p-8 border rounded-2xl"
-        id="news"
-      >
+      <section className="w-full min-h-24 p-8 border rounded-2xl" id="news">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-4">
           <h2

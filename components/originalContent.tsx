@@ -46,7 +46,7 @@ export async function OriginalContent() {
               {article.title}
             </h3>
 
-            <p className="text-default-500 line-clamp-3">
+            <p className="text-default-500 line-clamp-2">
               {article.content.replaceAll("#", "")}
             </p>
 

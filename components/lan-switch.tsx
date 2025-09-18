@@ -20,11 +20,11 @@ interface Language {
 }
 
 const languages: Language[] = [
-  // {
-  //   code: "en",
-  //   name: "English",
-  //   nativeName: "English",
-  // },
+  {
+    code: "en",
+    name: "English",
+    nativeName: "English",
+  },
   {
     code: "zh-CN",
     name: "Chinese",
@@ -85,7 +85,7 @@ export default function LanguageSwitch() {
           >
             <div className="flex flex-col">
               <span className="text-sm font-medium">{language.nativeName}</span>
-              <span className="text-xs text-default-500">{language.name}</span>
+              <span className="text-xs">{language.name}</span>
             </div>
           </DropdownItem>
         ))}

@@ -64,6 +64,7 @@ export function Videos() {
         <div className="flex justify-center py-8">
           <Button
             className="mt-4"
+            color="primary"
             isDisabled={!hasMore}
             onPress={() => setPage(page + 1)}
           >

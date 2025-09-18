@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-
 import "../styles/custom.css";
 import { useTranslations } from "next-intl";
 
@@ -14,7 +13,7 @@ export default function Partners() {
   const t = useTranslations("Partners");
 
   return (
-    <section className="py-8 bg-default-50 w-full" id="partners">
+    <section className="py-8 w-full" id="partners">
       <div className="px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -28,8 +27,8 @@ export default function Partners() {
         </motion.div>
 
         <div className="relative mt-8">
-          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-default-50 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-default-50 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16  z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16  z-10 pointer-events-none" />
 
           <div className="relative overflow-hidden">
             <motion.div className="group flex overflow-hidden flex-row gap-[130px]">

@@ -38,10 +38,7 @@ export async function Interviews() {
   const newsItems = list.filter((item) => item.language === locale);
 
   return (
-    <section
-      className="py-6 bg-default-50 w-full border rounded-2xl"
-      id="interviews"
-    >
+    <section className="py-6  w-full border rounded-2xl" id="interviews">
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">

@@ -6,6 +6,7 @@ import { Chip } from "@heroui/chip";
 import { useLocale, useTranslations } from "next-intl";
 import { Spinner } from "@heroui/spinner";
 import dayjs from "dayjs";
+import { Button } from "@heroui/button";
 
 import Share from "./share";
 
@@ -72,7 +73,9 @@ export default function HotNewList() {
               />
 
               <div className="flex justify-between">
-                <Chip className="mt-3">{item.source}</Chip>
+                <Chip className="mt-3" color="primary">
+                  {item.source}
+                </Chip>
                 <Share data={item} />
               </div>
             </div>
@@ -87,22 +90,13 @@ export default function HotNewList() {
       </div>
 
       {hasMore && !loading && (
-        <div
-          aria-label={t("loadMore")}
-          className="text-center py-4 cursor-pointer"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
+        <Button
+          onPress={() => {
             setPage(page + 1);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setPage(page + 1);
-            }
           }}
         >
           {t("loadMore")}
-        </div>
+        </Button>
       )}
     </>
   );

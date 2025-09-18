@@ -9,6 +9,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { Skeleton } from "@heroui/skeleton";
 
 dayjs.extend(relativeTime);
+import { Button } from "@heroui/button";
+
 import Share from "./share";
 
 import { Link, usePathname } from "@/i18n/navigation";
@@ -97,16 +99,14 @@ export default function QuickNewsList() {
       </div>
 
       {hasMore && (
-        <div
-          className="text-center py-4 cursor-pointer"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
+        <Button
+          color="primary"
+          onPress={() => {
             setPage(page + 1);
           }}
         >
           {t("loadMore")}
-        </div>
+        </Button>
       )}
     </>
   );

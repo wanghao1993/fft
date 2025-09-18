@@ -111,7 +111,7 @@ export default function Share({
                 <div className="bg-white rounded-lg px-3 py-2 w-92/100 mx-auto">
                   <p className="font-bold text-lg">{data.title}</p>
 
-                  <div className="text-sm -my-3 text-gray-500">
+                  <div className="text-sm my-3 text-gray-500">
                     {dayjs(data.publishedAt * 1000).format("YYYY-MM-DD HH:mm")}
                   </div>
                   <p className="text-sm text-black">{data.summary}</p>
@@ -127,8 +127,7 @@ export default function Share({
               <Button
                 isIconOnly
                 className="w-full mt-3"
-                color="secondary"
-                variant="light"
+                color="primary"
                 onPress={handleDownloadImage}
               >
                 下载图片
