@@ -60,25 +60,19 @@ export default function HotNewList() {
 
             <div>
               <Link
-                className="text-primary"
-                href={`${item.link}`}
+                className="hover:text-primary font-medium"
+                href={`/news/${item.uuid}`}
                 target="_blank"
               >
                 {item.title}
               </Link>
               <div
-                className="text-default-400 line-clamp-2"
-                style={{
-                  overflowWrap: "anywhere",
-                }}
-              >
-                {item.summary}
-              </div>
+                dangerouslySetInnerHTML={{ __html: item.summary }}
+                className="text-default-700 line-clamp-2"
+              />
 
               <div className="flex justify-between">
-                <Chip className="mt-3" color="default">
-                  {item.source}
-                </Chip>
+                <Chip className="mt-3">{item.source}</Chip>
                 <Share data={item} />
               </div>
             </div>

@@ -1,0 +1,44 @@
+.content {
+    color: text-foreground;
+}
+.light .content pre {
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    background-color: #f1f1f1;
+    margin: 20px 0;
+}
+
+.drak .content pre {
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+
+code {
+    background-color: #f1f1f1;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+p {
+    margin: 20px 0;
+    opacity: 0.8;
+}
+
+p:has(img) {
+    margin: 10px 0;
+    opacity: 1;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}

@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
-    metadataBase: new URL("https://fft-two.vercel.app"),
+    metadataBase: new URL("http://38.60.91.19:3002"),
     icons: {
       icon: "/favicon.ico",
     },

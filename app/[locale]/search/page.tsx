@@ -223,7 +223,7 @@ export default function SearchPage() {
                   {item.title}
                 </Link>
                 <div
-                  className="text-default-400 line-clamp-2"
+                  className="text-default line-clamp-2"
                   style={{
                     overflowWrap: "anywhere",
                   }}
@@ -261,7 +261,7 @@ export default function SearchPage() {
 
           {newsList.length === 0 && !loading && (
             <div className="mt-4 text-center">
-              <span className="text-default-400">{tc("noData")}</span>
+              <span className="text-default">{tc("noData")}</span>
             </div>
           )}
         </Tab>
@@ -287,7 +287,7 @@ export default function SearchPage() {
                   {item.title}
                 </Link>
                 <div
-                  className="text-default-400 line-clamp-2"
+                  className="text-default line-clamp-2"
                   style={{
                     overflowWrap: "anywhere",
                   }}
@@ -325,7 +325,7 @@ export default function SearchPage() {
 
           {hotNewsList.length === 0 && !newLoading && (
             <div className="mt-4 text-center">
-              <span className="text-default-400">{tc("noData")}</span>
+              <span className="text-default">{tc("noData")}</span>
             </div>
           )}
         </Tab>
@@ -341,7 +341,7 @@ export default function SearchPage() {
 
           {videoList.length === 0 && !videoLoading && (
             <div className="mt-4 text-center">
-              <span className="text-default-400">{tc("noData")}</span>
+              <span className="text-default">{tc("noData")}</span>
             </div>
           )}
           <div>

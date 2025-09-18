@@ -19,7 +19,7 @@ export default function ViewMore({
 
   return (
     <Link href={type}>
-      <Button size="sm" variant="bordered">
+      <Button color="primary" size="sm">
         {tc("viewMore")}
       </Button>
     </Link>

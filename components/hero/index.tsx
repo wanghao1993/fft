@@ -42,7 +42,7 @@ export default async function Hero() {
               return (
                 <div
                   key={item.id}
-                  className="line-clamp-1 hover:text-primary-400 hover:underline text-lg"
+                  className="line-clamp-1 hover:text-primary hover:underline text-lg"
                 >
                   <Link href={`blog/${item.id}`}>{item.title}</Link>
                 </div>

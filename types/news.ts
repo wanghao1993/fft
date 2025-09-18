@@ -8,6 +8,7 @@ export interface News {
   source: string;
   title: string;
   link: string;
+  content: string;
   summary: string;
   tags: Tag[];
   category: string;

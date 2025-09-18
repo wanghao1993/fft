@@ -1,5 +1,3 @@
-import type { News } from "@/types/news";
-
 import { getTranslations } from "next-intl/server";
 import { Chip } from "@heroui/chip";
 
@@ -7,6 +5,7 @@ import Share from "@/components/share";
 import { DateFormat } from "@/components/date.format";
 import { getNewsById } from "@/service/module/quick_news";
 import { Link } from "@/i18n/navigation";
+import "./style.css";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,6 +19,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: data.title,
     description: data.summary,
+    content: data.content,
   };
 }
 
@@ -51,7 +51,10 @@ export default async function News({ params }: Props) {
           </Link>
         ))}
       </div>
-      <p className="mt-4">{data.summary}</p>
+      <p
+        dangerouslySetInnerHTML={{ __html: data.content || data.summary }}
+        className="mt-4 content"
+      />
 
       <div className="mt-10 flex items-center gap-8">
         {data.source !== "Future Frontier" ? (
@@ -68,7 +71,7 @@ export default async function News({ params }: Props) {
           </span>
         )}
 
-        <Share data={data} />
+        <Share canShare={!data.content} data={data} />
       </div>
     </div>
   );

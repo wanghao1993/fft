@@ -21,8 +21,6 @@ export default async function NewItem({ data }: { data: News; index: number }) {
       <div>
         <div className="text-sm text-gray-500 flex items-center gap-2">
           <span>{DateFormatFromNow(data.publishedAt, locale)}</span>
-
-          {/* <Share data={data} /> */}
         </div>
         <Link
           className="hover:text-primary font-medium line-clamp-1"

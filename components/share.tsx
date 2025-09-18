@@ -6,13 +6,23 @@ import Image from "next/image";
 import { addToast, closeToast } from "@heroui/toast";
 import { useState } from "react";
 import { Spinner } from "@heroui/spinner";
+import { useTranslations } from "next-intl";
+import dayjs from "dayjs";
+
+import ShareBg from "./../public/images/logo.png";
+import ShareQrcode from "./../public/images/qrcode.png";
 
 import { handleShare } from "@/utils/share";
 import { News } from "@/types/news";
 import { getNewsShareImage } from "@/service/module/quick_news";
-import { useTranslations } from "next-intl";
 
-export default function Share({ data }: { data: News }) {
+export default function Share({
+  data,
+  canShare,
+}: {
+  data: News;
+  canShare?: boolean;
+}) {
   const [loading, setIsLoading] = useState(false);
   const t = useTranslations("Common");
   const handleDownloadImage = async () => {
@@ -92,16 +102,43 @@ export default function Share({ data }: { data: News }) {
         </Button>
       </Tooltip>
 
-      <Tooltip content="下载分享图片">
-        <Button
-          isIconOnly
-          size="sm"
-          variant="light"
-          onPress={handleDownloadImage}
+      {canShare && (
+        <Tooltip
+          content={
+            <div className="w-[400px] flex flex-col">
+              <Image alt="share" src={ShareBg} width={400} />
+              <div className="bg-[#005d18] py-4">
+                <div className="bg-white rounded-lg px-3 py-2 w-92/100 mx-auto">
+                  <p className="font-bold text-lg">{data.title}</p>
+
+                  <div className="text-sm -my-3 text-gray-500">
+                    {dayjs(data.publishedAt * 1000).format("YYYY-MM-DD HH:mm")}
+                  </div>
+                  <p className="text-sm text-black">{data.summary}</p>
+                </div>
+              </div>
+              <div className="bg-[#005d18] py-4 flex items-center justify-between gap-2 p-4">
+                <span className="text-white">{}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white">扫码阅读更多</span>
+                  <Image alt="share" src={ShareQrcode} width={60} />
+                </div>
+              </div>
+              <Button
+                isIconOnly
+                className="w-full mt-3"
+                color="secondary"
+                variant="light"
+                onPress={handleDownloadImage}
+              >
+                下载图片
+              </Button>
+            </div>
+          }
         >
           <ImageIcon className="size-4" />
-        </Button>
-      </Tooltip>
+        </Tooltip>
+      )}
     </div>
   );
 }

@@ -65,19 +65,22 @@ export default function QuickNewsList() {
 
             <div className="flex-1">
               <Link
-                className="hover:text-primary text-primary font-semibold"
-                href={`${item.link}`}
+                className="hover:text-primary font-medium"
+                href={`/news/${item.uuid}`}
                 target="_blank"
               >
                 {item.title}
               </Link>
-              <div className="text-default-400">{item.summary}</div>
+              <div
+                dangerouslySetInnerHTML={{ __html: item.summary }}
+                className="line-clamp-2 text-default-700"
+              />
 
               <div className="flex justify-between">
-                <Chip className="mt-3" color="default">
+                <Chip className="mt-3" color="primary">
                   {item.source}
                 </Chip>
-                <Share data={item} />
+                <Share canShare={true} data={item} />
               </div>
             </div>
           </motion.div>
