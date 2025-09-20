@@ -36,7 +36,16 @@ export async function generateMetadata(): Promise<Metadata> {
     description: siteConfig.description,
     metadataBase: new URL("http://38.60.91.19:3002"),
     icons: {
-      icon: "/favicon.ico",
+      icon: [
+        {
+          media: "(prefers-color-scheme: light)",
+          url: "/favicon-light.ico",
+        },
+        {
+          media: "(prefers-color-scheme: dark)",
+          url: "/favicon-dark.ico",
+        },
+      ],
     },
     openGraph: {
       title: siteConfig.name,

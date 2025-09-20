@@ -13,7 +13,7 @@ export function DynamicImage({
   src,
   alt,
   className,
-  fallbackSrc = "/logo.png",
+  fallbackSrc = "/logo.svg",
   priority = false,
 }: DynamicImageProps) {
   // 处理图片路径

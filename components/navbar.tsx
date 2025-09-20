@@ -27,6 +27,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { Link as NextLink } from "@/i18n/navigation";
 import SearchDialog from "./searchDialog";
 import { useTranslations } from "next-intl";
+import { LogoIcon } from "./icons";
 // 定义导航项的类型
 interface NavItem {
   href: string;
@@ -84,13 +85,14 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
             className="flex justify-start items-center overflow-hidden"
             href="/"
           >
-            <Image
+            <LogoIcon className="text-red" height={42} />
+            {/* <Image
               priority
               alt="FutureFrontier logo"
               height={32}
               src={"/logo.png"}
               width={120}
-            />
+            /> */}
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-6 justify-start ml-2">
