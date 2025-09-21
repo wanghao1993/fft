@@ -11,7 +11,6 @@ import {
 import { Kbd } from "@heroui/kbd";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
-import Image from "next/image";
 import {
   Dropdown,
   DropdownItem,
@@ -20,29 +19,20 @@ import {
 } from "@heroui/dropdown";
 import { ChevronDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 import LanguageSwitch from "./lan-switch";
+import SearchDialog from "./searchDialog";
+import { LogoIcon } from "./icons";
 
+import { getVisibleNavs } from "@/service/module/nav";
+import { Nav } from "@/types/nav";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Link as NextLink } from "@/i18n/navigation";
-import SearchDialog from "./searchDialog";
-import { useTranslations } from "next-intl";
-import { LogoIcon } from "./icons";
-// 定义导航项的类型
-interface NavItem {
-  href: string;
-  label: string;
-  children?: NavItem[];
-}
 
-// 定义Navbar组件的props
-interface NavbarProps {
-  navItems: NavItem[];
-  navMenuItems: NavItem[];
-}
-
-export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const locale = useLocale();
   const t = useTranslations("Search");
   const SearchInput = (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -73,6 +63,60 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
     };
   }, []);
 
+  const buildNavTree = (navs: Nav[]): Nav[] => {
+    // 创建映射表，便于快速查找
+    const navMap = new Map<string, Nav>();
+    const rootNavs: Nav[] = [];
+
+    // 初始化所有导航项，添加 children 属性
+    navs.forEach((nav) => {
+      navMap.set(nav.id, { ...nav, children: [] });
+    });
+
+    // 构建树形结构
+
+    navs.forEach((nav) => {
+      const navWithChildren = navMap.get(nav.id)!;
+
+      if (nav.parentId) {
+        // 如果有父级，添加到父级的 children 中
+        const parent = navMap.get(nav.parentId);
+        if (parent) {
+          parent.children!.push(navWithChildren);
+        }
+      } else {
+        // 如果没有父级，添加到根级别
+        rootNavs.push(navWithChildren);
+      }
+    });
+
+    // 递归排序函数
+    const sortNavs = (navList: Nav[]): Nav[] => {
+      return navList
+        .sort((a, b) => a.sortOrder - b.sortOrder)
+        .map((nav) => ({
+          ...nav,
+          children:
+            nav.children && nav.children.length > 0
+              ? sortNavs(nav.children)
+              : [],
+        }));
+    };
+
+    return sortNavs(rootNavs);
+  };
+
+  const [navData, setNavItems] = useState<Nav[]>([]);
+  const getNavItems = async () => {
+    const navItems = await getVisibleNavs();
+
+    setNavItems(buildNavTree(navItems));
+  };
+
+  useEffect(() => {
+    getNavItems();
+  }, []);
+
   return (
     <HeroUINavbar
       className=" h-16 left-0 top-0 right-0 border-b border-b-gray-200"
@@ -86,20 +130,16 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
             href="/"
           >
             <LogoIcon className="text-red" height={42} />
-            {/* <Image
-              priority
-              alt="FutureFrontier logo"
-              height={32}
-              src={"/logo.png"}
-              width={120}
-            /> */}
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-6 justify-start ml-2">
-          {navItems.map((item) => {
-            if (item.children) {
+          {navData.map((item) => {
+            // 根据当前语言选择显示名称
+            const displayName = locale === "zh-CN" ? item.nameZh : item.nameEn; // 这里可以根据语言切换，暂时使用英文
+
+            if (item.children && item.children.length > 0) {
               return (
-                <Dropdown key={item.href}>
+                <Dropdown key={item.id}>
                   <NavbarItem>
                     <DropdownTrigger>
                       <span
@@ -108,28 +148,28 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
                           "data-[active=true]:text-primary font-semibold text-foreground text-base flex items-center gap-2"
                         )}
                       >
-                        {item.label}
+                        {displayName}
                         <ChevronDownIcon className="w-4 h-4" />
                       </span>
                     </DropdownTrigger>
                   </NavbarItem>
                   <DropdownMenu
-                    aria-label={item.label}
+                    aria-label={displayName}
                     itemClasses={{
                       base: "gap-4",
                     }}
                   >
                     {item.children.map((child) => (
-                      <DropdownItem key={child.label}>
+                      <DropdownItem key={child.id}>
                         <NextLink
                           className={clsx(
                             linkStyles({ color: "foreground" }),
                             "data-[active=true]:text-primary font-semibold w-full !block"
                           )}
                           color="foreground"
-                          href={child.href}
+                          href={child.url || "#"}
                         >
-                          {child.label}
+                          {child.nameEn}
                         </NextLink>
                       </DropdownItem>
                     ))}
@@ -139,16 +179,16 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
             }
 
             return (
-              <NavbarItem key={item.href}>
+              <NavbarItem key={item.id}>
                 <NextLink
                   className={clsx(
                     linkStyles({ color: "foreground" }),
                     "data-[active=true]:text-primary font-semibold"
                   )}
                   color="foreground"
-                  href={item.href}
+                  href={item.url || "#"}
                 >
-                  {item.label}
+                  {displayName}
                 </NextLink>
               </NavbarItem>
             );
@@ -177,23 +217,44 @@ export const Navbar = ({ navItems, navMenuItems }: NavbarProps) => {
       <NavbarMenu>
         {SearchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <NextLink
-                className="w-full"
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarMenuItem>
-          ))}
+          {navData.map((item, index) => {
+            const displayName = locale === "zh-CN" ? item.nameZh : item.nameEn;
+
+            return (
+              <div key={item.id}>
+                <NavbarMenuItem>
+                  <NextLink
+                    className="w-full"
+                    color={
+                      index === 2
+                        ? "primary"
+                        : index === navData.length - 1
+                          ? "danger"
+                          : "foreground"
+                    }
+                    href={item.url || "#"}
+                  >
+                    {displayName}
+                  </NextLink>
+                </NavbarMenuItem>
+                {/* 渲染子菜单 */}
+                {item.children && item.children.length > 0 && (
+                  <div className="ml-4 flex flex-col gap-1">
+                    {item.children.map((child) => (
+                      <NavbarMenuItem key={child.id}>
+                        <NextLink
+                          className="w-full text-sm text-gray-600"
+                          href={child.url || "#"}
+                        >
+                          {child.nameEn}
+                        </NextLink>
+                      </NavbarMenuItem>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </NavbarMenu>
       <SearchDialog isOpen={isOpen} onOpenChange={setIsOpen} />

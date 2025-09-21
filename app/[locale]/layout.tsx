@@ -15,14 +15,7 @@ import { routing } from "@/i18n/routing";
 
 // Navbar包装器组件，用于提供国际化配置
 async function NavbarWrapper() {
-  const siteConfig = await getLocalizedSiteConfig();
-
-  return (
-    <Navbar
-      navItems={siteConfig.navItems}
-      navMenuItems={siteConfig.navMenuItems}
-    />
-  );
+  return <Navbar />;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

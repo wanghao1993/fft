@@ -48,6 +48,11 @@ export default function AdminBlogPage() {
       description: "管理合作伙伴",
       href: "admin/partners",
     },
+    {
+      title: "菜单管理",
+      description: "管理网站导航菜单",
+      href: "admin/nav",
+    },
   ];
 
   return (
