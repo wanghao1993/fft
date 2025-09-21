@@ -198,11 +198,14 @@ export default function NavForm({
                       handleInputChange("parentId", selectedKey || "");
                     }}
                   >
-                    {availableParentNavs.map((parent) => (
-                      <SelectItem key={parent.id} value={parent.id}>
-                        {parent.nameZh} ({parent.nameEn})
-                      </SelectItem>
-                    ))}
+                    <SelectItem key="">无（顶级菜单）</SelectItem>
+                    <>
+                      {availableParentNavs.map((parent) => (
+                        <SelectItem key={parent.id}>
+                          {parent.nameZh} ({parent.nameEn})
+                        </SelectItem>
+                      ))}
+                    </>
                   </Select>
                 </div>
 
