@@ -19,6 +19,11 @@ export default function AdminBlogPage() {
       href: "admin/video-resource",
     },
     {
+      title: "播客资源",
+      description: "管理所有播客资源",
+      href: "admin/podcast-resource",
+    },
+    {
       title: "新闻/快讯",
       description: "管理所有新闻/快讯",
       href: "admin/news",

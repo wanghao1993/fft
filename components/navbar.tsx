@@ -246,7 +246,7 @@ export const Navbar = () => {
                           className="w-full text-sm text-gray-600"
                           href={child.url || "#"}
                         >
-                          {child.nameEn}
+                          {locale === "zh-CN" ? child.nameZh : child.nameEn}
                         </NextLink>
                       </NavbarMenuItem>
                     ))}
