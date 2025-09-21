@@ -2,15 +2,26 @@
 import { motion } from "framer-motion";
 import "../styles/custom.css";
 import { useTranslations } from "next-intl";
-
-import { DynamicImage, getImageData } from "./dynamic-image";
+import { useEffect, useState } from "react";
 
 import { Link } from "@/i18n/navigation";
-
-const partners = getImageData("partners");
+import { getPartners } from "@/service/module/partners";
+import { Partner } from "@/types/partners";
 
 export default function Partners() {
   const t = useTranslations("Partners");
+
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  const getImages = async () => {
+    const images = await getPartners();
+
+    setPartners(images);
+  };
+
+  useEffect(() => {
+    getImages();
+  }, []);
 
   return (
     <section className="py-8 w-full" id="partners">
@@ -34,35 +45,15 @@ export default function Partners() {
             <motion.div className="group flex overflow-hidden flex-row gap-[130px]">
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
-                  <Link
-                    key={img.filename}
-                    className="!w-[130px] !h-[36px]"
-                    href={img.url}
-                    target="_blank"
-                  >
-                    <DynamicImage
-                      key={img.filename}
-                      alt={img.filename}
-                      className="!static"
-                      src={img.url}
-                    />
+                  <Link key={img.id} href={img.url} target="_blank">
+                    <img alt={img.name} className="h-[60px]" src={img.image} />
                   </Link>
                 ))}
               </figure>
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
-                  <Link
-                    key={img.filename + "_copy"}
-                    className="!w-[130px] !h-[36px]"
-                    href={img.url}
-                    target="_blank"
-                  >
-                    <DynamicImage
-                      key={img.filename}
-                      alt={img.filename}
-                      className="!static"
-                      src={img.url}
-                    />
+                  <Link key={img.id + "_copy"} href={img.url} target="_blank">
+                    <img alt={img.name} className="h-[60px]" src={img.image} />
                   </Link>
                 ))}
               </figure>

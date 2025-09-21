@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { TwitterIcon } from "@/components/icons";
 export type enumPlatform =
   | "email"
@@ -14,62 +13,96 @@ export type enumPlatform =
   | "wechat"
   | "weibo"
   | "bilibili";
-export const socialIcons: Record<enumPlatform, ReactNode> = {
+export const socialIcons: Record<enumPlatform, React.ReactNode> = {
   email: (
-    <img alt={"email"} style={{ height: "26px" }} src={"/images/email.png"} />
+    <img
+      alt={"email"}
+      style={{ height: "30px" }}
+      src={"/social-icons/mail_icon.svg"}
+    />
   ),
-  twitter: <TwitterIcon />,
+  twitter: (
+    <img
+      alt={"twitter"}
+      style={{ height: "20px" }}
+      src={"/social-icons/x_icon.svg"}
+    />
+  ),
   facebook: (
     <img
       alt={"facebook"}
-      style={{ height: "28px" }}
-      src={"/images/facebook.svg"}
+      style={{ height: "24px" }}
+      src={"/social-icons/facebook_icon.svg"}
     />
   ),
   instagram: (
-    <img alt={"instagram"} style={{ height: "28px" }} src={"/images/ins.png"} />
+    <img
+      alt={"instagram"}
+      style={{ height: "28px" }}
+      src={"/social-icons/ins_icon.svg"}
+    />
   ),
   linkedin: (
     <img
       alt={"linkedin"}
       style={{ height: "24px" }}
-      src={"/images/linkedin.png"}
+      src={"/social-icons/linkdin_icon.svg"}
     />
   ),
   youtube: (
     <img
-      alt={"tiktok"}
+      alt={"youtube"}
       style={{ height: "24px" }}
-      src={"/images/youtube.png"}
+      src={"/social-icons/youtube_icon.svg"}
     />
   ),
   tiktok: (
-    <img alt={"tiktok"} style={{ height: "24px" }} src={"/images/tiktok.ico"} />
+    <img
+      alt={"tiktok"}
+      style={{ height: "30px" }}
+      src={"/social-icons/tiktok_icon.svg"}
+    />
   ),
   twitch: (
-    <img alt={"twitch"} style={{ height: "24px" }} src={"/images/twitch.png"} />
+    <img
+      alt={"twitch"}
+      style={{ height: "24px" }}
+      src={"/social-icons/twitch_icon.svg"}
+    />
   ),
   discord: (
     <img
       alt={"discord"}
-      style={{ height: "24px" }}
-      src={"/images/discord.svg"}
+      style={{ height: "30px" }}
+      src={"/social-icons/discord_icon.svg"}
     />
   ),
   telegram: (
-    <img alt={"telegram"} style={{ height: "24px" }} src={"/images/tg.png"} />
+    <img
+      alt={"telegram"}
+      style={{ height: "24px" }}
+      src={"/social-icons/telegram_icon.svg"}
+    />
   ),
   wechat: (
-    <img alt={"wechat"} style={{ height: "24px" }} src={"/images/wechat.png"} />
+    <img
+      alt={"wechat"}
+      style={{ height: "28px" }}
+      src={"/social-icons/wechat_icon.svg"}
+    />
   ),
   weibo: (
-    <img alt={"weibo"} style={{ height: "24px" }} src={"/images/weibo.png"} />
+    <img
+      alt={"weibo"}
+      style={{ height: "28px" }}
+      src={"/social-icons/weibo_icon.svg"}
+    />
   ),
   bilibili: (
     <img
       alt={"bilibili"}
-      style={{ height: "24px" }}
-      src={"/images/bilibili.jpeg"}
+      style={{ height: "30px" }}
+      src={"/social-icons/bilibili_icon.svg"}
     />
   ),
 };

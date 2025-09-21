@@ -8,14 +8,13 @@ import { Form } from "@heroui/form";
 import { addToast } from "@heroui/toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { Spinner } from "@heroui/spinner";
 
 import Editor from "@/components/editor";
 import { getTags } from "@/service/module/tag";
 import { Tag } from "@/types/tag";
-import { uploadImage } from "@/service/module/file";
 import { createBlog, getBlogById, updateBlog } from "@/service/module/carousel";
 import AuthWrapper from "@/components/admin/AuthWrapper";
-import { Spinner } from "@heroui/spinner";
 
 export default function WriteArticlePage() {
   const [tags, settags] = useState<Tag[]>([]);
@@ -185,22 +184,13 @@ export default function WriteArticlePage() {
               label="封面"
               labelPlacement="inside"
               name="cover"
-              placeholder="请上传封面"
-              type="file"
+              type="text"
+              value={formData.cover}
               onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  setUploading(true);
-                  uploadImage(e.target.files[0])
-                    .then((res) => {
-                      setFormData({
-                        ...formData,
-                        cover: res.url,
-                      });
-                    })
-                    .finally(() => {
-                      setUploading(false);
-                    });
-                }
+                setFormData({
+                  ...formData,
+                  cover: e.target.value,
+                });
               }}
             />
             {uploading && <Spinner />}
