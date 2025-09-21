@@ -49,6 +49,11 @@ export default function AdminBlogPage() {
       href: "admin/partners",
     },
     {
+      title: "访谈管理",
+      description: "管理访谈内容",
+      href: "admin/interview",
+    },
+    {
       title: "菜单管理",
       description: "管理网站导航菜单",
       href: "admin/nav",

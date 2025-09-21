@@ -31,10 +31,10 @@ export default async function IndexPage({
       <div className="mt-8">
         <Hero />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <QuickNews />
         <HowNews />
-      </div>
+      </div> */}
       <OriginalContent />
       <PodCasts />
       <LatestVideos />

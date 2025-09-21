@@ -46,14 +46,14 @@ export default function Partners() {
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
                   <Link key={img.id} href={img.url} target="_blank">
-                    <img alt={img.name} className="h-[60px]" src={img.image} />
+                    <img alt={img.name} className="h-[40px]" src={img.image} />
                   </Link>
                 ))}
               </figure>
               <figure className="flex shrink-0 justify-around gap-[120px] animate-marquee flex-row group-hover:[animation-play-state:paused] ">
                 {partners.map((img) => (
                   <Link key={img.id + "_copy"} href={img.url} target="_blank">
-                    <img alt={img.name} className="h-[60px]" src={img.image} />
+                    <img alt={img.name} className="h-[40px]" src={img.image} />
                   </Link>
                 ))}
               </figure>

@@ -169,7 +169,7 @@ export const Navbar = () => {
                           color="foreground"
                           href={child.url || "#"}
                         >
-                          {child.nameEn}
+                          {locale === "zh-CN" ? child.nameZh : child.nameEn}
                         </NextLink>
                       </DropdownItem>
                     ))}

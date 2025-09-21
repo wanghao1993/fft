@@ -199,7 +199,7 @@ export default function VideoModal({
                 }}
               >
                 <SelectItem key="video">视频</SelectItem>
-                <SelectItem key="podcast">播客</SelectItem>
+                {/* <SelectItem key="podcast">播客</SelectItem> */}
               </Select>
 
               <Select
