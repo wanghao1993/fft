@@ -14,6 +14,7 @@ export interface Video {
   updatedAt: string;
   time: string;
   fixTop: boolean;
+  fixTopExpiryAt?: string;
 }
 
 export interface Meta {

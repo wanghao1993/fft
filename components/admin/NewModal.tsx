@@ -7,6 +7,9 @@ import { Select, SelectItem } from "@heroui/select";
 import { Switch } from "@heroui/switch";
 import { addToast } from "@heroui/toast";
 import { Form } from "@heroui/form";
+import { DatePicker } from "@heroui/date-picker";
+import { Spinner } from "@heroui/spinner";
+import { getLocalTimeZone, parseDate, now } from "@internationalized/date";
 
 import { useToast } from "@/components/ui/Toast";
 import {
@@ -16,7 +19,6 @@ import {
 } from "@/service/module/quick_news";
 import { getTags } from "@/service/module/tag";
 import { Tag } from "@/types/tag";
-import { Spinner } from "@heroui/spinner";
 
 interface NewsModalProps {
   isOpen: boolean;
@@ -34,6 +36,7 @@ interface NewsFormData {
   fixTop: boolean;
   summary: string;
   tags: string[];
+  fixTopExpiryAt?: string;
 }
 
 const initialFormData: NewsFormData = {
@@ -59,7 +62,7 @@ export default function NewsModal({
 
   const handleInputChange = (
     field: keyof NewsFormData,
-    value: string | boolean | string[]
+    value: string | boolean | string[] | null
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -93,6 +96,7 @@ export default function NewsModal({
             fixTop,
             summary,
             tags,
+            fixTopExpiryAt,
           } = res;
 
           setFormData({
@@ -104,6 +108,7 @@ export default function NewsModal({
             fixTop,
             summary,
             tags: tags.map((tag) => tag.id),
+            fixTopExpiryAt,
           });
         })
         .finally(() => {
@@ -258,12 +263,27 @@ export default function NewsModal({
                 />
 
                 <Switch
-                  checked={formData.fixTop}
+                  isSelected={formData.fixTop}
                   size="sm"
-                  onValueChange={(value) => handleInputChange("fixTop", value)}
+                  onValueChange={(value) => {
+                    handleInputChange("fixTop", value);
+                    handleInputChange("fixTopExpiryAt", null);
+                  }}
                 >
                   <span className="text-sm text-gray-700">置顶</span>
                 </Switch>
+                {formData.fixTop && (
+                  <Input
+                    isRequired
+                    className="w-full"
+                    label="置顶到期时间"
+                    placeholder="请输入置顶到期时间，格式2025-09-22 12:34"
+                    value={formData.fixTopExpiryAt || ""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("fixTopExpiryAt", e.target.value)
+                    }
+                  />
+                )}
               </div>
               <Textarea
                 isRequired

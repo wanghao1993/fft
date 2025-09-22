@@ -52,7 +52,7 @@ export default function AdminNewsPage() {
     {
       key: "fix_top",
       label: "置顶",
-      width: 100,
+      width: 160,
     },
     {
       key: "source",
@@ -104,11 +104,18 @@ export default function AdminNewsPage() {
       return dayjs(item.publishedAt * 1000).format("YYYY-MM-DD HH:mm");
     } else if (columnKey === "fix_top") {
       return (
-        <Switch
-          defaultSelected={item.fixTop}
-          size="sm"
-          onValueChange={(value) => onFixTop(item.uuid, value)}
-        />
+        <div className="flex flex-col">
+          <Switch
+            isSelected={item.fixTop}
+            size="sm"
+            onValueChange={(value) => onFixTop(item.uuid, value)}
+          />
+          {item.fixTopExpiryAt && (
+            <span className="text-sm text-gray-500">
+              结束时间： {dayjs(item.fixTopExpiryAt).format("YYYY/MM/DD HH:mm")}
+            </span>
+          )}
+        </div>
       );
     } else if (columnKey === "action") {
       return (

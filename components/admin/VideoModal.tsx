@@ -32,6 +32,7 @@ interface VideoFormData {
   time: string;
   thumbnail: string;
   fixTop: boolean;
+  fixTopExpiryAt?: string;
 }
 
 const initialFormData: VideoFormData = {
@@ -58,7 +59,7 @@ export default function VideoModal({
 
   const handleInputChange = (
     field: keyof VideoFormData,
-    value: string | boolean
+    value: string | boolean | null
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -79,6 +80,7 @@ export default function VideoModal({
           time,
           thumbnail,
           fixTop,
+          fixTopExpiryAt,
         } = res;
 
         setFormData({
@@ -91,6 +93,7 @@ export default function VideoModal({
           time,
           thumbnail,
           fixTop,
+          fixTopExpiryAt,
         });
       });
     } else {
@@ -234,19 +237,34 @@ export default function VideoModal({
               />
 
               <Switch
-                checked={formData.fixTop}
+                isSelected={formData.fixTop}
                 size="sm"
-                onValueChange={(value) => handleInputChange("fixTop", value)}
+                onValueChange={(value) => {
+                  handleInputChange("fixTop", value);
+                  handleInputChange("fixTopExpiryAt", null);
+                }}
               >
                 <span className="text-sm text-gray-700">置顶</span>
               </Switch>
+              {formData.fixTop && (
+                <Input
+                  isRequired
+                  className="w-full"
+                  label="置顶到期时间"
+                  placeholder="请输入置顶到期时间，格式2025-09-22 12:34"
+                  value={formData.fixTopExpiryAt || ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleInputChange("fixTopExpiryAt", e.target.value)
+                  }
+                />
+              )}
             </div>
             <div className="flex justify-end gap-4 w-full border-t pt-4">
               <Button color="danger" variant="light" onPress={handleClose}>
                 取消
               </Button>
               <Button color="primary" isLoading={isLoading} type="submit">
-                创建
+                {id ? "更新" : "创建"}
               </Button>
             </div>
           </Form>

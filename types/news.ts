@@ -16,6 +16,7 @@ export interface News {
   publishedAt: number;
   createdAt: string;
   updatedAt: string;
+  fixTopExpiryAt?: string;
 }
 
 export interface CreateNews {
