@@ -19,6 +19,11 @@ export default function AdminBlogPage() {
       href: "admin/video-resource",
     },
     {
+      title: "播客管理",
+      description: "管理所有播客",
+      href: "admin/podcast",
+    },
+    {
       title: "播客资源",
       description: "管理所有播客资源",
       href: "admin/podcast-resource",
@@ -69,7 +74,7 @@ export default function AdminBlogPage() {
     <AuthWrapper>
       <div className="flex flex-col items-center justify-center gap-4 pb-8 md:pb-10 px-4 py-8 md:px-6 lg:px-8">
         <h2 className="text-2xl font-bold  mb-8">管理面板</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 max-w-4xl">
           {data.map((item) => (
             <Link
               key={item.href}

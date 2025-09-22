@@ -112,7 +112,7 @@ export default function Share({
           content={
             <div className="w-[400px] flex flex-col">
               <Image alt="share" src={ShareBg} width={400} />
-              <div className="bg-[#005d18] py-4">
+              <div className="bg-primary py-4">
                 <div className="bg-white rounded-lg px-3 py-2 w-92/100 mx-auto flex flex-col gap-1">
                   <div className="font-bold text-lg flex">{data.title}</div>
 
@@ -125,7 +125,7 @@ export default function Share({
                   />
                 </div>
               </div>
-              <div className="bg-[#005d18] py-4 flex items-center justify-between gap-2 p-4">
+              <div className="bg-primary py-4 flex items-center justify-between gap-2 p-4">
                 <span className="text-white">{}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-white">{t("scanToReadMore")}</span>

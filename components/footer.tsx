@@ -1,8 +1,9 @@
 import { Tooltip } from "@heroui/tooltip";
+import Image from "next/image";
 
 import { getSocials } from "@/service/module/social";
 import { socialIcons } from "@/config/socialIcons";
-
+import { Link } from "@/i18n/navigation";
 export default async function Footer() {
   const list = await getSocials();
   const isActiveList = list.filter((item) => item.isActive);
@@ -15,7 +16,7 @@ export default async function Footer() {
             © 2025 Future Frontier. 保留所有权利。
           </div>
 
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-5 items-center">
             {isActiveList.map((item) =>
               item.url.startsWith("http") ? (
                 <a
@@ -38,6 +39,17 @@ export default async function Footer() {
                 </div>
               )
             )}
+            <Link
+              href="https://www.xiaoyuzhoufm.com/podcast/677b31d86a83e4baba4beef2"
+              target="_blank"
+            >
+              <Image
+                alt="小宇宙"
+                height={25}
+                src="/social-icons/xiaoyuzhou.png"
+                width={25}
+              />
+            </Link>
           </div>
 
           {/* <div className="flex items-center gap-6 text-sm">

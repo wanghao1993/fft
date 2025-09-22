@@ -132,14 +132,15 @@ export default function PodcastResourceForm({
                   className="block text-sm font-medium text-gray-700 mb-2"
                   htmlFor="url"
                 >
-                  链接
+                  ID/名称
                 </label>
                 <Input
                   required
-                  placeholder="请输入播客链接"
+                  placeholder="ID/名称"
                   value={formData.url}
                   onChange={(e) => handleInputChange("url", e.target.value)}
                 />
+                <p className="text-xs text-gray-500 mt-1">ID/名称</p>
               </div>
 
               <div>

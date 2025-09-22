@@ -3,17 +3,17 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import ViewMore from "./viewMore";
-import { VideoItem } from "./videoItem";
+import { AudioItem } from "./audioItem";
 
-import { getVideos } from "@/service/module/videos";
+import { getPodcast } from "@/service/module/podcast";
 
 dayjs.extend(relativeTime);
 
 async function getPoadcasts(limit: number, locale: string) {
-  const res = await getVideos({
+  const res = await getPodcast({
     limit: limit,
+    page: 1,
     language: locale,
-    category: "podcast",
   });
 
   return res.data;
@@ -22,7 +22,7 @@ export async function PodCasts() {
   const locale = await getLocale();
 
   const t = await getTranslations("Podcasts");
-  const videos = await getPoadcasts(12, locale);
+  const audios = await getPoadcasts(12, locale);
 
   return (
     <section className="py-8 w-full border rounded-2xl" id="podcasts">
@@ -34,12 +34,10 @@ export async function PodCasts() {
           </h2>
           <ViewMore type="podcasts" />
         </div>
-
-        {/* Videos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {videos.map((video) => (
-            <div key={video.uuid}>
-              <VideoItem locale={locale} video={video} />
+        <div className="grid grid-cols-1 h-[720px] overflow-auto gap-6">
+          {audios.map((audio) => (
+            <div key={audio.id}>
+              <AudioItem locale={locale} podcast={audio} />
             </div>
           ))}
         </div>

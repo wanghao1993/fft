@@ -64,7 +64,7 @@
 #article-content blockquote {
   margin: 1em 0;
   padding: 0.5em 1em;
-  border-left: 4px solid #42b883;
+  border-left: 4px solid var(--heroui-primary);
   background-color: #f8f9fa;
   font-style: italic;
 }
@@ -101,7 +101,7 @@
 }
 
 #article-content a {
-  color: #42b883;
+  color: var(--heroui-primary);
   text-decoration: none;
 }
 

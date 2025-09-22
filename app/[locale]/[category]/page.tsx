@@ -7,6 +7,7 @@ import { usePathname } from "@/i18n/navigation";
 import QuickNewsList from "@/components/quickNewsList";
 import HotNewList from "@/components/hotNewsList";
 import { Videos } from "@/components/videos";
+import { PodCastsList } from "@/components/podcastList";
 
 dayjs.extend(relativeTime);
 
@@ -18,6 +19,7 @@ export default function SubPage() {
       {path === "/quick-news" && <QuickNewsList />}
       {path === "/hot-news" && <HotNewList />}
       {(path === "/podcasts" || path === "/videos") && <Videos />}
+      {(path === "/podcasts" || path === "/videos") && <PodCastsList />}
     </main>
   );
 }

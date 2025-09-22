@@ -28,7 +28,6 @@ import {
   PodcastResource,
 } from "@/types/podcast_resource";
 import PodcastResourceForm from "@/components/admin/podcastResourceForm";
-import { Link } from "@/i18n/navigation";
 import { podcastPlatform } from "@/constant/podcastPlatform";
 
 export default function AdminPodcastResourcePage() {
