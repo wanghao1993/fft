@@ -8,7 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { Providers } from "../providers";
 
 import { getLocalizedSiteConfig } from "@/config/site";
-import { fontSans, robotoMono } from "@/config/fonts";
+import { fontSans, robotoMono, sora } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import { routing } from "@/i18n/routing";
@@ -92,7 +92,9 @@ export default async function LocaleLayout({
         className={clsx(
           "min-h-screen text-foreground bg-background font-sans antialiased",
           robotoMono.variable,
-          fontSans.variable
+          fontSans.variable,
+          sora.variable,
+          sora.className
         )}
       >
         <NextIntlClientProvider locale={locale}>

@@ -93,15 +93,12 @@ export default function AdminVideoPage() {
     } else if (columnKey === "fix_top") {
       return (
         <div className="flex flex-col">
-          <Switch
-            isSelected={item.fixTop}
-            size="sm"
-            onValueChange={(value) => onFixTop(item.uuid, value)}
-          />
-          {item.fixTopExpiryAt && (
+          {item.fixTopExpiryAt ? (
             <span className="text-sm text-gray-500">
               结束时间： {dayjs(item.fixTopExpiryAt).format("YYYY/MM/DD HH:mm")}
             </span>
+          ) : (
+            "NO"
           )}
         </div>
       );
