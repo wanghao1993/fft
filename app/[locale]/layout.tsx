@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
-    metadataBase: new URL("http://38.60.91.19:3002"),
+    metadataBase: new URL("https://futurefrontier.ai/"),
     icons: {
       icon: [
         {
