@@ -9,8 +9,9 @@ const nextConfig = {
         hostname: "i.ytimg.com",
       },
       {
-        protocol: "https",
-        hostname: "i9.ytimg.com",
+        protocol: "http",
+        hostname: "38.60.91.19",
+        port: "9000",
       },
       {
         protocol: "http",
