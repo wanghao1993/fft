@@ -25,15 +25,17 @@ export async function HowNews() {
   const newsItems = await getHotNews();
 
   return (
-    <section className=" p-8 w-full border rounded-2xl" id="hot-news">
+    <section
+      className=" p-8 w-full border border-primary rounded-2xl"
+      id="hot-news"
+    >
       {/* Section Header */}
       <div className="flex justify-between items-center mb-4">
         <h2
-          className="text-2xl lg:text-3xl font-extrabold italic text-foreground mb-2"
+          className="text-2xl text-primary lg:text-3xl font-extrabold italic mb-2"
           id="quick-news"
         >
-          {t("title")}{" "}
-          <span className="text-default-300">({t("subtitle")})</span>
+          {t("title")} <span className="text-primary">({t("subtitle")})</span>
         </h2>
         <ViewMore type="hot-news" />
       </div>

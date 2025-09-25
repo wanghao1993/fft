@@ -10,12 +10,15 @@ export async function Interviews() {
   const interviews = await getInterviews(locale);
 
   return (
-    <section className="py-6  w-full border rounded-2xl" id="interviews">
+    <section
+      className="py-6  w-full border border-primary rounded-2xl"
+      id="interviews"
+    >
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-center mb-8">
           <h2
-            className="text-2xl lg:text-3xl font-extrabold italic text-foreground mb-2"
+            className="text-2xl text-primary lg:text-3xl font-extrabold italic mb-2"
             id="interviews"
           >
             {t("title")}

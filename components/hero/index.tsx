@@ -33,10 +33,12 @@ export default async function Hero() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 w-full place-items-center lg:place-items-start">
-      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border rounded-2xl  items-center container overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4 border border-primary rounded-2xl  items-center container overflow-hidden">
         <EmblaCarousel />
         <div className="py-5 block pr-4 lg:px-0 px-4 h-full">
-          <div className="text-xl font-extrabold italic">{t("mustread")}</div>
+          <div className="text-xl text-primary font-extrabold italic">
+            {t("mustread")}
+          </div>
           <div className="font-semibold space-y-4 mt-4">
             {list.map((item: Article) => {
               return (
@@ -51,9 +53,9 @@ export default async function Hero() {
           </div>
         </div>
       </div>
-      <div className="flex-col gap-4 border p-4 rounded-2xl hidden lg:flex">
+      <div className="flex-col gap-4 border border-primary p-4 rounded-2xl hidden lg:flex">
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl  lg:text-3xl font-extrabold italic">
+          <h2 className="text-2xl text-primary lg:text-3xl font-extrabold italic">
             {t("sub-title")}
           </h2>
           <div className="h-[310px] space-y-4 overflow-y-auto">

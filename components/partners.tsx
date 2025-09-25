@@ -24,7 +24,10 @@ export default function Partners() {
   }, []);
 
   return (
-    <section className="py-8 w-full" id="partners">
+    <section
+      className="py-8 w-full border border-primary rounded-2xl"
+      id="partners"
+    >
       <div className="px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -32,9 +35,7 @@ export default function Partners() {
           viewport={{ once: true }}
           whileInView={{ opacity: 1, x: 0 }}
         >
-          <h2 className="text-2xl font-bold text-foreground mb-2">
-            {t("title")}
-          </h2>
+          <h2 className="text-2xl font-bold text-primary mb-2">{t("title")}</h2>
         </motion.div>
 
         <div className="relative mt-8">

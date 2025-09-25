@@ -24,12 +24,12 @@ export async function OriginalContent() {
 
   return (
     <section
-      className="bg-background w-full border rounded-2xl p-8"
+      className="bg-background w-full border border-primary rounded-2xl p-8"
       id="in-depth"
     >
       {/* Section Header */}
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl lg:text-3xl font-extrabold italic text-foreground">
+        <h2 className="text-2xl text-primary lg:text-3xl font-extrabold italic">
           {t("title")}
         </h2>
         {/* <ViewMore type="in-depth" /> */}
