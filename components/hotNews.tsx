@@ -35,7 +35,7 @@ export async function HowNews() {
           className="text-2xl text-primary lg:text-3xl font-extrabold italic mb-2"
           id="quick-news"
         >
-          {t("title")} <span className="text-primary">({t("subtitle")})</span>
+          {t("title")}
         </h2>
         <ViewMore type="hot-news" />
       </div>

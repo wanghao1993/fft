@@ -19,22 +19,25 @@ export default async function Footer() {
           <div className="flex gap-5 items-center">
             {isActiveList.map((item) =>
               item.url.startsWith("http") ? (
-                <a
+                <Link
                   key={item.id}
                   href={item.url}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   {socialIcons[item.platform]}
-                </a>
+                </Link>
               ) : (
                 <div key={item.id}>
-                  <Tooltip
-                    content={
-                      <a href={`mailto:${item.url}`}>Send to: {item.url}</a>
-                    }
-                  >
-                    {socialIcons[item.platform]}
+                  <Tooltip content={<span>{item.url}</span>}>
+                    <Link
+                      key={item.id}
+                      href={`mailto:${item.url}`}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {socialIcons[item.platform]}
+                    </Link>
                   </Tooltip>
                 </div>
               )

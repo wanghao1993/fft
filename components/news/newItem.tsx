@@ -17,7 +17,9 @@ export default async function NewItem({ data }: { data: News; index: number }) {
 
   return (
     <div className="flex items-baseline gap-2 space-y-8">
-      <span className=" bg-red-400 size-1.5 rounded-full " />
+      <div className="w-3 flex items-center justify-center">
+        <span className="bg-primary size-1.5 rounded-full " />
+      </div>
       <div>
         <div className="text-sm text-gray-400 flex items-center gap-2">
           <span>{DateFormatFromNow(data.publishedAt, locale)}</span>

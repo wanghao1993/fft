@@ -15,19 +15,16 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 
 interface Language {
   code: string;
-  name: string;
   nativeName: string;
 }
 
 const languages: Language[] = [
   {
     code: "en",
-    name: "English",
     nativeName: "English",
   },
   {
     code: "zh-CN",
-    name: "Chinese",
     nativeName: "中文",
   },
 ];
@@ -85,7 +82,6 @@ export default function LanguageSwitch() {
           >
             <div className="flex flex-col">
               <span className="text-sm font-medium">{language.nativeName}</span>
-              <span className="text-xs">{language.name}</span>
             </div>
           </DropdownItem>
         ))}
