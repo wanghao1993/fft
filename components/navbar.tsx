@@ -32,6 +32,7 @@ import { Link as NextLink } from "@/i18n/navigation";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const locale = useLocale();
   const t = useTranslations("Search");
   const SearchInput = (
@@ -81,6 +82,7 @@ export const Navbar = () => {
       if (nav.parentId) {
         // 如果有父级，添加到父级的 children 中
         const parent = navMap.get(nav.parentId);
+
         if (parent) {
           parent.children!.push(navWithChildren);
         }
@@ -120,8 +122,10 @@ export const Navbar = () => {
   return (
     <HeroUINavbar
       className=" h-16 left-0 top-0 right-0 border-b border-b-gray-200"
+      isMenuOpen={isMenuOpen}
       maxWidth="2xl"
       shouldHideOnScroll={false}
+      onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent className="basis-1/5 sm:basis-full gap-8" justify="start">
         <NavbarBrand as="div" className="gap-3 w-[120px]">
@@ -215,7 +219,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {SearchInput}
+        {/* {SearchInput} */}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {navData.map((item, index) => {
             const displayName = locale === "zh-CN" ? item.nameZh : item.nameEn;
@@ -233,6 +237,7 @@ export const Navbar = () => {
                           : "foreground"
                     }
                     href={item.url || "#"}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {displayName}
                   </NextLink>
@@ -245,6 +250,7 @@ export const Navbar = () => {
                         <NextLink
                           className="w-full text-sm text-gray-600"
                           href={child.url || "#"}
+                          onClick={() => setIsMenuOpen(false)}
                         >
                           {locale === "zh-CN" ? child.nameZh : child.nameEn}
                         </NextLink>
