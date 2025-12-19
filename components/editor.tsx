@@ -26,7 +26,7 @@ export default function Editor({
       mode: "sv",
       upload: {
         max: 1024 * 1024 * 5,
-        url: process.env.NEXT_PUBLIC_BASE_URL + "/upload/image",
+        url: "/api/upload/image",
         multiple: false,
         headers: {
           Authorization: `Bearer ${getTokenFromCookies()}`,

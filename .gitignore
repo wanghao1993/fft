@@ -41,6 +41,5 @@ bun.lockb
 
 next.config.mjs
 
-.env
 .log
 .pid
