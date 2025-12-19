@@ -391,6 +391,7 @@ export class HttpClient {
  * 创建默认的HTTP客户端实例
  * 自动根据环境（服务端/客户端）选择合适的baseURL
  */
+
 export const httpClient = new HttpClient(process.env.NEXT_PUBLIC_API_URL);
 
 /**
