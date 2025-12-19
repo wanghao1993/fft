@@ -2,14 +2,6 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://38.60.91.19:3001/api/:path*',
-      },
-    ]
-  },
   images: {
     remotePatterns: [
       {

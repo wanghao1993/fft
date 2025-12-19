@@ -24,15 +24,7 @@ export class HttpClient {
 
   constructor(baseURL: string = "", config: RequestConfig = {}) {
     // 如果传入的是相对路径（如 "/api"），根据环境决定使用相对路径还是完整URL
-    if (baseURL.startsWith("/") && !baseURL.startsWith("http")) {
-      this.baseURL = isServer
-        ? (process.env.NEXT_PUBLIC_API_URL ||
-            process.env.API_URL ||
-            "http://38.60.91.19:3001") + baseURL
-        : baseURL;
-    } else {
-      this.baseURL = baseURL;
-    }
+    this.baseURL = baseURL;
     this.defaultConfig = {
       headers: {
         "Content-Type": "application/json",
@@ -48,13 +40,11 @@ export class HttpClient {
    */
   private getAuthHeaders(): Record<string, string> {
     const token = getTokenFromCookies();
-
     if (token) {
       return {
         Authorization: `Bearer ${token}`,
       };
     }
-
     return {};
   }
 
@@ -381,8 +371,7 @@ export class HttpClient {
   }
 
   /**
-   * 刷新认证头信息
-   */
+   * 刷新process.env.NEXT_PUBLIC_BASE_URL   */
   refreshAuthHeaders(): void {
     this.defaultConfig.headers = {
       ...this.defaultConfig.headers,
@@ -402,7 +391,7 @@ export class HttpClient {
  * 创建默认的HTTP客户端实例
  * 自动根据环境（服务端/客户端）选择合适的baseURL
  */
-export const httpClient = new HttpClient("/api");
+export const httpClient = new HttpClient(process.env.NEXT_PUBLIC_API_URL);
 
 /**
  * 创建带基础URL的HTTP客户端实例
