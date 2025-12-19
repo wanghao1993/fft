@@ -7,7 +7,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start --port=3002",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop ecosystem.config.cjs",
+    "pm2:restart": "pm2 restart ecosystem.config.cjs",
+    "pm2:delete": "pm2 delete ecosystem.config.cjs",
+    "pm2:logs": "pm2 logs",
+    "pm2:monit": "pm2 monit"
   },
   "dependencies": {
     "@eslint/compat": "^1.3.2",
@@ -89,6 +95,7 @@
     "globals": "16.0.0",
     "postcss": "8.5.6",
     "prettier": "3.5.3",
+    "pm2": "^5.4.2",
     "tailwind-variants": "2.0.1",
     "tailwindcss": "4.1.11",
     "typescript": "5.6.3"

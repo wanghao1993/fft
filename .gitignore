@@ -43,3 +43,8 @@ next.config.mjs
 
 .log
 .pid
+
+# pm2
+logs/
+*.log
+.pm2
